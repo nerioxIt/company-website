@@ -341,7 +341,7 @@ const Contact = () => {
             </p>
 
             <div className="flex flex-wrap justify-center gap-8 mt-12">
-              <div className="flex items-center gap-2 text-primary dark:text-primary-foreground">
+              <div className="flex items-center gap-2 text-primary dark:text-white">
                 <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
                 <span className="text-sm font-medium">Available for new projects</span>
               </div>
