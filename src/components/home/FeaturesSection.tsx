@@ -53,7 +53,7 @@ export const FeaturesSection = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 dark:bg-primary/20 rounded-full text-primary dark:text-primary-foreground border border-primary/20 dark:border-primary/30 mb-6">
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 dark:bg-primary/60 rounded-full text-primary dark:text-white border border-primary/20 dark:border-primary/60 mb-6">
             <Rocket size={16} />
             <span className="text-sm font-medium">Why Choose Us</span>
           </div>
