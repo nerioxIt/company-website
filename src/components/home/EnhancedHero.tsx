@@ -176,7 +176,7 @@ export const EnhancedHero = () => {
 									}}
 								>
 									<div className="flex items-center gap-2">
-										<div className="w-8 h-8 rounded-full bg-primary/20 dark:bg-primary/30 flex items-center justify-center">
+										<div className="w-8 h-8 rounded-full bg-primary/20 dark:bg-blue-500 flex items-center justify-center">
 											<Zap className="w-4 h-4 text-primary dark:text-primary-foreground" />
 										</div>
 										<span className="text-sm font-medium text-foreground dark:text-white">
