@@ -1,5 +1,5 @@
-
-import { motion } from "framer-motion";
+import { motion, useAnimationControls } from "framer-motion";
+import { useEffect, useRef } from "react";
 
 export const ClientsCarousel = () => {
   const clients = [
@@ -10,49 +10,51 @@ export const ClientsCarousel = () => {
     { id: 5, name: "RetailMax", industry: "E-commerce" },
     { id: 6, name: "CloudVision", industry: "Cloud Services" },
   ];
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-        delayChildren: 0.2,
-      }
-    }
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.6,
-        ease: "easeOut"
-      }
-    }
-  };
+  
+  const containerRef = useRef<HTMLDivElement>(null);
+  const controls = useAnimationControls();
+  
+  // Start the animation immediately on component mount
+  useEffect(() => {
+    if (!containerRef.current) return;
+    
+    const startAnimation = async () => {
+      // Get the width of the container and content for proper animation
+      const containerWidth = containerRef.current?.scrollWidth || 0;
+      const contentWidth = containerRef.current?.scrollWidth || 0;
+      
+      // Set initial position (no delay)
+      await controls.set({ x: 0 });
+      
+      // Start continuous animation immediately
+      controls.start({
+        x: -contentWidth / 2,
+        transition: {
+          duration: 20,
+          ease: "linear",
+          repeat: Infinity,
+          repeatType: "loop",
+          repeatDelay: 0, // No delay between cycles
+        },
+      });
+    };
+    
+    startAnimation();
+  }, [controls]);
 
   return (
-    <section className="section bg-gradient-to-b from-background to-muted/30 dark:from-background dark:to-muted/20 py-20 overflow-hidden">
+    <section className="section bg-gradient-to-b from-background to-muted/30 dark:from-background dark:to-muted/20 py-0 overflow-hidden">
       <div className="container-custom">
         <motion.div 
-          className="text-center mb-16"
+          className="text-center mb-12"
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.8, ease: "easeOut" }}
         >
-          <motion.h2 
-            className="text-primary dark:text-primary mb-6 bg-gradient-to-r from-primary via-accent-teal to-primary dark:from-primary dark:via-accent-teal dark:to-primary bg-clip-text text-transparent"
-            initial={{ opacity: 0, scale: 0.8 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-          >
+          <h2 className="text-3xl md:text-4xl font-bold mb-6 bg-gradient-to-r from-foreground to-primary bg-clip-text text-transparent">
             Our Trusted Partners
-          </motion.h2>
+          </h2>
           <motion.p 
             className="text-secondary dark:text-secondary/90 text-lg max-w-3xl mx-auto leading-relaxed"
             initial={{ opacity: 0, y: 20 }}
@@ -69,25 +71,18 @@ export const ClientsCarousel = () => {
           <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-background to-transparent dark:from-background dark:to-transparent z-10"></div>
           <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-background to-transparent dark:from-background dark:to-transparent z-10"></div>
           
-          <motion.div 
-            className="flex space-x-8"
-            variants={containerVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-          >
-            {/* First set of client cards */}
+          {/* Carousel container - added py-8 for vertical space */}
+          <div className="overflow-hidden py-8">
             <motion.div 
-              className="flex space-x-8 animate-slide-left"
-              style={{
-                animation: "slide-left 30s linear infinite"
-              }}
+              ref={containerRef}
+              className="flex space-x-8"
+              animate={controls}
             >
+              {/* Double the clients array for seamless infinite scroll */}
               {[...clients, ...clients].map((client, index) => (
                 <motion.div
                   key={`${client.id}-${index}`}
                   className="w-64 h-36 flex flex-col items-center justify-center bg-card/90 dark:bg-card/95 backdrop-blur-sm rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 p-6 border border-border/50 dark:border-border/60 hover:border-primary/30 dark:hover:border-primary/50 group min-w-[256px]"
-                  variants={itemVariants}
                   whileHover={{ 
                     scale: 1.05, 
                     y: -5,
@@ -103,8 +98,7 @@ export const ClientsCarousel = () => {
                   </motion.div>
                   <motion.div 
                     className="text-sm text-muted-foreground dark:text-muted-foreground/90 font-medium opacity-70 group-hover:opacity-100 transition-opacity duration-300"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 0.7 }}
+                    initial={{ opacity: 0.7 }}
                     whileHover={{ opacity: 1 }}
                   >
                     {client.industry}
@@ -139,11 +133,11 @@ export const ClientsCarousel = () => {
                 </motion.div>
               ))}
             </motion.div>
-          </motion.div>
+          </div>
         </div>
         
         <motion.div 
-          className="text-center mt-12"
+          className="text-center mt-10"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}

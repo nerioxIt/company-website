@@ -1,26 +1,114 @@
-
 import { EnhancedHero } from "@/components/home/EnhancedHero";
 import { FeaturesSection } from "@/components/home/FeaturesSection";
 import { ServicesGrid } from "@/components/home/ServicesGrid";
 import { WhyChoose } from "@/components/home/WhyChoose";
 import { ClientsCarousel } from "@/components/home/ClientsCarousel";
 import { TestimonialSnippet } from "@/components/home/TestimonialSnippet";
-import { motion } from "framer-motion";
+import { ConnectorSection } from "@/components/home/ConnectorSection";
+import { motion, useScroll, useSpring } from "framer-motion";
+import { useEffect, useState } from "react";
+import { MessageSquareMore, ArrowUp } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 const Index = () => {
+  const { scrollYProgress } = useScroll();
+  // Optimized spring physics for smoother progress bar
+  const scaleX = useSpring(scrollYProgress, {
+    stiffness: 400,
+    damping: 40,
+    restDelta: 0.0001,
+    mass: 0.1
+  });
+  
+  const [showScrollTop, setShowScrollTop] = useState(false);
+
+  // Show scroll-to-top button when scrolled down
+  useEffect(() => {
+    const handleScroll = () => {
+      setShowScrollTop(window.scrollY > 400);
+    };
+    
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      transition={{ duration: 0.8 }}
-      className="pt-16"
+      transition={{ duration: 0.5 }}
+      className="relative"
     >
+      {/* Refined progress bar with more subtle appearance */}
+      <motion.div 
+        className="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-primary via-primary to-accent-teal z-50 origin-left opacity-90 dark:opacity-80"
+        style={{ scaleX }}
+        transition={{ type: "spring" }}
+      />
+      
+      {/* Hero section */}
       <EnhancedHero />
+      
+      {/* Improved section transitions with visual continuity */}
+      <ConnectorSection variant="curve" flip={false} />
+      
       <FeaturesSection />
+      
+      <ConnectorSection variant="wave" flip={true} />
+      
       <ServicesGrid />
+      
+      <ConnectorSection variant="angle" flip={false} />
+      
       <WhyChoose />
+      
+      <ConnectorSection variant="dots" flip={true} />
+      
       <ClientsCarousel />
+      
+      <ConnectorSection variant="curve" flip={false} />
+      
       <TestimonialSnippet />
+      
+      {/* Enhanced Floating Contact Button with improved accessibility */}
+      <motion.div
+        initial={{ opacity: 0, scale: 0.8 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ delay: 0.6, duration: 0.3 }}
+        className="fixed bottom-6 right-6 z-40"
+      >
+        <Button 
+          size="lg" 
+          className="h-14 w-14 rounded-full shadow-xl bg-gradient-to-tr from-primary to-accent-teal hover:from-primary/95 hover:to-accent-teal/95 p-0 flex items-center justify-center border border-primary/20 dark:border-primary/30"
+          onClick={() => window.location.href = '/contact'}
+          aria-label="Contact Us"
+        >
+          <MessageSquareMore className="h-6 w-6 text-white" />
+        </Button>
+      </motion.div>
+      
+      {/* Refined scroll to top button */}
+      <motion.div 
+        className="fixed bottom-6 left-6 z-40"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: showScrollTop ? 1 : 0 }}
+        transition={{ duration: 0.2 }}
+        style={{ pointerEvents: showScrollTop ? 'auto' : 'none' }}
+      >
+        <Button 
+          variant="outline" 
+          size="lg" 
+          className="h-12 w-12 rounded-full shadow-lg bg-background/80 dark:bg-background/60 backdrop-blur-sm border border-border/50 dark:border-border/40 hover:bg-background dark:hover:bg-background/80 p-0 flex items-center justify-center"
+          onClick={scrollToTop}
+          aria-label="Scroll to top"
+        >
+          <ArrowUp className="h-5 w-5 text-foreground dark:text-foreground" />
+        </Button>
+      </motion.div>
     </motion.div>
   );
 };
