@@ -58,7 +58,7 @@ const contactInfo = [
   {
     icon: MapPin,
     text: "123 Tech Street, San Francisco, CA 94103",
-    href: "#"
+    href: "#Footer"
   }
 ];
 
@@ -187,7 +187,7 @@ export const Footer = () => {
                 <a
                   key={index}
                   href={contact.href}
-                  className="flex items-center gap-1 sm:gap-2 text-muted-foreground dark:text-muted-foreground/90 hover:text-primary dark:hover:text-primary-foreground transition-colors duration-200"
+                  className="flex items-center gap-1 sm:gap-2 text-muted-foreground dark:text-muted-foreground/90 hover:text-primary dark:hover:text-white transition-colors duration-200"
                 >
                   <contact.icon className="w-3 h-3 sm:w-3.5 sm:h-3.5 flex-shrink-0" />
                   <span className="truncate max-w-[150px] sm:max-w-none">{contact.text}</span>

@@ -83,7 +83,7 @@ const services = [
 		borderClass: "border-purple-200 dark:border-purple-800/30",
 	},
 	{
-		title: "UI/UX Design",
+		title: "IT Support & Monitoring",
 		icon: (
 			<svg
 				className="w-12 h-12 text-primary"
@@ -92,43 +92,35 @@ const services = [
 				xmlns="http://www.w3.org/2000/svg"
 			>
 				<path
-					d="M12 4V20"
+					d="M12 4V5M12 19V20M4 12H5M19 12H20M6.3 6.3L7 7M17 17L17.7 17.7M6.3 17.7L7 17M17 7L17.7 6.3"
 					stroke="currentColor"
 					strokeWidth="2"
 					strokeLinecap="round"
 					strokeLinejoin="round"
 				/>
-				<path
-					d="M4 12H20"
+				<circle
+					cx="12"
+					cy="12"
+					r="4"
 					stroke="currentColor"
 					strokeWidth="2"
-					strokeLinecap="round"
-					strokeLinejoin="round"
 				/>
 				<path
-					d="M8 8L4 12L8 16"
+					d="M15 9L16 8"
 					stroke="currentColor"
 					strokeWidth="2"
 					strokeLinecap="round"
-					strokeLinejoin="round"
-				/>
-				<path
-					d="M16 16L20 12L16 8"
-					stroke="currentColor"
-					strokeWidth="2"
-					strokeLinecap="round"
-					strokeLinejoin="round"
 				/>
 			</svg>
 		),
 		description:
-			"Beautiful, functional designs that enhance user experience and drive engagement.",
+			"Comprehensive IT support and proactive monitoring to keep your systems running smoothly and securely.",
 		bgClass: "bg-pink-50 dark:bg-pink-900/10",
 		iconBgClass: "bg-pink-100 dark:bg-pink-900/20",
 		borderClass: "border-pink-200 dark:border-pink-800/30",
 	},
 	{
-		title: "Digital Marketing",
+		title: "EPOS Solutions",
 		icon: (
 			<svg
 				className="w-12 h-12 text-primary"
@@ -136,23 +128,61 @@ const services = [
 				fill="none"
 				xmlns="http://www.w3.org/2000/svg"
 			>
+				<rect
+					x="2"
+					y="5"
+					width="20"
+					height="14"
+					rx="2"
+					stroke="currentColor"
+					strokeWidth="2"
+				/>
 				<path
-					d="M3 3V21M3 17L12 8L16 12L21 7M21 7V12M21 7H16"
+					d="M6 9H6.01"
 					stroke="currentColor"
 					strokeWidth="2"
 					strokeLinecap="round"
-					strokeLinejoin="round"
+				/>
+				<path
+					d="M6 13H6.01"
+					stroke="currentColor"
+					strokeWidth="2"
+					strokeLinecap="round"
+				/>
+				<path
+					d="M6 17H6.01"
+					stroke="currentColor"
+					strokeWidth="2"
+					strokeLinecap="round"
+				/>
+				<path
+					d="M10 9H18"
+					stroke="currentColor"
+					strokeWidth="2"
+					strokeLinecap="round"
+				/>
+				<path
+					d="M10 13H18"
+					stroke="currentColor"
+					strokeWidth="2"
+					strokeLinecap="round"
+				/>
+				<path
+					d="M10 17H14"
+					stroke="currentColor"
+					strokeWidth="2"
+					strokeLinecap="round"
 				/>
 			</svg>
 		),
 		description:
-			"Strategic marketing campaigns to increase your online visibility and customer base.",
+			"Advanced electronic point of sale systems for seamless retail and hospitality operations.",
 		bgClass: "bg-green-50 dark:bg-green-900/10",
 		iconBgClass: "bg-green-100 dark:bg-green-900/20",
 		borderClass: "border-green-200 dark:border-green-800/30",
 	},
 	{
-		title: "E-commerce",
+		title: "CRM Systems",
 		icon: (
 			<svg
 				className="w-12 h-12 text-primary"
@@ -161,7 +191,14 @@ const services = [
 				xmlns="http://www.w3.org/2000/svg"
 			>
 				<path
-					d="M16 11V7C16 4.79086 14.2091 3 12 3C9.79086 3 8 4.79086 8 7V11M5 9H19L20 21H4L5 9Z"
+					d="M17 8C17 10.7614 14.7614 13 12 13C9.23858 13 7 10.7614 7 8C7 5.23858 9.23858 3 12 3C14.7614 3 17 5.23858 17 8Z"
+					stroke="currentColor"
+					strokeWidth="2"
+					strokeLinecap="round"
+					strokeLinejoin="round"
+				/>
+				<path
+					d="M3 21C3 16.0294 7.02944 12 12 12C16.9706 12 21 16.0294 21 21"
 					stroke="currentColor"
 					strokeWidth="2"
 					strokeLinecap="round"
@@ -170,7 +207,7 @@ const services = [
 			</svg>
 		),
 		description:
-			"Custom online stores with secure payment gateways and optimized for conversions.",
+			"Custom customer relationship management solutions to optimize your client interactions and sales processes.",
 		bgClass: "bg-amber-50 dark:bg-amber-900/10",
 		iconBgClass: "bg-amber-100 dark:bg-amber-900/20",
 		borderClass: "border-amber-200 dark:border-amber-800/30",
@@ -264,13 +301,7 @@ export const ServicesGrid = () => {
 										{service.description}
 									</p>
 
-									<Link
-										to="/services"
-										className="inline-flex items-center text-primary font-medium hover:underline group-hover:translate-x-1 transition-transform duration-300"
-									>
-										Learn more
-										<ArrowRight className="ml-2 h-4 w-4" />
-									</Link>
+									
 								</div>
 
 								{/* Decorative corner element */}
