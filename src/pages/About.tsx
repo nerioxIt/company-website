@@ -40,9 +40,8 @@ const AnimatedCounter = ({ end, duration = 2, suffix = "" }: { end: number; dura
       }
     };
   }, [end, duration, isInView]);
-
   return (
-    <span ref={ref} className="text-3xl font-bold text-primary dark:text-primary-foreground">
+    <span ref={ref} className="text-3xl font-bold text-primary dark:text-white">
       {count}{suffix}
     </span>
   );
@@ -309,38 +308,31 @@ const About = () => {
               transition={{ duration: 0.8 }}
               className="space-y-8"
             >
-              {/* Badge */}
-              <motion.div
+              {/* Badge */}              <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.2 }}
-                className="inline-flex items-center gap-3 px-6 py-3 bg-gradient-to-r from-primary/10 to-accent-teal/10 dark:from-primary/20 dark:to-accent-teal/20 rounded-full text-primary dark:text-primary-foreground border border-primary/20 dark:border-primary/30 backdrop-blur-sm"
+                className="inline-flex items-center gap-3 px-6 py-3 bg-gradient-to-r from-primary/10 to-accent-teal/10 dark:from-primary/20 dark:to-accent-teal/20 rounded-full text-primary dark:text-white border border-primary/20 dark:border-primary/30 backdrop-blur-sm"
               >
-                <motion.div
-                  animate={{ rotate: 360 }}
-                  transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
-                >
-                  <Heart size={18} />
-                </motion.div>
+                <Heart size={18} />
                 <span className="text-sm font-semibold tracking-wide">Our Story</span>
               </motion.div>
               
-              {/* Enhanced Title with Typewriter Effect */}
-              <motion.div
+              {/* Enhanced Title with Typewriter Effect */}              <motion.div
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.3 }}
                 className="space-y-4"
               >
                 <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold leading-tight">
-                  <span className="block bg-gradient-to-r from-foreground via-primary to-accent-teal bg-clip-text text-transparent">
+                  <span className="block bg-gradient-to-r from-foreground via-primary to-accent-teal bg-clip-text text-transparent pb-2">
                     Crafting Digital
                   </span>
                   <span className="block bg-gradient-to-r from-accent-teal via-primary to-foreground bg-clip-text text-transparent">
                     Excellence
                   </span>
                   <motion.span 
-                    className="block text-primary dark:text-primary-foreground text-4xl md:text-5xl lg:text-6xl"
+                    className="block text-primary dark:text-white text-4xl md:text-5xl lg:text-6xl"
                     initial={{ opacity: 0, scale: 0.8 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ duration: 0.6, delay: 0.8 }}
@@ -361,8 +353,7 @@ const About = () => {
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ duration: 0.6, delay: 0.7 }}
-                >
-                  Founded with a simple mission: to help businesses <span className="text-primary dark:text-primary-foreground font-semibold">thrive in the digital landscape</span> through innovative solutions and exceptional service.
+                >                  Founded with a simple mission: to help businesses <span className="text-primary dark:text-white font-semibold">thrive in the digital landscape</span> through innovative solutions and exceptional service.
                 </motion.p>
                 <motion.p
                   initial={{ opacity: 0, x: -20 }}
@@ -516,17 +507,8 @@ const About = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
             className="text-center mb-12"
-          >
-            <div className="inline-flex items-center gap-3 px-6 py-3 bg-white/10 backdrop-blur-sm rounded-full border border-white/20 mb-8">
-              <motion.div
-                animate={{ 
-                  rotate: [0, 360],
-                  scale: [1, 1.1, 1]
-                }}
-                transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-              >
-                <Target className="w-5 h-5" />
-              </motion.div>
+          >            <div className="inline-flex items-center gap-3 px-6 py-3 bg-white/10 backdrop-blur-sm rounded-full border border-white/20 mb-8">
+              <Target className="w-5 h-5" />
               <span className="text-sm font-semibold tracking-wide">Our Purpose</span>
             </div>
           </motion.div>
@@ -746,20 +728,14 @@ const About = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             className="text-center mb-20"
-          >
-            <motion.div
+          >            <motion.div
               initial={{ opacity: 0, scale: 0.8 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
-              className="inline-flex items-center gap-3 px-6 py-3 bg-gradient-to-r from-primary/10 to-accent-teal/10 dark:from-primary/20 dark:to-accent-teal/20 rounded-full text-primary dark:text-primary-foreground border border-primary/20 dark:border-primary/30 mb-8 backdrop-blur-sm"
+              className="inline-flex items-center gap-3 px-6 py-3 bg-gradient-to-r from-primary/10 to-accent-teal/10 dark:from-primary/20 dark:to-accent-teal/20 rounded-full text-primary dark:text-white border border-primary/20 dark:border-primary/30 mb-8 backdrop-blur-sm"
             >
-              <motion.div
-                animate={{ rotate: 360 }}
-                transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
-              >
-                <Users size={20} />
-              </motion.div>
+              <Users size={20} />
               <span className="text-sm font-semibold tracking-wide">Meet The Team</span>
             </motion.div>
             
@@ -798,7 +774,7 @@ const About = () => {
               className="flex flex-wrap justify-center gap-8 mt-12"
             >
               <div className="text-center">
-                <div className="text-3xl font-bold text-primary dark:text-primary-foreground">25+</div>
+                <div className="text-3xl font-bold text-primary dark:text-white">25+</div>
                 <div className="text-sm text-muted-foreground">Team Members</div>
               </div>
               <div className="text-center">
@@ -903,10 +879,9 @@ const About = () => {
                       whileHover={{ opacity: 1 }}
                       transition={{ duration: 0.3, delay: 0.1 }}
                       className="absolute top-4 left-4 right-4 opacity-0 group-hover:opacity-100"
-                    >
-                      <div className="bg-white/95 dark:bg-white/90 rounded-lg p-3 shadow-lg">
-                        <Quote size={16} className="text-primary mb-2" />
-                        <p className="text-sm text-foreground font-medium italic">"{member.quote}"</p>
+                    >                      <div className="bg-white/95 dark:bg-gray-800/95 rounded-lg p-3 shadow-lg">
+                        <Quote size={16} className="text-primary dark:text-primary mb-2" />
+                        <p className="text-sm text-foreground dark:text-white font-medium italic">"{member.quote}"</p>
                       </div>
                     </motion.div>
                   </div>
@@ -924,12 +899,10 @@ const About = () => {
                       <p className="text-sm text-muted-foreground dark:text-muted-foreground/90 leading-relaxed">
                         {member.bio}
                       </p>
-                    </div>
-
-                    {/* Stats Grid */}
+                    </div>                    {/* Stats Grid */}
                     <div className="grid grid-cols-3 gap-4 py-4 border-t border-b border-border/30 dark:border-border/50">
                       <div className="text-center">
-                        <div className="text-lg font-bold text-primary dark:text-primary-foreground">{member.experience}</div>
+                        <div className="text-lg font-bold text-primary dark:text-white">{member.experience}</div>
                         <div className="text-xs text-muted-foreground">Experience</div>
                       </div>
                       <div className="text-center">
@@ -948,14 +921,13 @@ const About = () => {
                     <div className="space-y-3">
                       <h4 className="text-sm font-semibold text-foreground dark:text-foreground">Expertise</h4>
                       <div className="flex flex-wrap gap-2">
-                        {member.expertise.map((skill, skillIndex) => (
-                          <motion.span
+                        {member.expertise.map((skill, skillIndex) => (                          <motion.span
                             key={skillIndex}
                             initial={{ opacity: 0, scale: 0.8 }}
                             whileInView={{ opacity: 1, scale: 1 }}
                             transition={{ duration: 0.3, delay: skillIndex * 0.1 }}
                             whileHover={{ scale: 1.05 }}
-                            className="px-3 py-1.5 bg-gradient-to-r from-primary/10 to-accent-teal/10 dark:from-primary/20 dark:to-accent-teal/20 text-xs font-medium rounded-full border border-primary/20 dark:border-primary/30 text-primary dark:text-primary-foreground hover:bg-primary/20 dark:hover:bg-primary/30 transition-all duration-300"
+                            className="px-3 py-1.5 bg-gradient-to-r from-primary/10 to-accent-teal/10 dark:from-primary/20 dark:to-accent-teal/20 text-xs font-medium rounded-full border border-primary/20 dark:border-primary/30 text-primary dark:text-white hover:bg-primary/20 dark:hover:bg-primary/30 transition-all duration-300"
                           >
                             {skill}
                           </motion.span>
@@ -1001,63 +973,7 @@ const About = () => {
                 </Card>
               </motion.div>
             ))}
-          </div>
-
-          {/* Team CTA Section */}
-          <motion.div
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-            className="text-center mt-20"
-          >
-            <Card className="p-12 bg-gradient-to-br from-primary to-accent-teal text-white relative overflow-hidden">
-              {/* Background Pattern */}
-              <div className="absolute inset-0 bg-grid-pattern opacity-10" />
-              
-              <div className="relative z-10 space-y-6">
-                <motion.div
-                  animate={{ rotate: 360 }}
-                  transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-                  className="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-6"
-                >
-                  <Users size={32} />
-                </motion.div>
-                
-                <h3 className="text-3xl md:text-4xl font-bold mb-4">
-                  Want to Join Our Team?
-                </h3>
-                
-                <p className="text-xl opacity-90 max-w-2xl mx-auto mb-8">
-                  We're always looking for talented individuals who share our passion for creating exceptional digital experiences.
-                </p>
-                
-                <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                  <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                    <Button 
-                      size="lg" 
-                      className="bg-white text-primary hover:bg-white/90 px-8 py-4 rounded-xl font-semibold shadow-xl hover:shadow-2xl transition-all duration-300"
-                    >
-                      <Mail className="mr-2" />
-                      View Open Positions
-                    </Button>
-                  </motion.div>
-                  
-                  <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                    <Button 
-                      variant="outline" 
-                      size="lg" 
-                      className="border-2 border-white/50 text-white hover:bg-white/10 px-8 py-4 rounded-xl font-semibold backdrop-blur-sm"
-                    >
-                      <Users className="mr-2" />
-                      Learn About Culture
-                    </Button>
-                  </motion.div>
-                </div>
-              </div>
-            </Card>
-          </motion.div>
-        </div>
+          </div>        </div>
       </section>
 
       {/* Enhanced Values Section */}
@@ -1069,7 +985,7 @@ const About = () => {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 dark:bg-primary/20 rounded-full text-primary dark:text-primary-foreground border border-primary/20 dark:border-primary/30 mb-6">
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 dark:bg-primary/20 rounded-full text-primary dark:text-white border border-primary/20 dark:border-primary/30 mb-6">
               <Heart size={16} />
               <span className="text-sm font-medium">Our Values</span>
             </div>
@@ -1104,9 +1020,8 @@ const About = () => {
                       </div>
                       <div className={`absolute inset-0 w-16 h-16 rounded-2xl bg-gradient-to-r ${value.color} opacity-20 blur-xl group-hover:opacity-40 transition-opacity duration-300`} />
                     </div>
-                    
-                    <div className="flex-1 space-y-3">
-                      <h3 className="text-2xl font-bold text-foreground dark:text-foreground group-hover:text-primary dark:group-hover:text-primary-foreground transition-colors">
+                      <div className="flex-1 space-y-3">
+                      <h3 className="text-2xl font-bold text-foreground dark:text-foreground group-hover:text-primary dark:group-hover:text-white transition-colors">
                         {value.title}
                       </h3>
                       <p className="text-muted-foreground dark:text-muted-foreground/90 leading-relaxed">
@@ -1136,7 +1051,7 @@ const About = () => {
             viewport={{ once: true }}
             className="text-center mb-12 md:mb-16 lg:mb-20"
           >
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 md:px-4 md:py-2 bg-primary/10 dark:bg-primary/20 rounded-full text-primary dark:text-primary-foreground border border-primary/20 dark:border-primary/30 mb-4 md:mb-6">
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 md:px-4 md:py-2 bg-primary/10 dark:bg-primary/20 rounded-full text-primary dark:text-white border border-primary/20 dark:border-primary/30 mb-4 md:mb-6">
               <MapPin size={14} className="md:w-4 md:h-4" />
               <span className="text-xs md:text-sm font-medium">Our Journey</span>
             </div>
