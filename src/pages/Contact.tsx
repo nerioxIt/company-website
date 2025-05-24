@@ -298,10 +298,10 @@ const Contact = () => {
     
     // Send email using EmailJS
     emailjs.send(
-      'YOUR_SERVICE_ID', // Replace with your EmailJS service ID
-      'YOUR_TEMPLATE_ID', // Replace with your EmailJS template ID
+      'service_3fxxt24', // Replace with your EmailJS service ID
+      'template_a8ae2vf', // Replace with your EmailJS template ID
       emailData,
-      'YOUR_PUBLIC_KEY' // Replace with your EmailJS public key
+      'Qa70uCy0gjs5ZUCNI' // Replace with your EmailJS public key
     )
       .then((response) => {
         console.log('Email sent successfully:', response);
