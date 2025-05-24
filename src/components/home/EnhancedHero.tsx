@@ -56,7 +56,7 @@ export const EnhancedHero = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 dark:bg-primary/20 rounded-full text-primary dark:text-primary-foreground border border-primary/20 dark:border-primary/30"
+              className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 dark:bg-primary/60 rounded-full text-primary dark:text-white border border-primary/20 dark:border-primary/60"
             >
               <Zap size={16} />
               <span className="text-sm font-medium">Leading Digital Agency</span>
