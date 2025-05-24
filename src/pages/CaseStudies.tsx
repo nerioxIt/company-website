@@ -27,7 +27,9 @@ const caseStudies = [
 		],
 		images: [
 			"https://images.unsplash.com/photo-1531403009284-440f080d1e12?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
-			"https://images.unsplash.com/photo-1491897554428-130a60dd4757?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+			"https://images.unsplash.com/photo-1491897554428-130a60dd4757?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
+      "https://www.servcorp.co.uk/media/34561/e-commerce-img.jpeg",
+      "https://www.export.org.uk/media/3iq1wzyp/ECommerce.jpg"
 		],
 		technologies: ["React", "Node.js", "Stripe", "AWS"],
 		featured: true
@@ -50,7 +52,9 @@ const caseStudies = [
 		],
 		images: [
 			"https://images.unsplash.com/photo-1563986768609-322da13575f3?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
-			"https://images.unsplash.com/photo-1579468118864-1b9ea3c0db4a?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+			"https://images.unsplash.com/photo-1579468118864-1b9ea3c0db4a?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
+      "https://www.synchrony.com/syfbank/images/hero-online-vs-traditional-banks-pros-cons-140x570.jpg",
+      "https://cdn.sanity.io/images/ordgikwe/production/109f6d58b9590d4f8b2cc9a94aa97331e8d08087-1600x1200.jpg?w=1600&h=1200&auto=format"
 		],
 		technologies: ["React Native", "Node.js", "MongoDB", "Firebase"],
 		featured: true
@@ -73,19 +77,25 @@ const caseStudies = [
 		],
 		images: [
 			"https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
-			"https://images.unsplash.com/photo-1581056771107-24ca5f033842?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+			"https://images.unsplash.com/photo-1581056771107-24ca5f033842?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
+      "https://www.william-russell.com/wp-content/uploads/Healthcare-professionalshaking-hands-William-Russell.jpg",
+      "https://online.hbs.edu/Style%20Library/api/resize.aspx?imgpath=/online/PublishingImages/blog/health-care-economics.jpg&w=1200&h=630"
 		],
 		technologies: ["Angular", "ASP.NET Core", "SQL Server", "Azure"],
 		featured: false
 	}
 ];
 
-// Modified filter options to combine categories and industries
-const filterOptions = ["All", "E-commerce", "Mobile App", "Web Application", "Retail", "Finance", "Healthcare"];
+// Combined filter options with type
+const filterOptions = {
+	categories: ["All", "E-commerce", "Mobile App", "Web Application"],
+	industries: ["All", "Retail", "Finance", "Healthcare"]
+};
 
-// Simplified filter interface
+// Interface for active filters with error handling
 interface ActiveFilters {
-  filter: string;
+	category: string;
+	industry: string;
 }
 
 interface CaseStudyCardProps {
@@ -176,7 +186,7 @@ const CaseStudyCard = ({ caseStudy, onViewDetails }: CaseStudyCardProps) => {
 					
 					<Button 
 						onClick={() => onViewDetails(caseStudy.id)} 
-						className="w-full mt-6 bg-gradient-to-r from-primary to-primary/90 hover:from-primary/90 hover:to-primary group"
+						className="w-full mt-6 bg-gradient-to-r from-primary to-accent-teal hover:from-primary/90 hover:to-primary group"
 					>
 						View Case Study
 						<ExternalLink className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -195,7 +205,7 @@ interface CaseStudyDetailsProps {
 
 const CaseStudyDetails = ({ caseStudy, open, onClose }: CaseStudyDetailsProps) => {
 	const [currentImageIndex, setCurrentImageIndex] = useState(0);
-	const [isAutoplay, setIsAutoplay] = useState(false);
+	const [isAutoplay, setIsAutoplay] = useState(true);
 
 	// Add this useEffect for auto-advancing slideshow
 	useEffect(() => {
@@ -206,7 +216,7 @@ const CaseStudyDetails = ({ caseStudy, open, onClose }: CaseStudyDetailsProps) =
 				setCurrentImageIndex((prevIndex) => 
 					prevIndex === caseStudy.images.length - 1 ? 0 : prevIndex + 1
 				);
-			}, 3000);
+			}, 2000);
 		}
 		
 		return () => clearInterval(interval);
@@ -228,7 +238,7 @@ const CaseStudyDetails = ({ caseStudy, open, onClose }: CaseStudyDetailsProps) =
 								{caseStudy.category}
 							</Badge>
 							{caseStudy.featured && (
-								<Badge className="bg-primary/20 text-primary dark:text-white border border-primary/30">
+								<Badge className="bg-primary/20 text-primary dark:text-primary border border-primary/30">
 									Featured
 								</Badge>
 							)}
@@ -359,36 +369,47 @@ const CaseStudyDetails = ({ caseStudy, open, onClose }: CaseStudyDetailsProps) =
 
 const CaseStudies = () => {
 	const [selectedCaseStudy, setSelectedCaseStudy] = useState<typeof caseStudies[0] | null>(null);
-	const [activeFilter, setActiveFilter] = useState("All");
+	const [activeFilters, setActiveFilters] = useState<ActiveFilters>({
+		category: "All",
+		industry: "All"
+	});
 	const [filterError, setFilterError] = useState<string | null>(null);
 	const [searchTerm, setSearchTerm] = useState("");
 	// const router = useRouter();
 
-	const handleFilterChange = (value: string) => {
+	const handleFilterChange = (type: keyof ActiveFilters, value: string) => {
 		try {
 			// Validate the filter value exists in our options
-			if (!filterOptions.includes(value)) {
-				throw new Error(`Invalid filter selection: ${value}`);
+			if (type === 'category' && !filterOptions.categories.includes(value)) {
+				throw new Error(`Invalid category filter: ${value}`);
+			}
+			if (type === 'industry' && !filterOptions.industries.includes(value)) {
+				throw new Error(`Invalid industry filter: ${value}`);
 			}
 
-			setActiveFilter(value);
+			setActiveFilters(prev => ({
+				...prev,
+				[type]: value
+			}));
 			setFilterError(null);
 		} catch (error) {
 			console.error(error);
 			setFilterError(error instanceof Error ? error.message : 'Invalid filter selection');
 			// Reset to default on error
-			setActiveFilter("All");
+			setActiveFilters(prev => ({
+				...prev,
+				[type]: "All"
+			}));
 		}
 	};
 
 	const filteredCaseStudies = caseStudies.filter(study => {
-		const matchesFilter = activeFilter === "All" || 
-						 study.category === activeFilter || 
-						 study.industry === activeFilter;
+		const matchesCategory = activeFilters.category === "All" || study.category === activeFilters.category;
+		const matchesIndustry = activeFilters.industry === "All" || study.industry === activeFilters.industry;
 		const matchesSearch = study.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
 						 study.client.toLowerCase().includes(searchTerm.toLowerCase());
 		
-		return matchesFilter && matchesSearch;
+		return matchesCategory && matchesIndustry && matchesSearch;
 	});
 
 	const handleOpenDetails = (id: number) => {
@@ -432,9 +453,12 @@ const CaseStudies = () => {
 								whileHover={{ scale: 1.05 }}
 								whileTap={{ scale: 0.98 }}
 							>	
-								
+								<motion.span
+									animate={{ rotate: [-180, 180] }}
+									transition={{ duration: 5, repeat: Infinity, ease: "linear" }}
+								>
 									<Award size={16} />
-								
+								</motion.span>
 								<span className="text-sm font-medium">Success Stories</span>
 							</motion.div>
 						</motion.div>
@@ -466,55 +490,73 @@ const CaseStudies = () => {
 			</section>
 			
 			{/* Updated Filters and Search */}
-			<section className="py-0 bg-background border-b border-border/30 dark:border-border/50 mt-0">
-				<div className="container-custom">
-					<div className="flex flex-col md:flex-row gap-6 items-center justify-between mb-4">
-						<div className="relative flex-1 max-w-md">
-							<Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground dark:text-muted-foreground/70" />
-							<Input
-								placeholder="Search case studies..."
-								value={searchTerm}
-								onChange={(e) => setSearchTerm(e.target.value)}
-								className="pl-10 bg-background/60 dark:bg-background/40 border-border/50 dark:border-border/60"
-							/>
-						</div>
-						
-						<div className="flex flex-wrap gap-4 items-center">
-							<div className="flex items-center gap-2">
-								<Filter className="w-4 h-4 text-muted-foreground dark:text-muted-foreground/70" />
-								<span className="text-sm font-medium text-muted-foreground dark:text-muted-foreground/80">Filter:</span>
-							</div>
-							
-							{filterError && (
-								<motion.div 
-									initial={{ opacity: 0, y: -10 }}
-									animate={{ opacity: 1, y: 0 }}
-									className="p-2 bg-red-500/10 text-red-500 text-sm rounded-md"
-								>
-									{filterError}
-								</motion.div>
-							)}
-
-							<div className="flex flex-wrap gap-2">
-								{filterOptions.map((option) => (
-									<Button
-										key={`filter-${option}`}
-										variant={activeFilter === option ? "default" : "outline"}
-										size="sm"
-										onClick={() => handleFilterChange(option)}
-										className="rounded-full text-xs"
-									>
-										{option}
-									</Button>
-								))}
-							</div>
-						</div>
-					</div>
-				</div>
-			</section>
+      <section className="py-0 bg-background border-b border-border/30 dark:border-border/50 mt-0">
+        <div className="container-custom">
+          {/* Search Bar Row - Full Width */}
+          <div className="py-4 border-b border-border/20 dark:border-border/30">
+            <div className="relative w-full">
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground dark:text-muted-foreground/70" />
+              <Input
+                placeholder="Search case studies..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="pl-10 bg-background/60 dark:bg-background/40 border-primary/40 dark:border-primary/60 w-full focus:border-primary hover:border-primary/70 transition-colors"
+              />
+            </div>
+          </div>
+          
+          {/* Filter By Text Row */}
+          <div className="py-3 border-b border-border/20 dark:border-border/30">
+            <div className="flex items-center gap-2">
+              <Filter className="w-4 h-4 text-muted-foreground dark:text-muted-foreground/70" />
+              <span className="text-sm font-medium text-muted-foreground dark:text-muted-foreground/80">Filter by:</span>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {/* Category Filter Group */}
+              <div className="flex flex-col">
+                <div className="font-medium text-base mb-2">Category</div>
+                <div className="bg-muted/30 dark:bg-muted/20 p-3 rounded-lg border border-border/40 dark:border-border/30">
+                  <div className="flex flex-wrap gap-2">
+                    {filterOptions.categories.map((category) => (
+                      <Button
+                        key={`category-${category}`}
+                        variant={activeFilters.category === category ? "default" : "outline"}
+                        size="sm"
+                        onClick={() => handleFilterChange('category', category)}
+                        className={`rounded-full text-xs ${activeFilters.category === category ? 'bg-primary text-primary-foreground' : 'bg-background/70'}`}
+                      >
+                        {category}
+                      </Button>
+                    ))}
+                  </div>
+                </div>
+              </div>
+              {/* Industry Filter Group */}
+              <div className="flex flex-col">
+                <div className="font-medium text-base mb-2">Industry</div>
+                <div className="bg-muted/30 dark:bg-muted/20 p-3 rounded-lg border border-border/40 dark:border-border/30">
+                  <div className="flex flex-wrap gap-2">
+                    {filterOptions.industries.map((industry) => (
+                      <Button
+                        key={`industry-${industry}`}
+                        variant={activeFilters.industry === industry ? "default" : "outline"}
+                        size="sm"
+                        onClick={() => handleFilterChange('industry', industry)}
+                        className={`rounded-full text-xs ${activeFilters.industry === industry ? 'bg-primary text-primary-foreground' : 'bg-background/70'}`}
+                      >
+                        {industry}
+                      </Button>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 			
 			{/* Case Studies Grid */}
-			<section className="pt-6 pb-16 bg-background"> {/* Changed from "section bg-background" to reduce padding */}
+			<section className="section bg-background">
 				<div className="container-custom">
 					{filteredCaseStudies.length === 0 ? (
 						<div className="text-center py-16">
@@ -578,52 +620,40 @@ const CaseStudies = () => {
 						transition={{ duration: 0.8 }}
 						className="max-w-4xl mx-auto text-center"
 					>
-						<div className="inline-flex items-center gap-2 bg-primary/10 dark:bg-primary/20 text-primary dark:text-white px-4 py-2 rounded-full text-sm font-medium mb-6 border border-primary/20 dark:border-primary/30">
-							<Award className="w-4 h-4" />
-							<span>Start Your Success Story</span>
-						</div>
 						
 						<h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-primary via-foreground to-accent-teal bg-clip-text text-transparent">
 							Ready to Transform Your Digital Presence?
 						</h2>
 						
-						<p className="text-xl text-muted-foreground dark:text-muted-foreground/90 mb-10 max-w-2xl mx-auto leading-relaxed">
-							Let's collaborate to create innovative solutions that drive real results for your business, just like we've done for our other clients.
-						</p>
-						
-						<div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-10">
-							<motion.div
-								whileHover={{ scale: 1.05, y: -5 }}
-								whileTap={{ scale: 0.95 }}
-								className="w-full sm:w-auto"
-							>
-								<Link to="/contact">
-									<Button 
-										className="w-full sm:w-auto bg-gradient-to-r from-primary to-accent-teal hover:from-primary/90 hover:to-accent-teal/90 px-8 py-6 text-lg font-bold shadow-lg hover:shadow-xl dark:shadow-primary/20 dark:hover:shadow-primary/40 rounded-xl"
-									>
-										Get in Touch
-										<ExternalLink className="ml-2 w-5 h-5" />
-									</Button>
-								</Link>
-							</motion.div>
-							
-							<span className="text-muted-foreground dark:text-muted-foreground/80 mx-2">or</span>
-							
-							<motion.div
-								whileHover={{ scale: 1.05, y: -5 }}
-								whileTap={{ scale: 0.95 }}
-								className="w-full sm:w-auto"
-							>
-								<Link to="/services">
-									<Button 
-										variant="outline"
-										className="w-full sm:w-auto border-primary/30 dark:border-primary/50 hover:bg-primary/10 dark:hover:bg-primary/20 px-8 py-6 text-lg font-medium rounded-xl"
-									>
-										Explore Our Services
-									</Button>
-								</Link>
-							</motion.div>
-						</div>
+            <p className="text-xl text-muted-foreground dark:text-muted-foreground/90 mb-10 max-w-2xl mx-auto leading-relaxed">
+              Let's collaborate to create innovative solutions that drive real results for your business, just like we've done for our other clients.
+            </p>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              className="mb-10"
+            >
+              <div className="bg-background/40 dark:bg-background/20 backdrop-blur-sm rounded-xl p-1.5 border border-primary/20 dark:border-primary/30 inline-flex relative gap-2">
+                <Link to="/contact">
+                  <Button 
+                    className="relative px-8 py-4 text-lg font-medium transition-all duration-300 rounded-lg bg-gradient-to-r from-primary to-accent-teal text-white shadow-lg hover:shadow-xl"
+                  >
+                    <ExternalLink className="mr-2 w-5 h-5" />
+                    Get in Touch
+                  </Button>
+                </Link>
+                
+                <Link to="/services">
+                  <Button 
+                    className="relative px-8 py-4 text-lg font-medium transition-all duration-300 rounded-lg bg-gradient-to-r from-accent-teal to-primary text-white shadow-lg hover:shadow-xl"
+                  >
+                    Explore Our Services
+                  </Button>
+                </Link>
+              </div>
+            </motion.div>
 						
 						<div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-3xl mx-auto">
 							{[
