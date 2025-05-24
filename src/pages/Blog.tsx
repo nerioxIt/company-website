@@ -405,7 +405,7 @@ const Blog = () => {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="relative py-24 overflow-hidden bg-gradient-to-br from-primary/5 via-background to-accent-teal/5">
+      <section className="relative py-8 overflow-hidden bg-gradient-to-br from-primary/5 via-background to-accent-teal/5">
         <div className="absolute inset-0 bg-grid-pattern opacity-5" />
         <motion.div 
           className="container-custom text-center relative z-10"
@@ -473,7 +473,7 @@ const Blog = () => {
       </section>
       
       {/* Featured Blog Posts Section */}
-      <section className="py-16 bg-background">
+      <section className="py-4 bg-background">
         <div className="container-custom">
           <motion.div 
             className="flex flex-col md:flex-row justify-between items-center mb-12"
@@ -515,7 +515,7 @@ const Blog = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
             >
-              <TabsList className="grid w-full grid-cols-2 mb-12 h-14 p-1 bg-background/50 shadow-sm">
+              <TabsList className="grid w-full grid-cols-2 mb-8 h-14 p-1 bg-background/50 shadow-sm">
                 <TabsTrigger value="blog" className="text-base h-full data-[state=active]:bg-white dark:data-[state=active]:bg-card">
                   <BookMarked className="w-4 h-4 mr-2" />
                   More Articles

@@ -1,10 +1,10 @@
-
 import { useState, useEffect, useCallback } from "react";
 import { motion } from "framer-motion";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { toast } from "sonner";
+import emailjs from '@emailjs/browser';
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import {
@@ -90,7 +90,7 @@ const contactInfo = [
     title: "Visit Us",
     description: "Come say hello at our office",
     value: "123 Tech Street, San Francisco",
-    link: "#",
+    link: "#section",
     color: "from-purple-500 to-pink-500",
   },
   {
@@ -290,15 +290,32 @@ const Contact = () => {
   const onSubmit = (values: FormValues) => {
     setIsSubmitting(true);
     
-    console.log("Form submitted:", { ...values, budget: selectedBudget });
+    // Add the budget to the form values
+    const emailData = {
+      ...values,
+      budget: selectedBudget,
+    };
     
-    setTimeout(() => {
-      toast.success("Thank you for your message! We'll get back to you within 24 hours.");
-      form.reset();
-      setSelectedBudget("");
-      setIsSubmitting(false);
-      setFormProgress(0);
-    }, 1500);
+    // Send email using EmailJS
+    emailjs.send(
+      'YOUR_SERVICE_ID', // Replace with your EmailJS service ID
+      'YOUR_TEMPLATE_ID', // Replace with your EmailJS template ID
+      emailData,
+      'YOUR_PUBLIC_KEY' // Replace with your EmailJS public key
+    )
+      .then((response) => {
+        console.log('Email sent successfully:', response);
+        toast.success("Thank you for your message! We'll get back to you within 24 hours.");
+        form.reset();
+        setSelectedBudget("");
+        setIsSubmitting(false);
+        setFormProgress(0);
+      })
+      .catch((error) => {
+        console.error('Email sending failed:', error);
+        toast.error("There was an error sending your message. Please try again or contact us directly.");
+        setIsSubmitting(false);
+      });
   };
 
   return (
@@ -358,7 +375,7 @@ const Contact = () => {
         </div>
       </section>
         {/* Contact Methods */}
-      <section className="py-16 bg-background">
+      <section  id = "section" className="py-16 bg-background">
         <div className="container-custom">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
             {contactInfo.map((info, index) => (
@@ -446,7 +463,7 @@ const Contact = () => {
             >
               <Card className="p-6 bg-background/60 dark:bg-background/40 backdrop-blur-sm border border-border/50 dark:border-border/60">
                 <div className="flex items-center gap-3 mb-4">
-                  <Clock className="w-5 h-5 text-primary dark:text-primary-foreground" />
+                  <Clock className="w-5 h-5 text-primary dark:text-white" />
                   <h3 className="text-lg font-semibold">Business Hours</h3>
                 </div>
                 <div className="space-y-3">
@@ -458,7 +475,7 @@ const Contact = () => {
                   ))}
                 </div>
                 <div className="mt-4 p-3 bg-primary/10 dark:bg-primary/20 rounded-lg">
-                  <p className="text-sm text-primary dark:text-primary-foreground font-medium">
+                  <p className="text-sm text-primary dark:text-white font-medium">
                     Emergency support available 24/7 for existing clients
                   </p>
                 </div>
@@ -474,7 +491,7 @@ const Contact = () => {
             >
               <Card className="p-6 bg-background/60 dark:bg-background/40 backdrop-blur-sm border border-border/50 dark:border-border/60">
                 <div className="flex items-center gap-3 mb-4">
-                  <Globe className="w-5 h-5 text-primary dark:text-primary-foreground" />
+                  <Globe className="w-5 h-5 text-primary dark:text-white" />
                   <h3 className="text-lg font-semibold">Connect With Us</h3>
                 </div>
                 <p className="text-muted-foreground mb-4">
@@ -500,14 +517,14 @@ const Contact = () => {
                   <div className="flex items-center gap-2 text-sm">
                     <Mail className="w-4 h-4 text-muted-foreground" />
                     <span className="text-muted-foreground">Quick inquiries:</span>
-                    <a href="mailto:hello@lovable.com" className="text-primary dark:text-primary-foreground hover:underline">
+                    <a href="mailto:hello@lovable.com" className="text-primary dark:text-white hover:underline">
                       hello@lovable.com
                     </a>
                   </div>
                   <div className="flex items-center gap-2 text-sm">
                     <Phone className="w-4 h-4 text-muted-foreground" />
                     <span className="text-muted-foreground">Urgent matters:</span>
-                    <a href="tel:+15555551234" className="text-primary dark:text-primary-foreground hover:underline">
+                    <a href="tel:+15555551234" className="text-primary dark:text-white hover:underline">
                       +1 (555) 555-1234
                     </a>
                   </div>
@@ -530,7 +547,7 @@ const Contact = () => {
             >
               <div className="mb-8">
                 <h2 className="text-3xl font-bold mb-4 flex items-center gap-3">
-                  <Zap className="w-8 h-8 text-primary dark:text-primary-foreground" />
+                  <Zap className="w-8 h-8 text-primary dark:text-white" />
                   Tell Us About Your Project
                 </h2>
                 <p className="text-lg text-muted-foreground dark:text-muted-foreground/90 mb-4">

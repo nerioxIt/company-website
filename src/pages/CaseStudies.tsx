@@ -80,16 +80,12 @@ const caseStudies = [
 	}
 ];
 
-// Combined filter options with type
-const filterOptions = {
-	categories: ["All", "E-commerce", "Mobile App", "Web Application"],
-	industries: ["All", "Retail", "Finance", "Healthcare"]
-};
+// Modified filter options to combine categories and industries
+const filterOptions = ["All", "E-commerce", "Mobile App", "Web Application", "Retail", "Finance", "Healthcare"];
 
-// Interface for active filters with error handling
+// Simplified filter interface
 interface ActiveFilters {
-	category: string;
-	industry: string;
+  filter: string;
 }
 
 interface CaseStudyCardProps {
@@ -232,7 +228,7 @@ const CaseStudyDetails = ({ caseStudy, open, onClose }: CaseStudyDetailsProps) =
 								{caseStudy.category}
 							</Badge>
 							{caseStudy.featured && (
-								<Badge className="bg-primary/20 text-primary dark:text-primary-foreground border border-primary/30">
+								<Badge className="bg-primary/20 text-primary dark:text-white border border-primary/30">
 									Featured
 								</Badge>
 							)}
@@ -363,47 +359,36 @@ const CaseStudyDetails = ({ caseStudy, open, onClose }: CaseStudyDetailsProps) =
 
 const CaseStudies = () => {
 	const [selectedCaseStudy, setSelectedCaseStudy] = useState<typeof caseStudies[0] | null>(null);
-	const [activeFilters, setActiveFilters] = useState<ActiveFilters>({
-		category: "All",
-		industry: "All"
-	});
+	const [activeFilter, setActiveFilter] = useState("All");
 	const [filterError, setFilterError] = useState<string | null>(null);
 	const [searchTerm, setSearchTerm] = useState("");
 	// const router = useRouter();
 
-	const handleFilterChange = (type: keyof ActiveFilters, value: string) => {
+	const handleFilterChange = (value: string) => {
 		try {
 			// Validate the filter value exists in our options
-			if (type === 'category' && !filterOptions.categories.includes(value)) {
-				throw new Error(`Invalid category filter: ${value}`);
-			}
-			if (type === 'industry' && !filterOptions.industries.includes(value)) {
-				throw new Error(`Invalid industry filter: ${value}`);
+			if (!filterOptions.includes(value)) {
+				throw new Error(`Invalid filter selection: ${value}`);
 			}
 
-			setActiveFilters(prev => ({
-				...prev,
-				[type]: value
-			}));
+			setActiveFilter(value);
 			setFilterError(null);
 		} catch (error) {
 			console.error(error);
 			setFilterError(error instanceof Error ? error.message : 'Invalid filter selection');
 			// Reset to default on error
-			setActiveFilters(prev => ({
-				...prev,
-				[type]: "All"
-			}));
+			setActiveFilter("All");
 		}
 	};
 
 	const filteredCaseStudies = caseStudies.filter(study => {
-		const matchesCategory = activeFilters.category === "All" || study.category === activeFilters.category;
-		const matchesIndustry = activeFilters.industry === "All" || study.industry === activeFilters.industry;
+		const matchesFilter = activeFilter === "All" || 
+						 study.category === activeFilter || 
+						 study.industry === activeFilter;
 		const matchesSearch = study.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
 						 study.client.toLowerCase().includes(searchTerm.toLowerCase());
 		
-		return matchesCategory && matchesIndustry && matchesSearch;
+		return matchesFilter && matchesSearch;
 	});
 
 	const handleOpenDetails = (id: number) => {
@@ -447,12 +432,9 @@ const CaseStudies = () => {
 								whileHover={{ scale: 1.05 }}
 								whileTap={{ scale: 0.98 }}
 							>	
-								<motion.span
-									animate={{ rotate: [0, 360] }}
-									transition={{ duration: 5, repeat: Infinity, ease: "linear" }}
-								>
+								
 									<Award size={16} />
-								</motion.span>
+								
 								<span className="text-sm font-medium">Success Stories</span>
 							</motion.div>
 						</motion.div>
@@ -486,7 +468,7 @@ const CaseStudies = () => {
 			{/* Updated Filters and Search */}
 			<section className="py-0 bg-background border-b border-border/30 dark:border-border/50 mt-0">
 				<div className="container-custom">
-					<div className="flex flex-col md:flex-row gap-6 items-center justify-between">
+					<div className="flex flex-col md:flex-row gap-6 items-center justify-between mb-4">
 						<div className="relative flex-1 max-w-md">
 							<Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground dark:text-muted-foreground/70" />
 							<Input
@@ -500,57 +482,31 @@ const CaseStudies = () => {
 						<div className="flex flex-wrap gap-4 items-center">
 							<div className="flex items-center gap-2">
 								<Filter className="w-4 h-4 text-muted-foreground dark:text-muted-foreground/70" />
-								<span className="text-sm font-medium text-muted-foreground dark:text-muted-foreground/80">Filter by:</span>
+								<span className="text-sm font-medium text-muted-foreground dark:text-muted-foreground/80">Filter:</span>
 							</div>
 							
-							<div className="flex flex-col sm:flex-row gap-3">
-								<div className="flex gap-2 flex-wrap">
-									{filterError && (
-										<motion.div 
-											initial={{ opacity: 0, y: -10 }}
-											animate={{ opacity: 1, y: 0 }}
-											className="w-full p-2 mb-2 bg-red-500/10 text-red-500 text-sm rounded-md"
-										>
-											{filterError}
-										</motion.div>
-									)}
-									
-									<div className="flex flex-wrap gap-2">
-										<div className="bg-muted/40 text-xs font-semibold uppercase tracking-wider px-2 py-1 rounded-md flex items-center">
-											Category
-										</div>
-										{filterOptions.categories.map((category) => (
-											<Button
-												key={`category-${category}`}
-												variant={activeFilters.category === category ? "default" : "outline"}
-												size="sm"
-												onClick={() => handleFilterChange('category', category)}
-												className="rounded-full text-xs"
-											>
-												{category}
-											</Button>
-										))}
-									</div>
-								</div>
-								
-								<div className="h-6 w-px bg-border/50 hidden sm:block" />
-								
-								<div className="flex flex-wrap gap-2">
-									<div className="bg-muted/40 text-xs font-semibold uppercase tracking-wider px-2 py-1 rounded-md flex items-center">
-										Industry
-									</div>
-									{filterOptions.industries.map((industry) => (
-										<Button
-											key={`industry-${industry}`}
-											variant={activeFilters.industry === industry ? "default" : "outline"}
-											size="sm"
-											onClick={() => handleFilterChange('industry', industry)}
-											className="rounded-full text-xs"
-										>
-											{industry}
-										</Button>
-									))}
-								</div>
+							{filterError && (
+								<motion.div 
+									initial={{ opacity: 0, y: -10 }}
+									animate={{ opacity: 1, y: 0 }}
+									className="p-2 bg-red-500/10 text-red-500 text-sm rounded-md"
+								>
+									{filterError}
+								</motion.div>
+							)}
+
+							<div className="flex flex-wrap gap-2">
+								{filterOptions.map((option) => (
+									<Button
+										key={`filter-${option}`}
+										variant={activeFilter === option ? "default" : "outline"}
+										size="sm"
+										onClick={() => handleFilterChange(option)}
+										className="rounded-full text-xs"
+									>
+										{option}
+									</Button>
+								))}
 							</div>
 						</div>
 					</div>
@@ -558,7 +514,7 @@ const CaseStudies = () => {
 			</section>
 			
 			{/* Case Studies Grid */}
-			<section className="section bg-background">
+			<section className="pt-6 pb-16 bg-background"> {/* Changed from "section bg-background" to reduce padding */}
 				<div className="container-custom">
 					{filteredCaseStudies.length === 0 ? (
 						<div className="text-center py-16">
