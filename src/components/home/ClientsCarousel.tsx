@@ -136,17 +136,7 @@ export const ClientsCarousel = () => {
           </div>
         </div>
         
-        <motion.div 
-          className="text-center mt-10"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.6 }}
-        >
-          <p className="text-muted-foreground dark:text-muted-foreground/90 text-sm max-w-2xl mx-auto">
-            Join the growing list of successful companies that trust us with their digital transformation journey.
-          </p>
-        </motion.div>
+
       </div>
     </section>
   );

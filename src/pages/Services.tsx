@@ -1,4 +1,3 @@
-
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -7,16 +6,16 @@ import { useState } from "react";
 import { 
   Code, 
   Smartphone, 
-  Palette, 
-  TrendingUp, 
-  ShoppingCart, 
   Cloud,
   CheckCircle,
   ArrowRight,
   Zap,
   Shield,
   Users,
-  Award
+  Award,
+  MonitorSmartphone, // For IT Support & Monitoring
+  Terminal, // For EPOS Solutions
+  UsersRound, // For CRM Systems
 } from "lucide-react";
 
 // Helper function to get detailed process descriptions
@@ -25,41 +24,41 @@ const getProcessDescription = (step: string, serviceTitle: string): string => {
     "Requirements gathering and analysis": {
       "Web Development": "We conduct thorough stakeholder interviews and technical analysis to understand your business goals, target audience, and functional requirements.",
       "Mobile Apps": "We analyze your mobile app requirements, target platforms, user personas, and technical specifications to create a comprehensive project roadmap.",
-      "UI/UX Design": "We research your brand, target audience, and design preferences through detailed discovery sessions and competitive analysis.",
-      "Digital Marketing": "We audit your current digital presence, analyze competitors, and identify key performance indicators and marketing objectives.",
-      "E-commerce": "We evaluate your product catalog, business processes, payment requirements, and integration needs for your online store.",
+      "IT Support & Monitoring": "We conduct a comprehensive assessment of your current IT infrastructure, identifying potential vulnerabilities, performance issues, and support requirements.",
+      "EPOS Solutions": "We analyze your business operations, sales processes, inventory management needs, and reporting requirements to design an optimal EPOS solution.",
+      "CRM Systems": "We evaluate your customer relationship processes, sales pipeline, data integration needs, and reporting requirements to define the perfect CRM solution.",
       "Cloud Solutions": "We assess your current infrastructure, scalability needs, security requirements, and migration strategy for cloud adoption."
     },
     "UI/UX design and prototyping": {
       "Web Development": "Our design team creates wireframes, mockups, and interactive prototypes that ensure optimal user experience and visual appeal.",
       "Mobile Apps": "We design intuitive mobile interfaces with platform-specific guidelines, creating interactive prototypes for user testing and feedback.",
-      "UI/UX Design": "We develop comprehensive design systems, user journey maps, and high-fidelity prototypes with detailed interaction specifications.",
-      "Digital Marketing": "We design compelling marketing materials, landing pages, and campaign assets that align with your brand and convert visitors.",
-      "E-commerce": "We craft user-friendly shopping experiences with optimized product pages, checkout flows, and mobile-responsive designs.",
+      "IT Support & Monitoring": "We design customized monitoring dashboards, alert systems, and support workflows tailored to your business operations and IT infrastructure.",
+      "EPOS Solutions": "We create intuitive interfaces for point-of-sale systems, with mockups and prototypes for register screens, back-office tools, and management dashboards.",
+      "CRM Systems": "We design user-friendly interfaces with customized dashboards, automated workflows, and reporting tools that match your business processes.",
       "Cloud Solutions": "We design scalable architecture diagrams and user interfaces for cloud-based applications and management dashboards."
     },
     "Frontend and backend development": {
       "Web Development": "We build robust, scalable applications using modern technologies, ensuring clean code, security best practices, and optimal performance.",
       "Mobile Apps": "We develop native or cross-platform mobile applications with seamless backend integration and optimal device performance.",
-      "UI/UX Design": "We collaborate with development teams to implement designs with pixel-perfect accuracy and smooth user interactions.",
-      "Digital Marketing": "We develop landing pages, marketing automation tools, and analytics dashboards to support your marketing campaigns.",
-      "E-commerce": "We build secure, scalable e-commerce platforms with payment processing, inventory management, and customer account features.",
+      "IT Support & Monitoring": "We implement monitoring tools, security protocols, and support systems with robust backend infrastructure for logging, alerting, and reporting.",
+      "EPOS Solutions": "We develop the point-of-sale interface, inventory management system, and backend services for transaction processing, data storage, and reporting.",
+      "CRM Systems": "We build custom CRM functionality with data pipelines, integration APIs, and automated workflows that streamline your customer relationship processes.",
       "Cloud Solutions": "We implement cloud-native applications with microservices architecture, auto-scaling, and distributed database systems."
     },
     "Testing and quality assurance": {
       "Web Development": "Comprehensive testing including unit tests, integration tests, performance testing, and cross-browser compatibility verification.",
       "Mobile Apps": "Rigorous testing across multiple devices, operating systems, and app store compliance to ensure flawless user experience.",
-      "UI/UX Design": "User testing sessions, accessibility audits, and design validation to ensure the final product meets usability standards.",
-      "Digital Marketing": "A/B testing, campaign performance analysis, and conversion optimization to maximize marketing ROI and effectiveness.",
-      "E-commerce": "Payment processing tests, security audits, and user experience testing to ensure safe and smooth shopping experiences.",
+      "IT Support & Monitoring": "Thorough testing of monitoring systems, security protocols, and support processes to ensure reliable detection and rapid resolution of issues.",
+      "EPOS Solutions": "Extensive testing of transaction processing, inventory management, payment integrations, and reporting to ensure accuracy and reliability.",
+      "CRM Systems": "Rigorous testing of data handling, workflow automation, user permissions, and system integrations to ensure data integrity and process efficiency.",
       "Cloud Solutions": "Load testing, security assessments, disaster recovery testing, and performance optimization for cloud infrastructure."
     },
     "Deployment and maintenance": {
       "Web Development": "Smooth deployment to production servers with ongoing maintenance, updates, and technical support to ensure optimal performance.",
       "Mobile Apps": "App store submission, deployment assistance, and ongoing updates with new features and performance improvements.",
-      "UI/UX Design": "Design handoff documentation, ongoing design support, and iterative improvements based on user feedback and analytics.",
-      "Digital Marketing": "Campaign launch, continuous monitoring, optimization, and detailed reporting to track and improve marketing performance.",
-      "E-commerce": "Store launch support, ongoing maintenance, feature updates, and performance monitoring to ensure smooth operations.",
+      "IT Support & Monitoring": "Implementation of 24/7 monitoring, establishment of support channels, staff training, and ongoing system optimization.",
+      "EPOS Solutions": "Hardware installation, software deployment, staff training, and ongoing maintenance with regular updates and technical support.",
+      "CRM Systems": "System deployment, data migration, user training, and continuous support with regular updates and performance optimization.",
       "Cloud Solutions": "Production deployment, monitoring setup, automated backups, and 24/7 support for cloud infrastructure management."
     }
   };
@@ -125,26 +124,34 @@ const getTechnologyIcon = (tech: string): string => {
     "Jenkins": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jenkins/jenkins-original.svg",
     "Terraform": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/terraform/terraform-original.svg",
     
-    // Design Tools
+    // New tech icons for the new services
+    "Salesforce": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/salesforce/salesforce-original.svg",
+    "Dynamics 365": "https://cdn.worldvectorlogo.com/logos/microsoft-dynamics-365.svg",
+    "HubSpot": "https://cdn.worldvectorlogo.com/logos/hubspot-2.svg",
+    "Zabbix": "https://cdn.worldvectorlogo.com/logos/zabbix.svg",
+    "Nagios": "https://cdn.worldvectorlogo.com/logos/nagios.svg",
+    "Grafana": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/grafana/grafana-original.svg",
+    "Prometheus": "https://cdn.worldvectorlogo.com/logos/prometheus.svg",
+    "Square": "https://cdn.worldvectorlogo.com/logos/square-2.svg",
+    "Shopify POS": "https://cdn.worldvectorlogo.com/logos/shopify.svg",
+    "Lightspeed": "https://cdn.worldvectorlogo.com/logos/lightspeed-2.svg",
+    "C#": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/csharp/csharp-original.svg",
+    
+    // Keep these ones for other services
     "Figma": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg",
     "Adobe XD": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/xd/xd-plain.svg",
     "Sketch": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/sketch/sketch-original.svg",
     "Photoshop": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/photoshop/photoshop-plain.svg",
     "Illustrator": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/illustrator/illustrator-plain.svg",
-    
-    // CMS & E-commerce
     "WordPress": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/wordpress/wordpress-original.svg",
     "Shopify": "https://cdn.worldvectorlogo.com/logos/shopify.svg",
     "WooCommerce": "https://cdn.worldvectorlogo.com/logos/woocommerce.svg",
     "Magento": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/magento/magento-original.svg",
     "Drupal": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/drupal/drupal-original.svg",
-    
-    // Marketing Tools
     "Google Analytics": "https://cdn.worldvectorlogo.com/logos/google-analytics-4.svg",
     "Google Ads": "https://cdn.worldvectorlogo.com/logos/google-ads-2.svg",
     "Facebook Ads": "https://cdn.worldvectorlogo.com/logos/facebook-7.svg",
     "Mailchimp": "https://cdn.worldvectorlogo.com/logos/mailchimp-freddie-icon.svg",
-    "HubSpot": "https://cdn.worldvectorlogo.com/logos/hubspot-2.svg",
     "SEMrush": "https://cdn.worldvectorlogo.com/logos/semrush-1.svg"
   };
   
@@ -204,81 +211,78 @@ const services = [
     stats: { projects: "80+", satisfaction: "96%" }
   },
   {
-    id: "ui-ux-design",
-    title: "UI/UX Design",
-    icon: Palette,
+    id: "it-support-monitoring",
+    title: "IT Support & Monitoring",
+    icon: MonitorSmartphone,
     color: "bg-purple-500/10 text-purple-600 dark:text-purple-400",
-    description: "Our design services focus on creating intuitive, engaging, and aesthetically pleasing digital experiences.",
-    image: "https://images.unsplash.com/photo-1586717791821-3f44a563fa4c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
+    description: "We provide comprehensive IT support and proactive monitoring services to ensure your systems run smoothly and securely 24/7.",
+    image: "https://images.unsplash.com/photo-1551033406-611cf9a28f67?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
     features: [
-      "User experience (UX) design",
-      "User interface (UI) design",
-      "Wireframing and prototyping",
-      "Visual design",
-      "Design systems",
-      "Usability testing"
+      "24/7 system monitoring",
+      "Remote IT support",
+      "Network security management",
+      "Incident response and resolution",
+      "Preventive maintenance",
+      "Performance optimization"
     ],
     process: [
-      "User research and analysis",
-      "Information architecture",
-      "Wireframing and prototyping",
-      "Visual design",
-      "User testing",
-      "Implementation support"
+      "Requirements gathering and analysis",
+      "UI/UX design and prototyping",
+      "Frontend and backend development",
+      "Testing and quality assurance",
+      "Deployment and maintenance"
     ],
-    technologies: ["Figma", "Adobe XD", "Sketch", "InVision", "Principle"],
+    technologies: ["Zabbix", "Nagios", "Grafana", "Prometheus", "Python", "Docker"],
     stats: { projects: "200+", satisfaction: "99%" }
   },
   {
-    id: "digital-marketing",
-    title: "Digital Marketing",
-    icon: TrendingUp,
+    id: "epos-solutions",
+    title: "EPOS Solutions",
+    icon: Terminal,
     color: "bg-orange-500/10 text-orange-600 dark:text-orange-400",
-    description: "Our digital marketing services help businesses increase their online visibility, attract more leads, and convert them into customers.",
-    image: "https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
+    description: "Our electronic point of sale solutions streamline retail and hospitality operations with seamless transaction processing and inventory management.",
+    image: "https://images.unsplash.com/photo-1556742031-c6961e8560b0?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
     features: [
-      "Search Engine Optimization (SEO)",
-      "Pay-Per-Click (PPC) advertising",
-      "Social media marketing",
-      "Email marketing",
-      "Content marketing",
-      "Analytics and reporting"
+      "Custom EPOS systems",
+      "Inventory management",
+      "Payment processing integration",
+      "Sales analytics and reporting",
+      "Customer loyalty programs",
+      "Multi-location management"
     ],
     process: [
-      "Marketing audit and strategy",
-      "Campaign planning and setup",
-      "Content creation",
-      "Campaign execution",
-      "Monitoring and optimization",
-      "Reporting and analysis"
+      "Requirements gathering and analysis",
+      "UI/UX design and prototyping",
+      "Frontend and backend development",
+      "Testing and quality assurance",
+      "Deployment and maintenance"
     ],
-    technologies: ["Google Analytics", "Google Ads", "Facebook Ads", "Mailchimp", "HubSpot", "SEMrush"],
+    technologies: ["Square", "Shopify POS", "Lightspeed", "C#", ".NET", "React", "Node.js"],
     stats: { projects: "120+", satisfaction: "95%" }
   },
   {
-    id: "ecommerce",
-    title: "E-commerce",
-    icon: ShoppingCart,
+    id: "crm-systems",
+    title: "CRM Systems",
+    icon: UsersRound,
     color: "bg-pink-500/10 text-pink-600 dark:text-pink-400",
-    description: "We build custom e-commerce solutions that help businesses sell products and services online effectively.",
-    image: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
+    description: "We develop customized customer relationship management solutions that help businesses optimize customer interactions and streamline sales processes.",
+    image: "https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
     features: [
-      "Custom e-commerce websites",
-      "Shopping cart implementation",
-      "Payment gateway integration",
-      "Inventory management",
-      "Order processing and fulfillment",
-      "Customer relationship management"
+      "Custom CRM development",
+      "Sales pipeline management",
+      "Customer data management",
+      "Workflow automation",
+      "Reporting and analytics",
+      "Third-party integrations"
     ],
     process: [
-      "E-commerce strategy",
-      "Platform selection",
-      "Design and development",
-      "Integration with third-party systems",
-      "Testing and launch",
-      "Maintenance and support"
+      "Requirements gathering and analysis",
+      "UI/UX design and prototyping",
+      "Frontend and backend development",
+      "Testing and quality assurance",
+      "Deployment and maintenance"
     ],
-    technologies: ["Shopify", "WooCommerce", "Magento", "BigCommerce", "Stripe", "PayPal"],
+    technologies: ["Salesforce", "Dynamics 365", "HubSpot", "React", "Node.js", "Python", "MongoDB"],
     stats: { projects: "90+", satisfaction: "97%" }
   },
   {

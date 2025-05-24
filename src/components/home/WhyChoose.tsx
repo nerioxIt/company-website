@@ -3,89 +3,9 @@ import { motion } from "framer-motion";
 
 const features = [
 	{
-		title: "Expert Team",
+		title: "Trusted Experts",
 		description:
-			"Our team of experienced professionals brings diverse expertise to every project.",
-		icon: (
-			<svg
-				className="w-12 h-12 text-primary"
-				viewBox="0 0 24 24"
-				fill="none"
-				xmlns="http://www.w3.org/2000/svg"
-			>
-				<path
-					d="M17 20H22V18C22 16.3431 20.6569 15 19 15C18.0444 15 17.1931 15.4468 16.6438 16.1429M17 20H7M17 20V18C17 17.3438 16.8736 16.717 16.6438 16.1429M7 20H2V18C2 16.3431 3.34315 15 5 15C5.95561 15 6.80686 15.4468 7.35625 16.1429M7 20V18C7 17.3438 7.12642 16.717 7.35625 16.1429M7.35625 16.1429C8.0935 14.301 9.89482 13 12 13C14.1052 13 15.9065 14.301 16.6438 16.1429M15 7C15 9.20914 13.2091 11 11 11C8.79086 11 7 9.20914 7 7C7 4.79086 8.79086 3 11 3C13.2091 3 15 4.79086 15 7ZM14 3C14 4.10457 13.1046 5 12 5C10.8954 5 10 4.10457 10 3C10 1.89543 10.8954 1 12 1C13.1046 1 14 1.89543 14 3Z"
-					stroke="currentColor"
-					strokeWidth="2"
-					strokeLinecap="round"
-					strokeLinejoin="round"
-				/>
-			</svg>
-		),
-		color: "from-blue-500 to-cyan-500",
-	},
-	{
-		title: "Innovative Approach",
-		description:
-			"We leverage the latest technologies and approaches to deliver cutting-edge solutions.",
-		icon: (
-			<svg
-				className="w-12 h-12 text-primary"
-				viewBox="0 0 24 24"
-				fill="none"
-				xmlns="http://www.w3.org/2000/svg"
-			>
-				<path
-					d="M22 12L3 12M22 12L16 6M22 12L16 18"
-					stroke="currentColor"
-					strokeWidth="2"
-					strokeLinecap="round"
-					strokeLinejoin="round"
-				/>
-			</svg>
-		),
-		color: "from-purple-500 to-pink-500",
-	},
-	{
-		title: "Client Collaboration",
-		description:
-			"We work closely with our clients to ensure their vision is brought to life effectively.",
-		icon: (
-			<svg
-				className="w-12 h-12 text-primary"
-				viewBox="0 0 24 24"
-				fill="none"
-				xmlns="http://www.w3.org/2000/svg"
-			>
-				<path
-					d="M13 10C13 12.2091 11.2091 14 9 14C6.79086 14 5 12.2091 5 10C5 7.79086 6.79086 6 9 6C11.2091 6 13 7.79086 13 10Z"
-					stroke="currentColor"
-					strokeWidth="2"
-					strokeLinecap="round"
-					strokeLinejoin="round"
-				/>
-				<path
-					d="M9 17C5.13401 17 2 20.134 2 24H16C16 20.134 12.866 17 9 17Z"
-					stroke="currentColor"
-					strokeWidth="2"
-					strokeLinecap="round"
-					strokeLinejoin="round"
-				/>
-				<path
-					d="M19 8H19.01M19 14C16.7909 14 15 12.2091 15 10C15 7.79086 16.7909 6 19 6C21.2091 6 23 7.79086 23 10C23 11.0194 22.6345 11.9594 22.0265 12.7011C21.9055 12.8584 21.8222 13.0414 21.7839 13.2351C21.6946 13.6777 22.0338 14.069 22.4765 13.9985L22.5 14"
-					stroke="currentColor"
-					strokeWidth="2"
-					strokeLinecap="round"
-					strokeLinejoin="round"
-				/>
-			</svg>
-		),
-		color: "from-orange-500 to-red-500",
-	},
-	{
-		title: "Quality Assurance",
-		description:
-			"We maintain rigorous quality standards throughout the development process.",
+			"Our certified professionals have years of industry experience and a proven track record of successful projects.",
 		icon: (
 			<svg
 				className="w-12 h-12 text-primary"
@@ -102,13 +22,79 @@ const features = [
 				/>
 			</svg>
 		),
+		color: "from-blue-500 to-cyan-500",
+	},
+	{
+		title: "Fast Turnaround",
+		description:
+			"We prioritize efficiency without compromising quality, delivering projects on schedule and within budget.",
+		icon: (
+			<svg
+				className="w-12 h-12 text-primary"
+				viewBox="0 0 24 24"
+				fill="none"
+				xmlns="http://www.w3.org/2000/svg"
+			>
+				<path
+					d="M12 6V12L16 14M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12Z"
+					stroke="currentColor"
+					strokeWidth="2"
+					strokeLinecap="round"
+					strokeLinejoin="round"
+				/>
+			</svg>
+		),
+		color: "from-purple-500 to-pink-500",
+	},
+	{
+		title: "Tailored Solutions",
+		description:
+			"We create custom solutions designed specifically for your unique business needs and challenges.",
+		icon: (
+			<svg
+				className="w-12 h-12 text-primary"
+				viewBox="0 0 24 24"
+				fill="none"
+				xmlns="http://www.w3.org/2000/svg"
+			>
+				<path
+					d="M14 7L8 13M8 7L14 13M5 21H19C20.1046 21 21 20.1046 21 19V5C21 3.89543 20.1046 3 19 3H5C3.89543 3 3 3.89543 3 5V19C3 20.1046 3.89543 21 5 21Z"
+					stroke="currentColor"
+					strokeWidth="2"
+					strokeLinecap="round"
+					strokeLinejoin="round"
+				/>
+			</svg>
+		),
+		color: "from-orange-500 to-red-500",
+	},
+	{
+		title: "Ongoing Support",
+		description:
+			"We provide comprehensive after-service support and maintenance to ensure your systems run smoothly.",
+		icon: (
+			<svg
+				className="w-12 h-12 text-primary"
+				viewBox="0 0 24 24"
+				fill="none"
+				xmlns="http://www.w3.org/2000/svg"
+			>
+				<path
+					d="M18 18.7023C18.5978 18.3647 19.1213 17.9106 19.5307 17.3565M19.5307 6.64349C19.1213 6.08938 18.5978 5.63533 18 5.29771M6 5.29771C5.40225 5.63533 4.87875 6.08938 4.46928 6.64349M4.46928 17.3565C4.87875 17.9106 5.40225 18.3647 6 18.7023M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12ZM16 12C16 14.2091 14.2091 16 12 16C9.79086 16 8 14.2091 8 12C8 9.79086 9.79086 8 12 8C14.2091 8 16 9.79086 16 12Z"
+					stroke="currentColor"
+					strokeWidth="2"
+					strokeLinecap="round"
+					strokeLinejoin="round"
+				/>
+			</svg>
+		),
 		color: "from-green-500 to-emerald-500",
 	},
 ];
 
 export const WhyChoose = () => {
 	return (
-		<section className="py-0 relative overflow-hidden bg-gradient-to-b from-muted/50 via-muted to-muted/80 dark:from-muted/20 dark:via-muted/10 dark:to-muted/5">
+		<section className="py-12 relative overflow-hidden bg-gradient-to-b from-muted/50 via-muted to-muted/80 dark:from-muted/20 dark:via-muted/10 dark:to-muted/5">
 			{/* Background decoration */}
 			<div className="absolute inset-0 pointer-events-none">
 				<div className="absolute -top-40 -left-40 w-80 h-80 bg-primary/5 dark:bg-primary/10 rounded-full blur-3xl opacity-70"></div>

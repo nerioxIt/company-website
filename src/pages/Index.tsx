@@ -74,22 +74,7 @@ const Index = () => {
       
       <TestimonialSnippet />
       
-      {/* Enhanced Floating Contact Button with improved accessibility */}
-      <motion.div
-        initial={{ opacity: 0, scale: 0.8 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ delay: 0.6, duration: 0.3 }}
-        className="fixed bottom-6 right-6 z-40"
-      >
-        <Button 
-          size="lg" 
-          className="h-14 w-14 rounded-full shadow-xl bg-gradient-to-tr from-primary to-accent-teal hover:from-primary/95 hover:to-accent-teal/95 p-0 flex items-center justify-center border border-primary/20 dark:border-primary/30"
-          onClick={() => window.location.href = '/contact'}
-          aria-label="Contact Us"
-        >
-          <MessageSquareMore className="h-6 w-6 text-white" />
-        </Button>
-      </motion.div>
+     
       
       {/* Refined scroll to top button */}
       <motion.div 

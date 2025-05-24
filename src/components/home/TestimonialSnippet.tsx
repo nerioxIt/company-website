@@ -66,7 +66,7 @@ export const TestimonialSnippet = () => {
 	const handleMouseLeave = () => setIsPaused(false);
 
 	return (
-		<section className="section bg-gradient-to-b from-muted to-background py-0">
+		<section className="section bg-gradient-to-b from-muted to-background py-4">
 			<div className="container-custom">
 				<div className="text-center mb-10">
 					<h2 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-foreground to-primary bg-clip-text text-transparent mb-4">
@@ -121,15 +121,7 @@ export const TestimonialSnippet = () => {
 
 					{/* Navigation controls */}
 					<div className="flex justify-center mt-8 space-x-2">
-						<Button
-							variant="outline"
-							size="icon"
-							className="rounded-full"
-							onClick={handlePrev}
-						>
-							<ArrowLeft className="h-4 w-4" />
-						</Button>
-
+						
 						{testimonials.map((_, index) => (
 							<Button
 								key={index}
@@ -144,14 +136,7 @@ export const TestimonialSnippet = () => {
 							/>
 						))}
 
-						<Button
-							variant="outline"
-							size="icon"
-							className="rounded-full"
-							onClick={handleNext}
-						>
-							<ArrowRight className="h-4 w-4" />
-						</Button>
+						
 					</div>
 				</div>
 			</div>

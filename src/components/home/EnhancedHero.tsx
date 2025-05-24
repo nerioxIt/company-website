@@ -122,7 +122,7 @@ export const EnhancedHero = () => {
 									transition={{ duration: 0.5, delay: 0.8 + index * 0.1 }}
 									className="text-center space-y-2"
 								>
-									<stat.icon className="w-7 h-7 text-primary dark:text-primary-foreground mx-auto" />
+									<stat.icon className="w-7 h-7 text-primary dark:text-white mx-auto" />
 									<div className="text-xl font-bold text-foreground dark:text-foreground">
 										{stat.value}
 									</div>
