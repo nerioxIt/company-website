@@ -325,7 +325,7 @@ const Contact = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 dark:bg-primary/20 rounded-full text-primary dark:text-primary-foreground border border-primary/20 dark:border-primary/30 mb-6">
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 dark:bg-primary/20 rounded-full text-primary dark:text-white border border-primary/20 dark:border-primary/30 mb-6">
               <Send size={16} />
               <span className="text-sm font-medium">Get In Touch</span>
             </div>
@@ -333,7 +333,7 @@ const Contact = () => {
             <h1 className="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-foreground to-primary bg-clip-text text-transparent">
               Let's Start Something
               <br />
-              <span className="text-primary dark:text-primary-foreground">Amazing Together</span>
+              <span className="text-primary dark:text-white">Amazing Together</span>
             </h1>
             
             <p className="text-xl text-muted-foreground dark:text-muted-foreground/90 max-w-3xl mx-auto leading-relaxed">
@@ -383,13 +383,13 @@ const Contact = () => {
                     </div>
                     
                     <div className="space-y-2">
-                      <h3 className="font-bold text-lg group-hover:text-primary dark:group-hover:text-primary-foreground transition-colors">
+                      <h3 className="font-bold text-lg group-hover:text-primary dark:group-hover:text-white transition-colors">
                         {info.title}
                       </h3>
                       <p className="text-sm text-muted-foreground dark:text-muted-foreground/80">
                         {info.description}
                       </p>
-                      <p className="font-medium text-primary dark:text-primary-foreground">
+                      <p className="font-medium text-primary dark:text-white">
                         {info.value}
                       </p>
                     </div>
