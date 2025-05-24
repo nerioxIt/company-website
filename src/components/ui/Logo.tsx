@@ -1,11 +1,16 @@
-
 import { cn } from "@/lib/utils";
 
-export const Logo = ({ className }: { className?: string }) => {
+export const Logo = ({ 
+  className,
+  darkMode = false 
+}: { 
+  className?: string;
+  darkMode?: boolean;
+}) => {
   return (
     <div className={cn("flex items-center", className)}>
       <img
-        src="/logo.png"
+        src={darkMode ? "/logo-dark.png" : "/logo.png"}
         alt="Lovable Logo"
         className="mr-2 h-16 w-16 object-contain"
       />
