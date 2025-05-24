@@ -391,7 +391,7 @@ const TestimonialCard = ({ testimonial, index }: { testimonial: typeof testimoni
 const CategoryBadge = ({ icon: Icon, text }: { icon: any, text: string }) => (
   <motion.div 
     whileHover={{ y: -3, scale: 1.05 }}
-    className="flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium"
+    className="flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary dark:text-white text-sm font-medium"
   >
     <Icon className="w-4 h-4" />
     {text}
@@ -417,7 +417,7 @@ const Blog = () => {
             initial={{ scale: 0.9, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="inline-flex items-center gap-2 bg-primary/10 text-primary  px-4 py-2 rounded-full text-sm font-medium mb-6"
+            className="inline-flex items-center gap-2 bg-primary/10 text-primary dark:text-white  px-4 py-2 rounded-full text-sm font-medium mb-6"
           >
             <BookOpen className="w-4 h-4" />
             Insights & Stories
@@ -482,7 +482,7 @@ const Blog = () => {
             transition={{ duration: 0.6 }}
           >
             <div>
-              <Badge className="mb-3 bg-primary/10 text-primary border-none">Featured Insights</Badge>
+              <Badge className="mb-3 bg-primary/10 text-primary dark:text-white border-none">Featured Insights</Badge>
               <h2 className="text-3xl font-bold">Latest From Our Experts</h2>
             </div>
             
@@ -556,7 +556,7 @@ const Blog = () => {
                 transition={{ duration: 0.6 }}
               >
                 <div>
-                  <Badge className="mb-3 bg-primary/10 text-primary border-none">Success Stories</Badge>
+                  <Badge className="mb-3 bg-primary/10 text-primary dark:text-white border-none">Success Stories</Badge>
                   <h2 className="text-3xl font-bold">What Our Clients Say</h2>
                 </div>
                 
@@ -587,7 +587,7 @@ const Blog = () => {
             transition={{ duration: 0.6 }}
           >
             <div>
-              <Badge className="mb-3 bg-primary/10 text-primary border-none">Recommended Reading</Badge>
+              <Badge className="mb-3 bg-primary/10 text-primary dark:text-white border-none">Recommended Reading</Badge>
               <h2 className="text-3xl font-bold">Articles You Might Like</h2>
             </div>
           </motion.div>
@@ -777,7 +777,7 @@ const Blog = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.7 }}
           >
-            <Badge className="mb-4 bg-primary/10 text-primary border-none">Ready to Get Started?</Badge>
+            <Badge className="mb-4 bg-primary/10 text-primary dark:text-white border-none">Ready to Get Started?</Badge>
             <h2 className="text-3xl md:text-4xl font-bold mb-6">Join Our Growing List of Satisfied Clients</h2>
             <p className="text-muted-foreground mb-8">
               Let's discuss how our expertise can help your business achieve its digital goals.

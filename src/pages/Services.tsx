@@ -497,12 +497,12 @@ const Services = () => {
                 initial={{ scale: 0.9, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
                 transition={{ duration: 0.6, delay: 0.2 }}
-                className="inline-flex items-center gap-2 bg-gradient-to-r from-primary/10 to-accent-teal/10 text-primary px-6 py-3 rounded-full text-sm font-medium mb-8 border border-primary/20 backdrop-blur-sm"
+                className="inline-flex items-center gap-2 bg-gradient-to-r from-primary/10 to-accent-teal/10 text-primary dark:text-white px-6 py-3 rounded-full text-sm font-medium mb-8 border border-primary/20 backdrop-blur-sm"
               >
                 <Zap className="w-4 h-4" />
                 Premium Digital Services
                 <motion.div 
-                  className="w-2 h-2 bg-primary rounded-full"
+                  className="w-2 h-2 bg-primary dark:text-white rounded-full"
                   animate={{ scale: [1, 1.2, 1] }}
                   transition={{ duration: 2, repeat: Infinity }}
                 />
@@ -672,7 +672,7 @@ const Services = () => {
               whileInView={{ scale: 1, opacity: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="inline-flex items-center gap-2 bg-gradient-to-r from-primary/10 to-accent-teal/10 text-primary px-4 py-2 rounded-full text-sm font-medium mb-6 border border-primary/20"
+              className="inline-flex items-center gap-2 bg-gradient-to-r from-primary/10 to-accent-teal/10 text-primary dark:text-white px-4 py-2 rounded-full text-sm font-medium mb-6 border border-primary/20"
             >
               <Zap className="w-4 h-4" />
               Our Expertise
