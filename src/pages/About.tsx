@@ -295,6 +295,7 @@ const About = () => {
             transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
           />
           
+          
           {/* Grid Pattern */}
           <div className="absolute inset-0 bg-grid-pattern opacity-5 dark:opacity-10" />
         </div>
