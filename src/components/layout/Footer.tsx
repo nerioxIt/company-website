@@ -13,11 +13,13 @@ import {
   Send, 
   ArrowRight, 
   Heart,
+  Shield,
+  Award,
+  Clock,
   Facebook,
   Twitter,
   Linkedin,
-  Instagram,
-  ExternalLink
+  Instagram
 } from "lucide-react";
 
 const quickLinks = [
@@ -29,13 +31,10 @@ const quickLinks = [
   { name: "Contact Us", href: "/contact" }
 ];
 
-const services = [
-  "Web Development",
-  "Mobile Apps",
-  "UI/UX Design",
-  "Digital Marketing",
-  "E-commerce Solutions",
-  "Cloud Services"
+const commitments = [
+  { text: "Quality Assurance", icon: Shield },
+  { text: "24/7 Support", icon: Clock },
+  { text: "Award Winning Team", icon: Award }
 ];
 
 const socialLinks = [
@@ -77,7 +76,7 @@ export const Footer = () => {
   };
 
   return (
-    <footer className="relative bg-gradient-to-br from-background via-background to-muted/40 dark:from-background dark:via-background dark:to-muted/20 text-foreground pt-10 pb-6 border-t border-border/50 dark:border-border/60 overflow-hidden">
+    <footer className="relative bg-gradient-to-br from-background via-background to-muted/40 dark:from-background dark:via-background dark:to-muted/20 text-foreground py-6 sm:py-8 border-t border-border/50 dark:border-border/60 overflow-hidden">
       {/* Background Effects */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <motion.div 
@@ -88,140 +87,127 @@ export const Footer = () => {
         <div className="absolute inset-0 bg-grid-pattern opacity-[0.03] dark:opacity-[0.07]" />
       </div>
 
-      <div className="container-custom relative z-10 max-w-6xl mx-auto px-4">
+      <div className="container-custom relative z-10 max-w-6xl mx-auto px-3 sm:px-4">
         {/* Main Footer Content */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 mb-10">
+        <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-10 gap-4 sm:gap-6 lg:gap-8 mb-4 sm:mb-8">
           {/* Company Info */}
-          <div className="lg:col-span-4 space-y-4">
-            <div className="space-y-3">
-              <Logo darkMode={isDark} />
-              <h3 className="text-lg font-bold text-foreground dark:text-foreground">CQ Group</h3>
-              <p className="text-sm text-muted-foreground dark:text-muted-foreground/90 leading-relaxed">
-                Delivering innovative technology solutions that transform businesses and create exceptional digital experiences.
-              </p>
+          <div className="col-span-2 sm:col-span-2 lg:col-span-4 space-y-2 sm:space-y-3">
+            <div className="flex items-center gap-2 sm:gap-3 mb-2 sm:mb-3">
+              <Logo darkMode={isDark} className="w-8 h-8 sm:w-auto sm:h-auto" />
+              <h3 className="text-base sm:text-lg font-bold text-foreground dark:text-foreground">CQ Group</h3>
             </div>
+            <p className="text-xs sm:text-sm text-muted-foreground dark:text-muted-foreground/90 leading-relaxed">
+              Delivering innovative technology solutions that transform businesses and create exceptional digital experiences.
+            </p>
             
-            <div className="flex space-x-2 pt-2">
+            <div className="flex space-x-1 sm:space-x-2 pt-2 sm:pt-3">
               {socialLinks.map((social) => (
                 <a
                   key={social.name}
                   href={social.href}
-                  className={`p-2 rounded-lg hover:bg-muted/60 dark:hover:bg-muted/40 transition-all duration-200 text-muted-foreground border border-border/20 dark:border-border/30 ${social.color}`}
+                  className={`p-1.5 sm:p-2 rounded-lg hover:bg-muted/60 dark:hover:bg-muted/40 transition-all duration-200 text-muted-foreground border border-border/20 dark:border-border/30 ${social.color}`}
                   aria-label={social.name}
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <social.icon className="h-4 w-4" />
+                  <social.icon className="h-3 w-3 sm:h-4 sm:w-4" />
                 </a>
               ))}
             </div>
           </div>
 
-          {/* Quick Links & Services */}
-          <div className="lg:col-span-5 grid grid-cols-2 gap-8">
-            {/* Quick Links */}
-            <div>
-              <h3 className="text-sm font-bold mb-4 text-foreground dark:text-foreground uppercase tracking-wider">
-                Quick Links
-              </h3>
-              <ul className="space-y-2">
-                {quickLinks.map((link) => (
-                  <li key={link.name}>
-                    <Link 
-                      to={link.href} 
-                      className="text-sm text-muted-foreground dark:text-muted-foreground/90 hover:text-primary dark:hover:text-primary-foreground transition-colors duration-200 flex items-center gap-1 group"
-                    >
-                      <span className="group-hover:translate-x-1 transition-transform duration-200 inline-flex items-center">
-                        <ArrowRight className="mr-1 h-3 w-3 opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
-                        {link.name}
-                      </span>
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            {/* Services */}
-            <div>
-              <h3 className="text-sm font-bold mb-4 text-foreground dark:text-foreground uppercase tracking-wider">
-                Services
-              </h3>
-              <ul className="space-y-2">
-                {services.map((service) => (
-                  <li key={service}>
-                    <Link 
-                      to="/services" 
-                      className="text-sm text-muted-foreground dark:text-muted-foreground/90 hover:text-primary dark:hover:text-primary-foreground transition-colors duration-200 flex items-center gap-1 group"
-                    >
-                      <span className="group-hover:translate-x-1 transition-transform duration-200 inline-flex items-center">
-                        <ArrowRight className="mr-1 h-3 w-3 opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
-                        {service}
-                      </span>
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-
-          {/* Contact & Newsletter */}
-          <div className="lg:col-span-3 space-y-4">
-            <h3 className="text-sm font-bold mb-4 text-foreground dark:text-foreground uppercase tracking-wider">
-              Get In Touch
+          {/* Our Commitment */}
+          <div className="col-span-1 sm:col-span-1 lg:col-span-3 space-y-2 sm:space-y-3">
+            <h3 className="text-xs font-bold mb-2 text-foreground dark:text-foreground uppercase tracking-wider">
+              Our Commitment
             </h3>
-            
-            <div className="space-y-3">
-              {contactInfo.map((contact, index) => (
-                <a
-                  key={index}
-                  href={contact.href}
-                  className="flex items-center gap-2 text-muted-foreground dark:text-muted-foreground/90 hover:text-primary dark:hover:text-primary-foreground transition-colors duration-200 group text-sm"
-                >
-                  <contact.icon className="w-4 h-4 flex-shrink-0" />
-                  <span>{contact.text}</span>
-                </a>
+            <div className="space-y-1.5 sm:space-y-3">
+              {commitments.map((item, index) => (
+                <div key={index} className="flex items-center gap-1.5 sm:gap-2">
+                  <div className="p-1 sm:p-1.5 bg-primary/10 rounded-md">
+                    <item.icon className="h-3 w-3 sm:h-3.5 sm:w-3.5 text-primary" />
+                  </div>
+                  <span className="text-xs sm:text-sm text-muted-foreground dark:text-muted-foreground/90">
+                    {item.text}
+                  </span>
+                </div>
               ))}
             </div>
+          </div>
 
-            <div className="pt-3">
+          {/* Quick Links */}
+          <div className="col-span-1 sm:col-span-1 lg:col-span-3 space-y-2 sm:space-y-3">
+            <h3 className="text-xs font-bold mb-2 text-foreground dark:text-foreground uppercase tracking-wider">
+              Quick Links
+            </h3>
+            <div className="grid grid-cols-1 gap-y-1 sm:gap-y-2">
+              {quickLinks.slice(0, 4).map((link) => (
+                <Link 
+                  key={link.name}
+                  to={link.href} 
+                  className="text-xs sm:text-sm text-muted-foreground dark:text-muted-foreground/90 hover:text-primary dark:hover:text-primary-foreground transition-colors duration-200 flex items-center gap-1 group"
+                >
+                  <span className="group-hover:translate-x-1 transition-transform duration-200 inline-flex items-center">
+                    <ArrowRight className="mr-1 h-2 w-2 sm:h-3 sm:w-3 opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
+                    {link.name}
+                  </span>
+                </Link>
+              ))}
+            </div>
+            
+            {/* Newsletter - Hidden on smallest screens, shown from sm up */}
+            <div className="hidden sm:block pt-2 sm:pt-3">
+              <h4 className="text-xs font-medium mb-1 sm:mb-2">Stay updated:</h4>
               <form onSubmit={handleSubmit} className="flex space-x-1">
                 <Input
                   type="email"
-                  placeholder="Subscribe to newsletter"
+                  placeholder="Email address"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
-                  className="text-sm h-9 bg-background/60 dark:bg-background/40 border-border/50 dark:border-border/60 focus:border-primary dark:focus:border-primary-foreground transition-all duration-200"
+                  className="text-xs sm:text-sm h-7 sm:h-9 bg-background/60 dark:bg-background/40 border-border/50 dark:border-border/60 focus:border-primary dark:focus:border-primary-foreground transition-all duration-200"
                 />
                 <Button 
                   type="submit" 
                   size="sm"
-                  className="h-9 px-3 bg-primary hover:bg-primary/90 transition-all duration-200"
+                  className="h-7 sm:h-9 px-2 sm:px-3 bg-primary hover:bg-primary/90 transition-all duration-200"
                 >
-                  <Send className="w-4 h-4" />
+                  <Send className="w-3 h-3 sm:w-4 sm:h-4" />
                 </Button>
               </form>
             </div>
           </div>
         </div>
 
-        {/* Bottom Bar */}
-        <div className="border-t border-border/50 dark:border-border/60 pt-6">
-          <div className="flex flex-col md:flex-row justify-between items-center space-y-3 md:space-y-0">
-            <div className="text-xs text-muted-foreground dark:text-muted-foreground/90">
-              &copy; {new Date().getFullYear()} CQ Group. All rights reserved.
-            </div>
-            
-            <div className="flex space-x-6 text-xs">
-              {["Privacy Policy", "Terms of Service", "Cookie Policy"].map((item) => (
+        {/* Contact Info + Bottom Bar */}
+        <div className="border-t border-border/50 dark:border-border/60 pt-4 sm:pt-5">
+          <div className="flex flex-col md:flex-row justify-between items-center">
+            <div className="flex flex-wrap justify-center md:justify-start gap-2 sm:gap-4 mb-3 md:mb-0 text-[10px] sm:text-xs">
+              {contactInfo.map((contact, index) => (
                 <a
-                  key={item}
-                  href="#"
-                  className="text-muted-foreground dark:text-muted-foreground/90 hover:text-primary dark:hover:text-primary-foreground transition-colors duration-200"
+                  key={index}
+                  href={contact.href}
+                  className="flex items-center gap-1 sm:gap-2 text-muted-foreground dark:text-muted-foreground/90 hover:text-primary dark:hover:text-primary-foreground transition-colors duration-200"
                 >
-                  {item}
+                  <contact.icon className="w-3 h-3 sm:w-3.5 sm:h-3.5 flex-shrink-0" />
+                  <span className="truncate max-w-[150px] sm:max-w-none">{contact.text}</span>
                 </a>
               ))}
+            </div>
+            
+            <div className="flex flex-col md:flex-row items-center gap-2 md:gap-5 text-[10px] sm:text-xs text-muted-foreground">
+              <span>&copy; {new Date().getFullYear()} CQ Group</span>
+              <div className="flex gap-3 sm:gap-5">
+                {["Privacy", "Terms", "Cookies"].map((item) => (
+                  <a
+                    key={item}
+                    href="#"
+                    className="hover:text-primary transition-colors duration-200"
+                  >
+                    {item}
+                  </a>
+                ))}
+              </div>
             </div>
           </div>
         </div>
