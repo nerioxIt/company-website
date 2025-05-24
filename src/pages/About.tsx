@@ -3,7 +3,7 @@ import { useState, useEffect, useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Users, Target, Lightbulb, Heart, Award, Globe, Zap, Shield, Rocket, TrendingUp, Building, Star, Trophy, MapPin, Linkedin, Twitter, Github, Mail, Phone, Calendar, MapPin as Location, Quote } from "lucide-react";
+import { Users, Target, Lightbulb, Heart, Award, Globe, Zap, Shield, Rocket, TrendingUp, Building, Star, Trophy, MapPin, Linkedin, Twitter, Github, Mail, Phone, Calendar, MapPin as Location, Quote, ChevronDown } from "lucide-react";
 
 // Animated Counter Component
 const AnimatedCounter = ({ end, duration = 2, suffix = "" }: { end: number; duration?: number; suffix?: string }) => {
@@ -238,6 +238,7 @@ const milestones = [
 
 const About = () => {
   const [activeTeamMember, setActiveTeamMember] = useState<number | null>(null);
+  const [expandedAchievements, setExpandedAchievements] = useState<{ [key: number]: boolean }>({});
 
   return (
     <div className="min-h-screen">
@@ -889,11 +890,10 @@ const About = () => {
                   <CardContent className="p-6 space-y-6">
                     {/* Basic Info */}
                     <div className="space-y-3">
-                      <div>
-                        <h3 className="text-xl font-bold text-foreground dark:text-foreground group-hover:text-primary dark:group-hover:text-primary-foreground transition-colors duration-300">
+                      <div>                        <h3 className="text-xl font-bold text-foreground dark:text-foreground group-hover:text-primary dark:group-hover:text-white transition-colors duration-300">
                           {member.name}
                         </h3>
-                        <p className="text-primary dark:text-primary-foreground font-semibold">{member.role}</p>
+                        <p className="text-primary dark:text-white font-semibold">{member.role}</p>
                       </div>
                       
                       <p className="text-sm text-muted-foreground dark:text-muted-foreground/90 leading-relaxed">
@@ -933,23 +933,42 @@ const About = () => {
                           </motion.span>
                         ))}
                       </div>
-                    </div>
-
-                    {/* Achievements */}
+                    </div>                    {/* Achievements */}
                     <div className="space-y-3">
-                      <h4 className="text-sm font-semibold text-foreground dark:text-foreground">Notable Achievements</h4>
-                      <div className="space-y-2">
-                        {member.achievements.slice(0, 2).map((achievement, achIndex) => (
-                          <div key={achIndex} className="flex items-center gap-2">
-                            <Trophy size={14} className="text-accent-amber flex-shrink-0" />
-                            <span className="text-xs text-muted-foreground">{achievement}</span>
-                          </div>
-                        ))}
+                      <div className="flex items-center justify-between">
+                        <h4 className="text-sm font-semibold text-foreground dark:text-foreground">Notable Achievements</h4>
                         {member.achievements.length > 2 && (
-                          <div className="text-xs text-primary dark:text-primary-foreground font-medium">
-                            +{member.achievements.length - 2} more achievements
-                          </div>
+                          <motion.button
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              setExpandedAchievements(prev => ({
+                                ...prev,
+                                [index]: !prev[index]
+                              }));
+                            }}
+                            whileHover={{ scale: 1.05 }}
+                            whileTap={{ scale: 0.95 }}
+                            className="text-xs text-primary dark:text-primary hover:text-primary/80 dark:hover:text-primary/80 font-medium flex items-center gap-1 transition-colors"
+                          >
+                            {expandedAchievements[index] ? 'Show Less' : `+${member.achievements.length - 2} More`}
+                            <ChevronDown size={12} className={`transition-transform duration-200 ${expandedAchievements[index] ? 'rotate-180' : ''}`} />
+                          </motion.button>
                         )}
+                      </div>
+                      <div className="space-y-2">
+                        {(expandedAchievements[index] ? member.achievements : member.achievements.slice(0, 2)).map((achievement, achIndex) => (
+                          <motion.div 
+                            key={achIndex} 
+                            initial={expandedAchievements[index] && achIndex >= 2 ? { opacity: 0, height: 0 } : { opacity: 1, height: 'auto' }}
+                            animate={{ opacity: 1, height: 'auto' }}
+                            exit={{ opacity: 0, height: 0 }}
+                            transition={{ duration: 0.2, delay: achIndex * 0.05 }}
+                            className="flex items-center gap-2"
+                          >
+                            <Trophy size={14} className="text-accent-amber flex-shrink-0" />
+                            <span className="text-xs text-muted-foreground dark:text-white">{achievement}</span>
+                          </motion.div>
+                        ))}
                       </div>
                     </div>
 
@@ -1102,8 +1121,7 @@ const About = () => {
                         </div>
                         
                         {/* Content */}
-                        <div className="space-y-3 xl:space-y-4">
-                          <h3 className="text-xl xl:text-2xl font-bold text-foreground dark:text-foreground group-hover:text-primary dark:group-hover:text-primary-foreground transition-colors duration-300">
+                        <div className="space-y-3 xl:space-y-4">                          <h3 className="text-xl xl:text-2xl font-bold text-foreground dark:text-foreground group-hover:text-primary dark:group-hover:text-white transition-colors duration-300">
                             {milestone.title}
                           </h3>
                           
@@ -1113,7 +1131,7 @@ const About = () => {
                           
                           {/* Stats Badge */}
                           <div className="inline-flex items-center gap-2 px-3 py-1 bg-muted/60 dark:bg-muted/40 text-foreground dark:text-foreground rounded-full text-sm font-medium border border-border/50 dark:border-border/30">
-                            <Star size={14} className="text-primary dark:text-primary-foreground" />
+                            <Star size={14} className="text-primary dark:text-white" />
                             {milestone.stats}
                           </div>
                         </div>
@@ -1186,8 +1204,7 @@ const About = () => {
                       className="group"
                     >
                       <Card className="p-4 sm:p-5 md:p-6 bg-background/90 dark:bg-background/80 backdrop-blur-xl border border-border/60 dark:border-border/50 hover:border-primary/40 dark:hover:border-primary/60 transition-all duration-300 shadow-lg hover:shadow-xl dark:hover:shadow-primary/10 dark:shadow-md">
-                        <div className="space-y-2 sm:space-y-3">
-                          <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-foreground dark:text-foreground group-hover:text-primary dark:group-hover:text-primary-foreground transition-colors duration-300">
+                        <div className="space-y-2 sm:space-y-3">                          <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-foreground dark:text-foreground group-hover:text-primary dark:group-hover:text-white transition-colors duration-300">
                             {milestone.title}
                           </h3>
                           <p className="text-muted-foreground dark:text-muted-foreground/90 text-sm sm:text-base leading-relaxed">
@@ -1195,7 +1212,7 @@ const About = () => {
                           </p>
                           {/* Mobile Stats Badge */}
                           <div className="inline-flex items-center gap-1 sm:gap-1.5 px-2 py-1 sm:px-2.5 sm:py-1 bg-muted/60 dark:bg-muted/50 text-foreground dark:text-foreground rounded-full text-xs sm:text-sm font-medium border border-border/50 dark:border-border/40">
-                            <Star size={10} className="sm:w-3 sm:h-3 text-primary dark:text-primary-foreground" />
+                            <Star size={10} className="sm:w-3 sm:h-3 text-primary dark:text-white" />
                             <span className="truncate">{milestone.stats}</span>
                           </div>
                         </div>
