@@ -1,11 +1,11 @@
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Badge } from "@/components/ui/badge";
-import { ExternalLink, Calendar, Users, TrendingUp, Award, Filter, Search } from "lucide-react";
+import { ExternalLink, Calendar, Users, TrendingUp, Award, Filter, Search, Play, Pause } from "lucide-react";
 import { Input } from "@/components/ui/input";
 
 const caseStudies = [
@@ -140,14 +140,15 @@ const CaseStudyCard = ({ caseStudy, onViewDetails }: CaseStudyCardProps) => {
               <h3 className="text-2xl font-bold mb-2 group-hover:text-primary dark:group-hover:text-primary-foreground transition-colors">
                 {caseStudy.title}
               </h3>
-              <div className="flex items-center gap-2 text-primary dark:text-primary-foreground font-medium mb-4">
+
+              <div className="flex items-center gap-2 text-primary dark:text-primary/80 font-medium mb-4">
                 <span>Client: {caseStudy.client}</span>
-                <span className="text-muted-foreground dark:text-muted-foreground/70">•</span>
-                <span className="text-muted-foreground dark:text-muted-foreground/80">{caseStudy.industry}</span>
+                <span className="text-muted-foreground dark:text-muted-foreground/60">•</span>
+                <span className="text-muted-foreground dark:text-muted-foreground/70">{caseStudy.industry}</span>
               </div>
             </div>
             
-            <p className="text-muted-foreground dark:text-muted-foreground/90 leading-relaxed">
+            <p className="text-muted-foreground dark:text-muted-foreground/80 leading-relaxed">
               {caseStudy.challenge.substring(0, 120)}...
             </p>
             
@@ -161,7 +162,7 @@ const CaseStudyCard = ({ caseStudy, onViewDetails }: CaseStudyCardProps) => {
                 </span>
               ))}
               {caseStudy.technologies.length > 3 && (
-                <span className="px-3 py-1 bg-muted/60 dark:bg-muted/40 text-xs font-medium rounded-full border border-border/30 dark:border-border/50">
+                <span className="px-3 py-1 bg-muted/60 dark:bg-muted/30 text-foreground dark:text-foreground/90 text-xs font-medium rounded-full border border-border/30 dark:border-border/60">
                   +{caseStudy.technologies.length - 3} more
                 </span>
               )}
@@ -189,6 +190,22 @@ interface CaseStudyDetailsProps {
 
 const CaseStudyDetails = ({ caseStudy, open, onClose }: CaseStudyDetailsProps) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [isAutoplay, setIsAutoplay] = useState(false);
+
+  // Add this useEffect for auto-advancing slideshow
+  useEffect(() => {
+    let interval: NodeJS.Timeout;
+    
+    if (isAutoplay && caseStudy.images.length > 1) {
+      interval = setInterval(() => {
+        setCurrentImageIndex((prevIndex) => 
+          prevIndex === caseStudy.images.length - 1 ? 0 : prevIndex + 1
+        );
+      }, 3000);
+    }
+    
+    return () => clearInterval(interval);
+  }, [isAutoplay, caseStudy.images.length]);
 
   return (
     <Dialog open={open} onOpenChange={onClose}>
@@ -197,7 +214,7 @@ const CaseStudyDetails = ({ caseStudy, open, onClose }: CaseStudyDetailsProps) =
           <div className="flex items-start justify-between">
             <div className="flex-1">
               <DialogTitle className="text-3xl font-bold">{caseStudy.title}</DialogTitle>
-              <DialogDescription className="text-lg text-primary dark:text-primary-foreground mt-2">
+              <DialogDescription className="text-lg text-primary/90 dark:text-primary/80 mt-2">
                 Client: {caseStudy.client} • {caseStudy.industry}
               </DialogDescription>
             </div>
@@ -239,6 +256,26 @@ const CaseStudyDetails = ({ caseStudy, open, onClose }: CaseStudyDetailsProps) =
                 </button>
               ))}
             </div>
+
+            {/* Add slideshow control button here */}
+            <div className="flex justify-end mt-2">
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => setIsAutoplay(!isAutoplay)}
+                className="text-xs flex items-center gap-1"
+              >
+                {isAutoplay ? (
+                  <>
+                    <Pause className="w-3 h-3" />
+                  </>
+                ) : (
+                  <>
+                    <Play className="w-3 h-3" />
+                  </>
+                )}
+              </Button>
+            </div>
             
             <div className="grid grid-cols-2 gap-4">
               <Card className="p-4 bg-muted/30 dark:bg-muted/20">
@@ -264,7 +301,7 @@ const CaseStudyDetails = ({ caseStudy, open, onClose }: CaseStudyDetailsProps) =
                 <div className="w-2 h-6 bg-red-500 rounded-full"></div>
                 Challenge
               </h3>
-              <p className="text-muted-foreground dark:text-muted-foreground/90 leading-relaxed">
+              <p className="text-muted-foreground dark:text-muted-foreground/80 leading-relaxed">
                 {caseStudy.challenge}
               </p>
             </div>
@@ -274,7 +311,7 @@ const CaseStudyDetails = ({ caseStudy, open, onClose }: CaseStudyDetailsProps) =
                 <div className="w-2 h-6 bg-blue-500 rounded-full"></div>
                 Solution
               </h3>
-              <p className="text-muted-foreground dark:text-muted-foreground/90 leading-relaxed">
+              <p className="text-muted-foreground dark:text-muted-foreground/80 leading-relaxed">
                 {caseStudy.solution}
               </p>
             </div>
@@ -288,7 +325,7 @@ const CaseStudyDetails = ({ caseStudy, open, onClose }: CaseStudyDetailsProps) =
                 {caseStudy.results.map((result, idx) => (
                   <li key={idx} className="flex items-start gap-3">
                     <div className="w-2 h-2 bg-green-500 rounded-full mt-2 flex-shrink-0"></div>
-                    <span className="text-muted-foreground dark:text-muted-foreground/90">{result}</span>
+                    <span className="text-muted-foreground dark:text-muted-foreground/80">{result}</span>
                   </li>
                 ))}
               </ul>
@@ -344,7 +381,7 @@ const CaseStudies = () => {
   return (
     <div className="min-h-screen">
       {/* Enhanced Hero Section */}
-      <section className="relative section bg-gradient-to-br from-background via-muted/30 to-background dark:from-background dark:via-muted/10 dark:to-background overflow-hidden">
+      <section className="relative section bg-gradient-to-br from-background via-muted/30 to-background dark:from-background dark:via-muted/10 dark:to-background overflow-hidden pb-12">
         <div className="absolute inset-0">
           <motion.div
             className="absolute -top-40 -right-40 w-80 h-80 bg-primary/10 dark:bg-primary/20 rounded-full blur-3xl"
@@ -356,28 +393,59 @@ const CaseStudies = () => {
 
         <div className="container-custom text-center relative z-10">
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.1 }}
+            className="space-y-6"
           >
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 dark:bg-primary/20 rounded-full text-primary dark:text-primary-foreground border border-primary/20 dark:border-primary/30 mb-6">
-              <Award size={16} />
-              <span className="text-sm font-medium">Success Stories</span>
-            </div>
+            <motion.div
+              initial={{ opacity: 0, y: 20, scale: 0.9 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+            >
+              <motion.div 
+                className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-medium mb-6"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.98 }}
+              >  
+                <motion.span
+                  animate={{ rotate: [0, 360] }}
+                  transition={{ duration: 5, repeat: Infinity, ease: "linear" }}
+                >
+                  <Award size={16} />
+                </motion.span>
+                <span className="text-sm font-medium">Success Stories</span>
+              </motion.div>
+            </motion.div>
             
-            <h1 className="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-foreground to-primary bg-clip-text text-transparent">
+            <motion.h1 
+              className="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-primary via-accent-teal to-primary bg-clip-text text-transparent leading-tight px-1"
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ 
+                duration: 0.7, 
+                delay: 0.4,
+                type: "spring",
+                stiffness: 100
+              }}
+            >
               Case Studies
-            </h1>
+            </motion.h1>
             
-            <p className="text-xl text-muted-foreground dark:text-muted-foreground/90 max-w-4xl mx-auto leading-relaxed">
+            <motion.p 
+              className="text-xl text-muted-foreground dark:text-muted-foreground/90 max-w-4xl mx-auto leading-relaxed"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.6 }}
+            >
               Explore how we've helped businesses transform their digital presence and achieve measurable results through innovative solutions and strategic thinking.
-            </p>
+            </motion.p>
           </motion.div>
         </div>
       </section>
       
-      {/* Filters and Search */}
-      <section className="py-8 bg-background border-b border-border/30 dark:border-border/50">
+      {/* Filters and Search - Reduced top padding */}
+      <section className="py-6 bg-background border-b border-border/30 dark:border-border/50 mt-0">
         <div className="container-custom">
           <div className="flex flex-col md:flex-row gap-6 items-center justify-between">
             <div className="relative flex-1 max-w-md">
@@ -458,16 +526,21 @@ const CaseStudies = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
-            className="text-center mt-16"
+            className="text-center mt-20" // Increased top margin
           >
-            <Card className="inline-block p-8 bg-gradient-to-r from-primary/10 to-accent-teal/10 dark:from-primary/20 dark:to-accent-teal/20 border border-primary/20 dark:border-primary/30">
-              <h3 className="text-2xl font-bold mb-4">Ready to Start Your Project?</h3>
-              <p className="text-lg text-muted-foreground dark:text-muted-foreground/90 mb-6 max-w-md mx-auto">
+            <Card className="inline-block p-10 bg-gradient-to-r from-primary/20 to-accent-teal/20 dark:from-primary/30 dark:to-accent-teal/30 border-2 border-primary/30 dark:border-primary/40 shadow-2xl dark:shadow-primary/20 rounded-2xl transform hover:scale-[1.02] transition-all duration-300">
+              <h3 className="text-3xl md:text-4xl font-bold mb-5 bg-gradient-to-r from-foreground to-primary bg-clip-text text-transparent">Ready to Start Your Project?</h3>
+              <p className="text-lg md:text-xl text-muted-foreground dark:text-muted-foreground/90 mb-8 max-w-lg mx-auto leading-relaxed">
                 Let's discuss how we can help transform your digital presence and achieve similar results.
               </p>
-              <Button className="bg-gradient-to-r from-primary to-accent-teal hover:from-primary/90 hover:to-accent-teal/90 px-8 py-6 text-lg">
-                Get in Touch
-              </Button>
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.98 }}
+              >
+                <Button className="bg-gradient-to-r from-primary to-accent-teal hover:from-primary/90 hover:to-accent-teal/90 px-10 py-7 text-xl font-bold shadow-lg hover:shadow-xl dark:shadow-primary/20 dark:hover:shadow-primary/40">
+                  Get in Touch
+                </Button>
+              </motion.div>
             </Card>
           </motion.div>
         </div>

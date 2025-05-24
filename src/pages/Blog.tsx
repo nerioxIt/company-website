@@ -1,4 +1,3 @@
-
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
@@ -15,12 +14,65 @@ import {
   Eye,
   MessageCircle,
   BookOpen,
-  Users
+  Users,
+  ChevronRight,
+  Heart,
+  BookMarked,
+  PieChart,
+  Timer,
+  Database,
+  Smartphone,
+  Handshake
 } from "lucide-react";
 
 const blogPosts = [
   {
     id: 1,
+    title: "How a Custom CRM Can Save 10 Hours a Week",
+    excerpt: "Discover how implementing a tailored CRM solution can dramatically boost your team's productivity and streamline operations.",
+    date: "June 2, 2024",
+    readTime: "7 min read",
+    author: "Alex Morgan",
+    authorAvatar: "https://images.unsplash.com/photo-1568602471122-7832951cc4c5?w=100&h=100&fit=crop&crop=face",
+    category: "Business Solutions",
+    tags: ["CRM", "Productivity", "Automation"],
+    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
+    views: "3.4k",
+    comments: 27,
+    featured: true
+  },
+  {
+    id: 2,
+    title: "Why Every Business Needs a Mobile-Responsive Site in 2025",
+    excerpt: "Learn why mobile responsiveness isn't just a feature but a necessity for business success in today's digital landscape.",
+    date: "May 25, 2024",
+    readTime: "8 min read",
+    author: "Emma Watson",
+    authorAvatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&h=100&fit=crop&crop=face",
+    category: "Web Design",
+    tags: ["Mobile", "Responsive", "UX"],
+    image: "https://images.unsplash.com/photo-1555421689-491a97ff2040?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
+    views: "2.9k",
+    comments: 24,
+    featured: true
+  },
+  {
+    id: 3,
+    title: "What to Look for in a Good Software Partner",
+    excerpt: "Essential criteria and red flags to consider when choosing a software development partner for your next project.",
+    date: "May 18, 2024",
+    readTime: "9 min read",
+    author: "Daniel Liu",
+    authorAvatar: "https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?w=100&h=100&fit=crop&crop=face",
+    category: "Partnership",
+    tags: ["Software", "Outsourcing", "Strategy"],
+    image: "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
+    views: "2.7k",
+    comments: 31,
+    featured: true
+  },
+  {
+    id: 4,
     title: "The Future of Web Development: Trends to Watch in 2024",
     excerpt: "Explore the emerging technologies and methodologies that are shaping the future of web development.",
     date: "May 15, 2024",
@@ -31,11 +83,10 @@ const blogPosts = [
     tags: ["React", "AI", "WebAssembly"],
     image: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
     views: "2.3k",
-    comments: 24,
-    featured: true
+    comments: 24
   },
   {
-    id: 2,
+    id: 5,
     title: "Designing for Accessibility: Best Practices for Inclusive UX",
     excerpt: "Learn how to create digital experiences that are accessible to users of all abilities.",
     date: "April 28, 2024",
@@ -49,7 +100,7 @@ const blogPosts = [
     comments: 18
   },
   {
-    id: 3,
+    id: 6,
     title: "Optimizing E-commerce Conversion Rates: A Data-Driven Approach",
     excerpt: "Discover proven strategies to improve your e-commerce conversion rates through data analysis and optimization.",
     date: "April 10, 2024",
@@ -61,54 +112,32 @@ const blogPosts = [
     image: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
     views: "3.1k",
     comments: 32
-  },
-  {
-    id: 4,
-    title: "Mobile App Development: Native vs. Cross-Platform in 2024",
-    excerpt: "A comprehensive comparison of native and cross-platform mobile app development approaches.",
-    date: "March 22, 2024",
-    readTime: "12 min read",
-    author: "Sarah Williams",
-    authorAvatar: "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=100&h=100&fit=crop&crop=face",
-    category: "Mobile Apps",
-    tags: ["Mobile", "React Native", "Flutter"],
-    image: "https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
-    views: "2.7k",
-    comments: 29
-  },
-  {
-    id: 5,
-    title: "The Role of AI in Modern Digital Marketing",
-    excerpt: "How artificial intelligence is transforming digital marketing strategies and customer engagement.",
-    date: "March 5, 2024",
-    readTime: "7 min read",
-    author: "John Smith",
-    authorAvatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=face",
-    category: "Digital Marketing",
-    tags: ["AI", "Marketing", "Automation"],
-    image: "https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
-    views: "1.9k",
-    comments: 15
-  },
-  {
-    id: 6,
-    title: "Cloud Security: Protecting Your Digital Assets",
-    excerpt: "Essential security practices for businesses leveraging cloud services and infrastructure.",
-    date: "February 18, 2024",
-    readTime: "9 min read",
-    author: "Michael Chen",
-    authorAvatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face",
-    category: "Cloud Services",
-    tags: ["Security", "Cloud", "DevOps"],
-    image: "https://images.unsplash.com/photo-1544197150-b99a580bb7a8?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
-    views: "2.5k",
-    comments: 21
   }
 ];
 
 const testimonials = [
   {
     id: 1,
+    content: "Our operations have never run smoother. The custom dashboard changed everything.",
+    author: "James Peterson",
+    company: "MegaRetail Inc.",
+    position: "Retail Manager",
+    avatar: "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=100&h=100&fit=crop&crop=face",
+    rating: 5,
+    project: "Custom Dashboard"
+  },
+  {
+    id: 2,
+    content: "They understood our needs perfectly and delivered a powerful CRM.",
+    author: "Sarah Martinez",
+    company: "Elite Consultancy",
+    position: "Consultancy Owner",
+    avatar: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=100&h=100&fit=crop&crop=face",
+    rating: 5,
+    project: "Custom CRM"
+  },
+  {
+    id: 3,
     content: "Working with Lovable Digital Agency has been transformative for our business. Their team delivered a website that not only looks great but has significantly improved our conversion rates and user engagement.",
     author: "Jennifer Roberts",
     company: "FashionForward Inc.",
@@ -118,7 +147,7 @@ const testimonials = [
     project: "E-commerce Platform"
   },
   {
-    id: 2,
+    id: 4,
     content: "The e-commerce platform developed by Lovable Digital Agency has revolutionized how we sell products online. Sales have increased by 45% in the first three months after launch.",
     author: "Mark Thompson",
     company: "GreenGoods Co.",
@@ -128,7 +157,7 @@ const testimonials = [
     project: "Full-Stack Development"
   },
   {
-    id: 3,
+    id: 5,
     content: "We've worked with several agencies in the past, but none have delivered the level of quality, innovation, and results that Lovable Digital Agency has. They truly understand our business needs and goals.",
     author: "Sophia Chen",
     company: "TechInnovate",
@@ -138,7 +167,7 @@ const testimonials = [
     project: "Digital Transformation"
   },
   {
-    id: 4,
+    id: 6,
     content: "The mobile app developed by Lovable has received outstanding feedback from our users. The team's attention to detail and commitment to excellence made all the difference.",
     author: "Robert Miller",
     company: "HealthFirst",
@@ -146,16 +175,6 @@ const testimonials = [
     avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face",
     rating: 5,
     project: "Mobile App Development"
-  },
-  {
-    id: 5,
-    content: "Lovable Digital Agency completely transformed our digital marketing strategy. Their data-driven approach has resulted in a 60% increase in qualified leads for our business.",
-    author: "David Wilson",
-    company: "ConsultPro Services",
-    position: "Director of Sales",
-    avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&h=100&fit=crop&crop=face",
-    rating: 5,
-    project: "Digital Marketing"
   }
 ];
 
@@ -165,7 +184,7 @@ const FeaturedBlogCard = ({ post }: { post: typeof blogPosts[0] }) => {
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
-      transition={{ duration: 0.6 }}
+      transition={{ duration: 0.7 }}
       className="lg:col-span-2"
     >
       <Card className="overflow-hidden h-full group hover:shadow-2xl transition-all duration-500 border-2 hover:border-primary/20">
@@ -196,7 +215,8 @@ const FeaturedBlogCard = ({ post }: { post: typeof blogPosts[0] }) => {
             
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
-                <img 
+                <motion.img 
+                  whileHover={{ scale: 1.1 }}
                   src={post.authorAvatar} 
                   alt={post.author}
                   className="w-10 h-10 rounded-full border-2 border-white/50"
@@ -282,7 +302,8 @@ const BlogCard = ({ post, index }: { post: typeof blogPosts[0], index: number })
           
           <div className="flex items-center justify-between pt-4 border-t border-border">
             <div className="flex items-center gap-3">
-              <img 
+              <motion.img 
+                whileHover={{ scale: 1.1 }}
                 src={post.authorAvatar} 
                 alt={post.author}
                 className="w-8 h-8 rounded-full"
@@ -296,13 +317,16 @@ const BlogCard = ({ post, index }: { post: typeof blogPosts[0], index: number })
               </div>
             </div>
             
-            <Link 
-              to={`/blog/${post.id}`} 
-              className="text-primary font-medium hover:underline inline-flex items-center text-sm group/link"
-            >
-              Read More
-              <ArrowRight className="ml-1 w-3 h-3 transition-transform group-hover/link:translate-x-1" />
-            </Link>
+            <motion.div whileHover={{ x: 3 }} transition={{ type: "spring", stiffness: 300 }}>
+              <Link 
+                to={`/blog/${post.id}`} 
+                className="text-primary font-medium hover:underline inline-flex items-center text-sm group/link"
+                onClick={(e) => e.preventDefault()}
+              >
+                Read More
+                <ArrowRight className="ml-1 w-3 h-3 transition-transform group-hover/link:translate-x-1" />
+              </Link>
+            </motion.div>
           </div>
         </CardContent>
       </Card>
@@ -317,6 +341,7 @@ const TestimonialCard = ({ testimonial, index }: { testimonial: typeof testimoni
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.6, delay: index * 0.1 }}
+      whileHover={{ y: -5 }}
     >
       <Card className="p-6 h-full relative bg-gradient-to-br from-card to-muted/20 border-2 hover:border-primary/20 transition-all duration-300 group">
         <div className="absolute top-4 right-4">
@@ -326,7 +351,14 @@ const TestimonialCard = ({ testimonial, index }: { testimonial: typeof testimoni
         <div className="relative z-10">
           <div className="flex items-center gap-1 mb-4">
             {[...Array(testimonial.rating)].map((_, i) => (
-              <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
+              <motion.div 
+                key={i}
+                initial={{ scale: 0.8 }} 
+                animate={{ scale: 1 }}
+                transition={{ duration: 0.3, delay: i * 0.1 }}
+              >
+                <Star className="w-4 h-4 fill-yellow-400 text-yellow-400" />
+              </motion.div>
             ))}
           </div>
           
@@ -335,7 +367,8 @@ const TestimonialCard = ({ testimonial, index }: { testimonial: typeof testimoni
           </p>
           
           <div className="flex items-center gap-4">
-            <img 
+            <motion.img 
+              whileHover={{ scale: 1.1, rotate: 5 }}
               src={testimonial.avatar} 
               alt={testimonial.author}
               className="w-12 h-12 rounded-full border-2 border-primary/20"
@@ -355,14 +388,24 @@ const TestimonialCard = ({ testimonial, index }: { testimonial: typeof testimoni
   );
 };
 
+const CategoryBadge = ({ icon: Icon, text }: { icon: any, text: string }) => (
+  <motion.div 
+    whileHover={{ y: -3, scale: 1.05 }}
+    className="flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium"
+  >
+    <Icon className="w-4 h-4" />
+    {text}
+  </motion.div>
+);
+
 const Blog = () => {
-  const featuredPost = blogPosts.find(post => post.featured);
+  const featuredPosts = blogPosts.filter(post => post.featured);
   const regularPosts = blogPosts.filter(post => !post.featured);
 
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="relative py-20 overflow-hidden bg-gradient-to-br from-primary/5 via-background to-accent-teal/5">
+      <section className="relative py-24 overflow-hidden bg-gradient-to-br from-primary/5 via-background to-accent-teal/5">
         <div className="absolute inset-0 bg-grid-pattern opacity-5" />
         <motion.div 
           className="container-custom text-center relative z-10"
@@ -374,19 +417,19 @@ const Blog = () => {
             initial={{ scale: 0.9, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-medium mb-6"
+            className="inline-flex items-center gap-2 bg-primary/10 text-primary  px-4 py-2 rounded-full text-sm font-medium mb-6"
           >
             <BookOpen className="w-4 h-4" />
             Insights & Stories
           </motion.div>
           
           <motion.h1 
-            className="text-primary mb-6 bg-gradient-to-r from-primary via-accent-teal to-primary bg-clip-text text-transparent"
+            className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-primary via-accent-teal to-primary bg-clip-text text-transparent leading-normal pb-3"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.3 }}
           >
-            Blog & Testimonials
+            Thought Leadership & Success Stories
           </motion.h1>
           
           <motion.p 
@@ -395,30 +438,76 @@ const Blog = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
           >
-            Discover insights, industry trends, and success stories from our team and satisfied clients. Stay updated with the latest in digital innovation.
+            Discover insights, industry trends, and success stories from our team and satisfied clients. 
+            Stay updated with the latest in digital innovation to help your business thrive.
           </motion.p>
           
           <motion.div 
-            className="flex flex-wrap justify-center gap-6 text-sm"
+            className="flex flex-wrap justify-center gap-4 mb-12"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.5 }}
           >
-            {[
-              { icon: TrendingUp, text: "Latest Trends" },
-              { icon: Users, text: "Client Stories" },
-              { icon: BookOpen, text: "Expert Insights" }
-            ].map((item, index) => (
-              <div key={index} className="flex items-center gap-2 text-muted-foreground">
-                <item.icon className="w-4 h-4 text-primary" />
-                {item.text}
-              </div>
-            ))}
+            <CategoryBadge icon={Database} text="CRM Solutions" />
+            <CategoryBadge icon={Smartphone} text="Mobile Development" />
+            <CategoryBadge icon={PieChart} text="Business Strategy" />
+            <CategoryBadge icon={Handshake} text="Partnerships" />
+            <CategoryBadge icon={TrendingUp} text="Digital Growth" />
+          </motion.div>
+          
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.7, duration: 0.8 }}
+            className="relative w-full max-w-5xl mx-auto h-1 bg-gradient-to-r from-transparent via-primary/30 to-transparent rounded-full"
+          >
+            <motion.div 
+              className="absolute left-1/2 -translate-x-1/2 -top-1 w-4 h-4 rounded-full bg-primary"
+              animate={{ 
+                boxShadow: ["0 0 0 0 rgba(var(--primary), 0.3)", "0 0 0 10px rgba(var(--primary), 0)"],
+              }}
+              transition={{ repeat: Infinity, duration: 2 }}
+            />
           </motion.div>
         </motion.div>
       </section>
       
-      <section className="section bg-background">
+      {/* Featured Blog Posts Section */}
+      <section className="py-16 bg-background">
+        <div className="container-custom">
+          <motion.div 
+            className="flex flex-col md:flex-row justify-between items-center mb-12"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+          >
+            <div>
+              <Badge className="mb-3 bg-primary/10 text-primary border-none">Featured Insights</Badge>
+              <h2 className="text-3xl font-bold">Latest From Our Experts</h2>
+            </div>
+            
+            <motion.div 
+              whileHover={{ x: 3 }}
+              className="mt-4 md:mt-0"
+            >
+             
+            </motion.div>
+          </motion.div>
+          
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-16">
+            {featuredPosts.map((post, index) => (
+              index === 0 ? (
+                <FeaturedBlogCard key={post.id} post={post} />
+              ) : (
+                <BlogCard key={post.id} post={post} index={index} />
+              )
+            ))}
+          </div>
+        </div>
+      </section>
+      
+      {/* Content Tabs Section */}
+      <section className="section bg-muted/30 py-16">
         <div className="container-custom">
           <Tabs defaultValue="blog" className="w-full">
             <motion.div
@@ -426,38 +515,57 @@ const Blog = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
             >
-              <TabsList className="grid w-full grid-cols-2 mb-12 h-14 p-1 bg-muted/50">
+              <TabsList className="grid w-full grid-cols-2 mb-12 h-14 p-1 bg-background/50 shadow-sm">
                 <TabsTrigger value="blog" className="text-base h-full data-[state=active]:bg-white dark:data-[state=active]:bg-card">
-                  <BookOpen className="w-4 h-4 mr-2" />
-                  Blog Posts
+                  <BookMarked className="w-4 h-4 mr-2" />
+                  More Articles
                 </TabsTrigger>
                 <TabsTrigger value="testimonials" className="text-base h-full data-[state=active]:bg-white dark:data-[state=active]:bg-card">
                   <Quote className="w-4 h-4 mr-2" />
-                  Testimonials
+                  Client Testimonials
                 </TabsTrigger>
               </TabsList>
             </motion.div>
             
             <TabsContent value="blog" className="space-y-12">
-              {featuredPost && (
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                  <FeaturedBlogCard post={featuredPost} />
-                  <div className="space-y-6">
-                    {regularPosts.slice(0, 2).map((post, index) => (
-                      <BlogCard key={post.id} post={post} index={index} />
-                    ))}
-                  </div>
-                </div>
-              )}
-              
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {regularPosts.slice(2).map((post, index) => (
-                  <BlogCard key={post.id} post={post} index={index + 2} />
+                {regularPosts.map((post, index) => (
+                  <BlogCard key={post.id} post={post} index={index} />
                 ))}
               </div>
+              
+              <motion.div 
+                className="flex justify-center"
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.2 }}
+              >
+                <div className="inline-flex gap-2 items-center px-6 py-3 bg-primary/10 rounded-full text-primary font-medium cursor-pointer hover:bg-primary/20 transition-colors">
+                  <Timer className="w-4 h-4" />
+                  Load more articles
+                </div>
+              </motion.div>
             </TabsContent>
             
             <TabsContent value="testimonials">
+              <motion.div 
+                className="flex flex-col md:flex-row justify-between items-center mb-12"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6 }}
+              >
+                <div>
+                  <Badge className="mb-3 bg-primary/10 text-primary border-none">Success Stories</Badge>
+                  <h2 className="text-3xl font-bold">What Our Clients Say</h2>
+                </div>
+                
+                <div className="flex items-center gap-1 mt-4 md:mt-0">
+                  <Heart className="w-4 h-4 text-primary" fill="currentColor" />
+                  <span className="text-muted-foreground">100% satisfaction rate</span>
+                </div>
+              </motion.div>
+              
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 {testimonials.map((testimonial, index) => (
                   <TestimonialCard key={testimonial.id} testimonial={testimonial} index={index} />
@@ -465,6 +573,224 @@ const Blog = () => {
               </div>
             </TabsContent>
           </Tabs>
+        </div>
+      </section>
+      
+      {/* Featured Articles Section */}
+      <section className="py-16 bg-background">
+        <div className="container-custom">
+          <motion.div 
+            className="flex flex-col md:flex-row justify-between items-center mb-12"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
+            <div>
+              <Badge className="mb-3 bg-primary/10 text-primary border-none">Recommended Reading</Badge>
+              <h2 className="text-3xl font-bold">Articles You Might Like</h2>
+            </div>
+          </motion.div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {/* Article 1 */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+            >
+              <Card className="overflow-hidden h-full flex flex-col group hover:shadow-xl transition-all duration-300 border hover:border-primary/20">
+                <div className="relative aspect-video overflow-hidden">
+                  <img 
+                    src="https://images.unsplash.com/photo-1587825140708-dfaf72ae4b04?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" 
+                    alt="Digital Transformation in 2024" 
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  <Badge className="absolute top-3 right-3 bg-accent-teal text-white">
+                    Digital Transformation
+                  </Badge>
+                </div>
+                
+                <CardContent className="p-6 flex flex-col flex-grow">
+                  <div className="flex flex-wrap gap-1 mb-3">
+                    {["Innovation", "Technology", "Strategy"].map((tag) => (
+                      <Badge key={tag} variant="outline" className="text-xs">
+                        {tag}
+                      </Badge>
+                    ))}
+                  </div>
+                  
+                  <h3 className="text-xl font-bold mb-3 line-clamp-2 group-hover:text-primary transition-colors">
+                    Digital Transformation in 2024: What's Changed and What's Next
+                  </h3>
+                  <p className="text-muted-foreground mb-4 flex-grow line-clamp-3">
+                    Explore how digital transformation has evolved over the past year and what trends will shape business strategy in the coming months.
+                  </p>
+                  
+                  <div className="flex items-center justify-between pt-4 border-t border-border">
+                    <div className="flex items-center gap-3">
+                      <motion.img 
+                        whileHover={{ scale: 1.1 }}
+                        src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop&crop=face" 
+                        alt="Author"
+                        className="w-8 h-8 rounded-full"
+                      />
+                      <div>
+                        <p className="font-medium text-sm">Rebecca Torres</p>
+                        <div className="flex items-center gap-1 text-xs text-muted-foreground">
+                          <Calendar className="w-3 h-3" />
+                          June 10, 2024
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </motion.div>
+            
+            {/* Article 2 */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+            >
+              <Card className="overflow-hidden h-full flex flex-col group hover:shadow-xl transition-all duration-300 border hover:border-primary/20">
+                <div className="relative aspect-video overflow-hidden">
+                  <img 
+                    src="https://images.unsplash.com/photo-1570126688035-1e6adbd61053?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" 
+                    alt="AI in Business" 
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  <Badge className="absolute top-3 right-3 bg-accent-teal text-white">
+                    AI & Automation
+                  </Badge>
+                </div>
+                
+                <CardContent className="p-6 flex flex-col flex-grow">
+                  <div className="flex flex-wrap gap-1 mb-3">
+                    {["AI", "Automation", "Productivity"].map((tag) => (
+                      <Badge key={tag} variant="outline" className="text-xs">
+                        {tag}
+                      </Badge>
+                    ))}
+                  </div>
+                  
+                  <h3 className="text-xl font-bold mb-3 line-clamp-2 group-hover:text-primary transition-colors">
+                    5 Ways AI is Revolutionizing Small Business Operations
+                  </h3>
+                  <p className="text-muted-foreground mb-4 flex-grow line-clamp-3">
+                    Discover how small businesses are leveraging AI tools to automate processes, enhance customer service, and drive growth with minimal investment.
+                  </p>
+                  
+                  <div className="flex items-center justify-between pt-4 border-t border-border">
+                    <div className="flex items-center gap-3">
+                      <motion.img 
+                        whileHover={{ scale: 1.1 }}
+                        src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=100&h=100&fit=crop&crop=face" 
+                        alt="Author"
+                        className="w-8 h-8 rounded-full"
+                      />
+                      <div>
+                        <p className="font-medium text-sm">Jason Wong</p>
+                        <div className="flex items-center gap-1 text-xs text-muted-foreground">
+                          <Calendar className="w-3 h-3" />
+                          June 5, 2024
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </motion.div>
+            
+            {/* Article 3 */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+            >
+              <Card className="overflow-hidden h-full flex flex-col group hover:shadow-xl transition-all duration-300 border hover:border-primary/20">
+                <div className="relative aspect-video overflow-hidden">
+                  <img 
+                    src="https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" 
+                    alt="Team Collaboration" 
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  <Badge className="absolute top-3 right-3 bg-accent-teal text-white">
+                    Team Building
+                  </Badge>
+                </div>
+                
+                <CardContent className="p-6 flex flex-col flex-grow">
+                  <div className="flex flex-wrap gap-1 mb-3">
+                    {["Collaboration", "Remote Work", "Leadership"].map((tag) => (
+                      <Badge key={tag} variant="outline" className="text-xs">
+                        {tag}
+                      </Badge>
+                    ))}
+                  </div>
+                  
+                  <h3 className="text-xl font-bold mb-3 line-clamp-2 group-hover:text-primary transition-colors">
+                    Building High-Performance Remote Teams: Lessons from Top Tech Companies
+                  </h3>
+                  <p className="text-muted-foreground mb-4 flex-grow line-clamp-3">
+                    Learn proven strategies from industry leaders on building, managing and nurturing successful remote teams in today's distributed work environment.
+                  </p>
+                  
+                  <div className="flex items-center justify-between pt-4 border-t border-border">
+                    <div className="flex items-center gap-3">
+                      <motion.img 
+                        whileHover={{ scale: 1.1 }}
+                        src="https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?w=100&h=100&fit=crop&crop=face" 
+                        alt="Author"
+                        className="w-8 h-8 rounded-full"
+                      />
+                      <div>
+                        <p className="font-medium text-sm">Priya Sharma</p>
+                        <div className="flex items-center gap-1 text-xs text-muted-foreground">
+                          <Calendar className="w-3 h-3" />
+                          May 30, 2024
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+      
+      {/* CTA Section */}
+      <section className="py-16 bg-gradient-to-br from-primary/5 via-background to-accent-teal/5">
+        <div className="container-custom">
+          <motion.div 
+            className="max-w-3xl mx-auto text-center"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7 }}
+          >
+            <Badge className="mb-4 bg-primary/10 text-primary border-none">Ready to Get Started?</Badge>
+            <h2 className="text-3xl md:text-4xl font-bold mb-6">Join Our Growing List of Satisfied Clients</h2>
+            <p className="text-muted-foreground mb-8">
+              Let's discuss how our expertise can help your business achieve its digital goals.
+            </p>
+            <motion.div 
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="inline-flex items-center gap-2 bg-primary text-white px-6 py-3 rounded-md font-medium hover:bg-primary/90 transition-colors cursor-pointer"
+            >
+              Schedule a Consultation
+              <ArrowRight className="w-4 h-4" />
+            </motion.div>
+          </motion.div>
         </div>
       </section>
     </div>
