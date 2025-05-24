@@ -1,9 +1,12 @@
 
 import { useState } from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { motion } from "framer-motion";
+import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
+import { Badge } from "@/components/ui/badge";
+import { ExternalLink, Calendar, Users, TrendingUp, Award, Filter, Search } from "lucide-react";
+import { Input } from "@/components/ui/input";
 
 const caseStudies = [
   {
@@ -11,56 +14,74 @@ const caseStudies = [
     title: "E-commerce Platform Redesign",
     client: "RetailMax",
     category: "E-commerce",
+    industry: "Retail",
+    duration: "4 months",
+    teamSize: "6 people",
     challenge: "RetailMax was struggling with low conversion rates and high cart abandonment on their outdated e-commerce platform.",
     solution: "We redesigned their online store with a focus on user experience, optimized checkout flow, and implemented personalized product recommendations.",
     results: [
       "63% increase in conversion rate",
       "41% decrease in cart abandonment",
-      "52% increase in average order value"
+      "52% increase in average order value",
+      "85% improvement in mobile experience"
     ],
     images: [
       "https://images.unsplash.com/photo-1531403009284-440f080d1e12?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
       "https://images.unsplash.com/photo-1491897554428-130a60dd4757?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
     ],
-    technologies: ["React", "Node.js", "Stripe", "AWS"]
+    technologies: ["React", "Node.js", "Stripe", "AWS"],
+    featured: true
   },
   {
     id: 2,
     title: "Mobile Banking Application",
     client: "SecureBank",
     category: "Mobile App",
+    industry: "Finance",
+    duration: "8 months",
+    teamSize: "10 people",
     challenge: "SecureBank needed a modern, secure mobile banking application that would provide a seamless experience for their customers while maintaining strict security standards.",
     solution: "We developed a native mobile application for iOS and Android with biometric authentication, real-time transaction alerts, and an intuitive user interface.",
     results: [
       "92% user satisfaction rating",
       "35% increase in mobile transactions",
-      "28% reduction in customer service calls"
+      "28% reduction in customer service calls",
+      "99.9% uptime achieved"
     ],
     images: [
       "https://images.unsplash.com/photo-1563986768609-322da13575f3?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
       "https://images.unsplash.com/photo-1579468118864-1b9ea3c0db4a?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
     ],
-    technologies: ["React Native", "Node.js", "MongoDB", "Firebase"]
+    technologies: ["React Native", "Node.js", "MongoDB", "Firebase"],
+    featured: true
   },
   {
     id: 3,
     title: "Healthcare Patient Portal",
     client: "MediCare Group",
     category: "Web Application",
+    industry: "Healthcare",
+    duration: "6 months",
+    teamSize: "8 people",
     challenge: "MediCare Group needed a secure, HIPAA-compliant patient portal that would improve patient engagement and streamline administrative processes.",
     solution: "We built a comprehensive web portal that allowed patients to schedule appointments, access medical records, communicate with healthcare providers, and manage payments.",
     results: [
       "47% reduction in administrative workload",
       "76% of patients actively using the portal",
-      "39% decrease in appointment no-shows"
+      "39% decrease in appointment no-shows",
+      "100% HIPAA compliance maintained"
     ],
     images: [
       "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
       "https://images.unsplash.com/photo-1581056771107-24ca5f033842?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
     ],
-    technologies: ["Angular", "ASP.NET Core", "SQL Server", "Azure"]
+    technologies: ["Angular", "ASP.NET Core", "SQL Server", "Azure"],
+    featured: false
   }
 ];
+
+const categories = ["All", "E-commerce", "Mobile App", "Web Application"];
+const industries = ["All", "Retail", "Finance", "Healthcare"];
 
 interface CaseStudyCardProps {
   caseStudy: typeof caseStudies[0];
@@ -69,39 +90,94 @@ interface CaseStudyCardProps {
 
 const CaseStudyCard = ({ caseStudy, onViewDetails }: CaseStudyCardProps) => {
   return (
-    <Card className="group relative overflow-hidden border-0 shadow-lg hover:shadow-xl transition-all duration-500 hover:-translate-y-2 bg-gradient-to-br from-white to-muted/30 h-full flex flex-col">
-      <div className="absolute inset-0 bg-gradient-to-br from-accent-teal/5 to-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-      <CardHeader className="relative p-0">
+    <motion.div
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.6 }}
+      whileHover={{ y: -8 }}
+      className="group h-full"
+    >
+      <Card className="overflow-hidden h-full flex flex-col bg-background/60 dark:bg-background/40 backdrop-blur-sm border border-border/50 dark:border-border/60 hover:border-primary/30 dark:hover:border-primary/50 transition-all duration-300 hover:shadow-xl dark:hover:shadow-primary/10">
         <div className="relative aspect-video overflow-hidden">
           <img 
             src={caseStudy.images[0]} 
             alt={caseStudy.title} 
             className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-          <div className="absolute top-4 right-4">
-            <Badge className="bg-gradient-to-r from-primary to-accent-teal text-white border-0">
+          
+          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+          
+          <div className="absolute top-4 right-4 flex gap-2">
+            <Badge className="bg-accent-amber/90 text-white border-0">
               {caseStudy.category}
             </Badge>
+            {caseStudy.featured && (
+              <Badge className="bg-primary/90 text-primary-foreground border-0">
+                <Award className="w-3 h-3 mr-1" />
+                Featured
+              </Badge>
+            )}
+          </div>
+          
+          <div className="absolute bottom-4 left-4 text-white">
+            <div className="flex items-center gap-4 text-sm opacity-90">
+              <div className="flex items-center gap-1">
+                <Calendar className="w-4 h-4" />
+                {caseStudy.duration}
+              </div>
+              <div className="flex items-center gap-1">
+                <Users className="w-4 h-4" />
+                {caseStudy.teamSize}
+              </div>
+            </div>
           </div>
         </div>
-      </CardHeader>
-      <CardContent className="relative p-6 flex flex-col flex-grow">
-        <CardTitle className="text-2xl mb-2 group-hover:text-primary transition-colors">
-          {caseStudy.title}
-        </CardTitle>
-        <p className="text-primary font-medium mb-4">Client: {caseStudy.client}</p>
-        <p className="text-muted-foreground mb-6 flex-grow leading-relaxed">
-          {caseStudy.challenge.substring(0, 120)}...
-        </p>
-        <Button 
-          onClick={() => onViewDetails(caseStudy.id)} 
-          className="w-full bg-gradient-to-r from-primary to-accent-teal hover:shadow-lg transition-all duration-300"
-        >
-          View Case Study
-        </Button>
-      </CardContent>
-    </Card>
+        
+        <CardContent className="p-6 flex flex-col flex-grow">
+          <div className="flex-grow space-y-4">
+            <div>
+              <h3 className="text-2xl font-bold mb-2 group-hover:text-primary dark:group-hover:text-primary-foreground transition-colors">
+                {caseStudy.title}
+              </h3>
+              <div className="flex items-center gap-2 text-primary dark:text-primary-foreground font-medium mb-4">
+                <span>Client: {caseStudy.client}</span>
+                <span className="text-muted-foreground dark:text-muted-foreground/70">•</span>
+                <span className="text-muted-foreground dark:text-muted-foreground/80">{caseStudy.industry}</span>
+              </div>
+            </div>
+            
+            <p className="text-muted-foreground dark:text-muted-foreground/90 leading-relaxed">
+              {caseStudy.challenge.substring(0, 120)}...
+            </p>
+            
+            <div className="flex flex-wrap gap-2">
+              {caseStudy.technologies.slice(0, 3).map((tech, idx) => (
+                <span
+                  key={idx}
+                  className="px-3 py-1 bg-muted/60 dark:bg-muted/40 text-xs font-medium rounded-full border border-border/30 dark:border-border/50"
+                >
+                  {tech}
+                </span>
+              ))}
+              {caseStudy.technologies.length > 3 && (
+                <span className="px-3 py-1 bg-muted/60 dark:bg-muted/40 text-xs font-medium rounded-full border border-border/30 dark:border-border/50">
+                  +{caseStudy.technologies.length - 3} more
+                </span>
+              )}
+            </div>
+          </div>
+          
+          <Button 
+            onClick={() => onViewDetails(caseStudy.id)} 
+            className="w-full mt-6 bg-gradient-to-r from-primary to-primary/90 hover:from-primary/90 hover:to-primary group"
+          >
+            View Case Study
+            <ExternalLink className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
+          </Button>
+        </CardContent>
+      </Card>
+    </motion.div>
   );
 };
 
@@ -116,58 +192,117 @@ const CaseStudyDetails = ({ caseStudy, open, onClose }: CaseStudyDetailsProps) =
 
   return (
     <Dialog open={open} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-4xl">
-        <DialogHeader>
-          <DialogTitle className="text-2xl">{caseStudy.title}</DialogTitle>
-          <DialogDescription className="text-primary">Client: {caseStudy.client}</DialogDescription>
+      <DialogContent className="sm:max-w-6xl max-h-[90vh] overflow-y-auto">
+        <DialogHeader className="space-y-4">
+          <div className="flex items-start justify-between">
+            <div className="flex-1">
+              <DialogTitle className="text-3xl font-bold">{caseStudy.title}</DialogTitle>
+              <DialogDescription className="text-lg text-primary dark:text-primary-foreground mt-2">
+                Client: {caseStudy.client} • {caseStudy.industry}
+              </DialogDescription>
+            </div>
+            <div className="flex gap-2">
+              <Badge className="bg-accent-amber/20 text-accent-amber border border-accent-amber/30">
+                {caseStudy.category}
+              </Badge>
+              {caseStudy.featured && (
+                <Badge className="bg-primary/20 text-primary dark:text-primary-foreground border border-primary/30">
+                  Featured
+                </Badge>
+              )}
+            </div>
+          </div>
         </DialogHeader>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
-          <div>
-            <div className="relative aspect-video bg-muted rounded-lg overflow-hidden mb-4">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mt-6">
+          <div className="space-y-6">
+            <div className="relative aspect-video bg-muted/30 dark:bg-muted/20 rounded-xl overflow-hidden">
               <img 
                 src={caseStudy.images[currentImageIndex]} 
                 alt={`${caseStudy.title} screenshot ${currentImageIndex + 1}`} 
                 className="w-full h-full object-cover"
               />
             </div>
-            <div className="flex space-x-2">
+            
+            <div className="flex gap-3">
               {caseStudy.images.map((image, idx) => (
                 <button 
                   key={idx}
                   onClick={() => setCurrentImageIndex(idx)}
-                  className={`w-16 h-12 rounded overflow-hidden border-2 ${idx === currentImageIndex ? 'border-primary' : 'border-transparent'}`}
+                  className={`relative w-20 h-12 rounded-lg overflow-hidden border-2 transition-all ${
+                    idx === currentImageIndex 
+                      ? 'border-primary dark:border-primary-foreground' 
+                      : 'border-border/30 dark:border-border/50 hover:border-primary/50 dark:hover:border-primary-foreground/50'
+                  }`}
                 >
                   <img src={image} alt={`Thumbnail ${idx + 1}`} className="w-full h-full object-cover" />
                 </button>
               ))}
             </div>
+            
+            <div className="grid grid-cols-2 gap-4">
+              <Card className="p-4 bg-muted/30 dark:bg-muted/20">
+                <div className="flex items-center gap-2 text-sm text-muted-foreground dark:text-muted-foreground/80 mb-1">
+                  <Calendar className="w-4 h-4" />
+                  Duration
+                </div>
+                <div className="font-semibold">{caseStudy.duration}</div>
+              </Card>
+              <Card className="p-4 bg-muted/30 dark:bg-muted/20">
+                <div className="flex items-center gap-2 text-sm text-muted-foreground dark:text-muted-foreground/80 mb-1">
+                  <Users className="w-4 h-4" />
+                  Team Size
+                </div>
+                <div className="font-semibold">{caseStudy.teamSize}</div>
+              </Card>
+            </div>
           </div>
-          <div>
-            <div className="mb-4">
-              <h3 className="text-lg font-bold mb-2">Challenge</h3>
-              <p className="text-muted-foreground">{caseStudy.challenge}</p>
+          
+          <div className="space-y-6">
+            <div>
+              <h3 className="text-xl font-bold mb-3 flex items-center gap-2">
+                <div className="w-2 h-6 bg-red-500 rounded-full"></div>
+                Challenge
+              </h3>
+              <p className="text-muted-foreground dark:text-muted-foreground/90 leading-relaxed">
+                {caseStudy.challenge}
+              </p>
             </div>
             
-            <div className="mb-4">
-              <h3 className="text-lg font-bold mb-2">Solution</h3>
-              <p className="text-muted-foreground">{caseStudy.solution}</p>
+            <div>
+              <h3 className="text-xl font-bold mb-3 flex items-center gap-2">
+                <div className="w-2 h-6 bg-blue-500 rounded-full"></div>
+                Solution
+              </h3>
+              <p className="text-muted-foreground dark:text-muted-foreground/90 leading-relaxed">
+                {caseStudy.solution}
+              </p>
             </div>
             
-            <div className="mb-4">
-              <h3 className="text-lg font-bold mb-2">Results</h3>
-              <ul className="list-disc list-inside space-y-1">
+            <div>
+              <h3 className="text-xl font-bold mb-3 flex items-center gap-2">
+                <TrendingUp className="w-5 h-5 text-green-500" />
+                Results
+              </h3>
+              <ul className="space-y-3">
                 {caseStudy.results.map((result, idx) => (
-                  <li key={idx} className="text-muted-foreground">{result}</li>
+                  <li key={idx} className="flex items-start gap-3">
+                    <div className="w-2 h-2 bg-green-500 rounded-full mt-2 flex-shrink-0"></div>
+                    <span className="text-muted-foreground dark:text-muted-foreground/90">{result}</span>
+                  </li>
                 ))}
               </ul>
             </div>
             
             <div>
-              <h3 className="text-lg font-bold mb-2">Technologies Used</h3>
+              <h3 className="text-xl font-bold mb-3">Technologies Used</h3>
               <div className="flex flex-wrap gap-2">
                 {caseStudy.technologies.map((tech, idx) => (
-                  <Badge key={idx} variant="secondary" className="text-sm">
+                  <Badge
+                    key={idx}
+                    variant="secondary"
+                    className="bg-muted/60 dark:bg-muted/40 text-foreground dark:text-foreground border border-border/30 dark:border-border/50"
+                  >
                     {tech}
                   </Badge>
                 ))}
@@ -182,6 +317,18 @@ const CaseStudyDetails = ({ caseStudy, open, onClose }: CaseStudyDetailsProps) =
 
 const CaseStudies = () => {
   const [selectedCaseStudy, setSelectedCaseStudy] = useState<typeof caseStudies[0] | null>(null);
+  const [selectedCategory, setSelectedCategory] = useState("All");
+  const [selectedIndustry, setSelectedIndustry] = useState("All");
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const filteredCaseStudies = caseStudies.filter(study => {
+    const matchesCategory = selectedCategory === "All" || study.category === selectedCategory;
+    const matchesIndustry = selectedIndustry === "All" || study.industry === selectedIndustry;
+    const matchesSearch = study.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                         study.client.toLowerCase().includes(searchTerm.toLowerCase());
+    
+    return matchesCategory && matchesIndustry && matchesSearch;
+  });
 
   const handleOpenDetails = (id: number) => {
     const caseStudy = caseStudies.find(cs => cs.id === id);
@@ -195,33 +342,87 @@ const CaseStudies = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background to-muted/30">
-      {/* Hero Section */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-primary via-primary/90 to-accent-teal/20">
-        <div className="absolute inset-0 bg-grid-white/10 bg-[size:32px_32px] [mask-image:radial-gradient(ellipse_at_center,white,transparent_70%)]"></div>
-        <div className="container-custom relative py-20 md:py-32">
-          <div className="text-center">
-            <div className="inline-flex items-center justify-center w-20 h-20 bg-white/10 backdrop-blur-sm rounded-full mb-6">
-              <span className="text-3xl">📚</span>
+    <div className="min-h-screen">
+      {/* Enhanced Hero Section */}
+      <section className="relative section bg-gradient-to-br from-background via-muted/30 to-background dark:from-background dark:via-muted/10 dark:to-background overflow-hidden">
+        <div className="absolute inset-0">
+          <motion.div
+            className="absolute -top-40 -right-40 w-80 h-80 bg-primary/10 dark:bg-primary/20 rounded-full blur-3xl"
+            animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.5, 0.3] }}
+            transition={{ duration: 8, repeat: Infinity }}
+          />
+          <div className="absolute inset-0 bg-grid-pattern opacity-5 dark:opacity-10" />
+        </div>
+
+        <div className="container-custom text-center relative z-10">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+          >
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 dark:bg-primary/20 rounded-full text-primary dark:text-primary-foreground border border-primary/20 dark:border-primary/30 mb-6">
+              <Award size={16} />
+              <span className="text-sm font-medium">Success Stories</span>
             </div>
-            <h1 className="text-white mb-6 font-heading font-bold">
+            
+            <h1 className="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-foreground to-primary bg-clip-text text-transparent">
               Case Studies
             </h1>
-            <p className="text-xl text-white/90 max-w-3xl mx-auto mb-8 leading-relaxed">
-              Explore how we've helped businesses transform their digital presence and achieve measurable results 
-              through innovative solutions and strategic partnerships.
+            
+            <p className="text-xl text-muted-foreground dark:text-muted-foreground/90 max-w-4xl mx-auto leading-relaxed">
+              Explore how we've helped businesses transform their digital presence and achieve measurable results through innovative solutions and strategic thinking.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" className="bg-white text-primary hover:bg-white/90 hover:shadow-lg">
-                View Portfolio
-              </Button>
-              <Button 
-                size="lg" 
-                variant="outline" 
-                className="border-white/30 text-white hover:bg-white/10 hover:text-white"
-              >
-                Start Your Project
-              </Button>
+          </motion.div>
+        </div>
+      </section>
+      
+      {/* Filters and Search */}
+      <section className="py-8 bg-background border-b border-border/30 dark:border-border/50">
+        <div className="container-custom">
+          <div className="flex flex-col md:flex-row gap-6 items-center justify-between">
+            <div className="relative flex-1 max-w-md">
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground dark:text-muted-foreground/70" />
+              <Input
+                placeholder="Search case studies..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="pl-10 bg-background/60 dark:bg-background/40 border-border/50 dark:border-border/60"
+              />
+            </div>
+            
+            <div className="flex flex-wrap gap-4 items-center">
+              <div className="flex items-center gap-2">
+                <Filter className="w-4 h-4 text-muted-foreground dark:text-muted-foreground/70" />
+                <span className="text-sm font-medium text-muted-foreground dark:text-muted-foreground/80">Filter by:</span>
+              </div>
+              
+              <div className="flex gap-2">
+                {categories.map((category) => (
+                  <Button
+                    key={category}
+                    variant={selectedCategory === category ? "default" : "outline"}
+                    size="sm"
+                    onClick={() => setSelectedCategory(category)}
+                    className="rounded-full"
+                  >
+                    {category}
+                  </Button>
+                ))}
+              </div>
+              
+              <div className="flex gap-2">
+                {industries.map((industry) => (
+                  <Button
+                    key={industry}
+                    variant={selectedIndustry === industry ? "default" : "outline"}
+                    size="sm"
+                    onClick={() => setSelectedIndustry(industry)}
+                    className="rounded-full"
+                  >
+                    {industry}
+                  </Button>
+                ))}
+              </div>
             </div>
           </div>
         </div>
@@ -230,53 +431,45 @@ const CaseStudies = () => {
       {/* Case Studies Grid */}
       <section className="section bg-background">
         <div className="container-custom">
-          <div className="text-center mb-16">
-            <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-primary to-accent-teal rounded-full mb-6">
-              <span className="text-2xl text-white">🎯</span>
+          {filteredCaseStudies.length === 0 ? (
+            <div className="text-center py-16">
+              <div className="w-16 h-16 bg-muted/30 dark:bg-muted/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Search className="w-8 h-8 text-muted-foreground dark:text-muted-foreground/70" />
+              </div>
+              <h3 className="text-xl font-semibold mb-2">No case studies found</h3>
+              <p className="text-muted-foreground dark:text-muted-foreground/80">
+                Try adjusting your search or filter criteria
+              </p>
             </div>
-            <h2 className="text-primary mb-4">Success Stories</h2>
-            <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-              Discover the real-world impact of our digital solutions across various industries and business sizes.
-            </p>
-          </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {filteredCaseStudies.map((caseStudy) => (
+                <CaseStudyCard 
+                  key={caseStudy.id}
+                  caseStudy={caseStudy}
+                  onViewDetails={handleOpenDetails}
+                />
+              ))}
+            </div>
+          )}
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {caseStudies.map((caseStudy) => (
-              <CaseStudyCard 
-                key={caseStudy.id}
-                caseStudy={caseStudy}
-                onViewDetails={handleOpenDetails}
-              />
-            ))}
-          </div>
-        </div>
-      </section>
-      
-      {/* CTA Section */}
-      <section className="section bg-gradient-to-r from-primary via-primary/95 to-accent-teal">
-        <div className="container-custom text-center">
-          <div className="max-w-3xl mx-auto">
-            <div className="inline-flex items-center justify-center w-20 h-20 bg-white/10 backdrop-blur-sm rounded-full mb-8">
-              <span className="text-3xl">🚀</span>
-            </div>
-            <h2 className="text-white mb-6">Ready to Create Your Success Story?</h2>
-            <p className="text-xl text-white/90 mb-8 leading-relaxed">
-              Join our growing list of successful clients and let us help you achieve remarkable results 
-              for your business with our innovative digital solutions.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" className="bg-white text-primary hover:bg-white/90 hover:shadow-lg">
-                Start Your Project
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+            className="text-center mt-16"
+          >
+            <Card className="inline-block p-8 bg-gradient-to-r from-primary/10 to-accent-teal/10 dark:from-primary/20 dark:to-accent-teal/20 border border-primary/20 dark:border-primary/30">
+              <h3 className="text-2xl font-bold mb-4">Ready to Start Your Project?</h3>
+              <p className="text-lg text-muted-foreground dark:text-muted-foreground/90 mb-6 max-w-md mx-auto">
+                Let's discuss how we can help transform your digital presence and achieve similar results.
+              </p>
+              <Button className="bg-gradient-to-r from-primary to-accent-teal hover:from-primary/90 hover:to-accent-teal/90 px-8 py-6 text-lg">
+                Get in Touch
               </Button>
-              <Button 
-                size="lg" 
-                variant="outline" 
-                className="border-white/30 text-white hover:bg-white/10 hover:text-white"
-              >
-                Schedule a Consultation
-              </Button>
-            </div>
-          </div>
+            </Card>
+          </motion.div>
         </div>
       </section>
       

@@ -1,10 +1,11 @@
 
 import { useState } from "react";
+import { motion } from "framer-motion";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { toast } from "sonner";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -16,6 +17,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { Mail, Phone, MapPin, Clock, Send, MessageSquare, Users, Zap } from "lucide-react";
 
 const formSchema = z.object({
   name: z.string().min(2, {
@@ -25,6 +27,8 @@ const formSchema = z.object({
     message: "Please enter a valid email address.",
   }),
   phone: z.string().optional(),
+  company: z.string().optional(),
+  budget: z.string().optional(),
   message: z.string().min(10, {
     message: "Message must be at least 10 characters.",
   }),
@@ -32,8 +36,67 @@ const formSchema = z.object({
 
 type FormValues = z.infer<typeof formSchema>;
 
+const contactInfo = [
+  {
+    icon: Mail,
+    title: "Email Us",
+    description: "Send us an email anytime",
+    value: "info@lovable.com",
+    link: "mailto:info@lovable.com",
+    color: "from-blue-500 to-cyan-500",
+  },
+  {
+    icon: Phone,
+    title: "Call Us",
+    description: "Monday to Friday from 9am to 6pm",
+    value: "+1 (555) 555-5555",
+    link: "tel:+15555555555",
+    color: "from-green-500 to-emerald-500",
+  },
+  {
+    icon: MapPin,
+    title: "Visit Us",
+    description: "Come say hello at our office",
+    value: "123 Tech Street, San Francisco",
+    link: "#",
+    color: "from-purple-500 to-pink-500",
+  },
+  {
+    icon: MessageSquare,
+    title: "Live Chat",
+    description: "Chat with our team in real-time",
+    value: "Available 24/7",
+    link: "#",
+    color: "from-orange-500 to-red-500",
+  },
+];
+
+const budgetOptions = [
+  "Under $10,000",
+  "$10,000 - $25,000",
+  "$25,000 - $50,000",
+  "$50,000 - $100,000",
+  "Over $100,000"
+];
+
+const faqs = [
+  {
+    question: "How long does a typical project take?",
+    answer: "Project timelines vary based on complexity, but most projects range from 4-16 weeks. We'll provide a detailed timeline during our initial consultation."
+  },
+  {
+    question: "Do you work with startups?",
+    answer: "Absolutely! We love working with startups and understand the unique challenges they face. We offer flexible pricing and partnership options."
+  },
+  {
+    question: "What's included in your maintenance packages?",
+    answer: "Our maintenance packages include security updates, performance monitoring, content updates, and technical support. We offer different tiers to match your needs."
+  }
+];
+
 const Contact = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [selectedBudget, setSelectedBudget] = useState("");
 
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
@@ -41,6 +104,8 @@ const Contact = () => {
       name: "",
       email: "",
       phone: "",
+      company: "",
+      budget: "",
       message: "",
     },
   });
@@ -48,80 +113,154 @@ const Contact = () => {
   const onSubmit = (values: FormValues) => {
     setIsSubmitting(true);
     
-    // In a real app, you would send the form data to your server here
-    console.log("Form submitted:", values);
+    console.log("Form submitted:", { ...values, budget: selectedBudget });
     
-    // Simulate API call
     setTimeout(() => {
-      toast.success("Thank you for your message! We'll get back to you soon.");
+      toast.success("Thank you for your message! We'll get back to you within 24 hours.");
       form.reset();
+      setSelectedBudget("");
       setIsSubmitting(false);
     }, 1500);
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background to-muted/30">
-      {/* Hero Section */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-primary via-primary/90 to-accent-teal/20">
-        <div className="absolute inset-0 bg-grid-white/10 bg-[size:32px_32px] [mask-image:radial-gradient(ellipse_at_center,white,transparent_70%)]"></div>
-        <div className="container-custom relative py-20 md:py-32">
-          <div className="text-center">
-            <div className="inline-flex items-center justify-center w-20 h-20 bg-white/10 backdrop-blur-sm rounded-full mb-6">
-              <span className="text-3xl">📞</span>
+    <div className="min-h-screen">
+      {/* Enhanced Hero Section */}
+      <section className="relative section bg-gradient-to-br from-background via-muted/30 to-background dark:from-background dark:via-muted/10 dark:to-background overflow-hidden">
+        <div className="absolute inset-0">
+          <motion.div
+            className="absolute -top-40 -right-40 w-80 h-80 bg-primary/10 dark:bg-primary/20 rounded-full blur-3xl"
+            animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.5, 0.3] }}
+            transition={{ duration: 8, repeat: Infinity }}
+          />
+          <motion.div
+            className="absolute -bottom-40 -left-40 w-80 h-80 bg-accent-teal/10 dark:bg-accent-teal/20 rounded-full blur-3xl"
+            animate={{ scale: [1.2, 1, 1.2], opacity: [0.3, 0.5, 0.3] }}
+            transition={{ duration: 10, repeat: Infinity }}
+          />
+          <div className="absolute inset-0 bg-grid-pattern opacity-5 dark:opacity-10" />
+        </div>
+
+        <div className="container-custom text-center relative z-10">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+          >
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 dark:bg-primary/20 rounded-full text-primary dark:text-primary-foreground border border-primary/20 dark:border-primary/30 mb-6">
+              <Send size={16} />
+              <span className="text-sm font-medium">Get In Touch</span>
             </div>
-            <h1 className="text-white mb-6 font-heading font-bold">
-              Contact Us
+            
+            <h1 className="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-foreground to-primary bg-clip-text text-transparent">
+              Let's Start Something
+              <br />
+              <span className="text-primary dark:text-primary-foreground">Amazing Together</span>
             </h1>
-            <p className="text-xl text-white/90 max-w-3xl mx-auto mb-8 leading-relaxed">
-              Ready to transform your business with innovative digital solutions? 
-              Get in touch with our team and let's discuss your project.
+            
+            <p className="text-xl text-muted-foreground dark:text-muted-foreground/90 max-w-3xl mx-auto leading-relaxed">
+              Have a project in mind or want to learn more about our services? We'd love to hear from you. Let's discuss how we can help bring your vision to life.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" className="bg-white text-primary hover:bg-white/90 hover:shadow-lg">
-                Get Started
-              </Button>
-              <Button 
-                size="lg" 
-                variant="outline" 
-                className="border-white/30 text-white hover:bg-white/10 hover:text-white"
-              >
-                Schedule Call
-              </Button>
+
+            <div className="flex flex-wrap justify-center gap-8 mt-12">
+              <div className="flex items-center gap-2 text-primary dark:text-primary-foreground">
+                <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                <span className="text-sm font-medium">Available for new projects</span>
+              </div>
+              <div className="flex items-center gap-2 text-muted-foreground dark:text-muted-foreground/80">
+                <Clock className="w-4 h-4" />
+                <span className="text-sm">Response within 24 hours</span>
+              </div>
+              <div className="flex items-center gap-2 text-muted-foreground dark:text-muted-foreground/80">
+                <Users className="w-4 h-4" />
+                <span className="text-sm">Free consultation</span>
+              </div>
             </div>
-          </div>
+          </motion.div>
         </div>
       </section>
       
-      {/* Contact Form & Info Section */}
-      <section className="section bg-background">
+      {/* Contact Methods */}
+      <section className="py-16 bg-background">
         <div className="container-custom">
-          <div className="text-center mb-16">
-            <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-primary to-accent-teal rounded-full mb-6">
-              <span className="text-2xl text-white">💬</span>
-            </div>
-            <h2 className="text-primary mb-4">Let's Start a Conversation</h2>
-            <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-              Whether you have a specific project in mind or need guidance on your digital journey, we're here to help.
-            </p>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+            {contactInfo.map((info, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+                whileHover={{ y: -5 }}
+                className="group"
+              >
+                <Card className="h-full p-6 bg-background/60 dark:bg-background/40 backdrop-blur-sm border border-border/50 dark:border-border/60 hover:border-primary/30 dark:hover:border-primary/50 transition-all duration-300 hover:shadow-xl dark:hover:shadow-primary/10 cursor-pointer">
+                  <a href={info.link} className="block space-y-4">
+                    <div className="relative">
+                      <div className={`w-14 h-14 rounded-2xl bg-gradient-to-r ${info.color} p-0.5 group-hover:scale-110 transition-transform duration-300`}>
+                        <div className="w-full h-full bg-background dark:bg-background rounded-2xl flex items-center justify-center">
+                          <info.icon className="w-7 h-7 text-foreground dark:text-foreground" />
+                        </div>
+                      </div>
+                      <div className={`absolute inset-0 w-14 h-14 rounded-2xl bg-gradient-to-r ${info.color} opacity-20 blur-xl group-hover:opacity-40 transition-opacity duration-300`} />
+                    </div>
+                    
+                    <div className="space-y-2">
+                      <h3 className="font-bold text-lg group-hover:text-primary dark:group-hover:text-primary-foreground transition-colors">
+                        {info.title}
+                      </h3>
+                      <p className="text-sm text-muted-foreground dark:text-muted-foreground/80">
+                        {info.description}
+                      </p>
+                      <p className="font-medium text-primary dark:text-primary-foreground">
+                        {info.value}
+                      </p>
+                    </div>
+                  </a>
+                </Card>
+              </motion.div>
+            ))}
           </div>
-          
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-            <div>
-              <Card className="border-0 shadow-lg bg-gradient-to-br from-white to-muted/30">
-                <CardHeader>
-                  <CardTitle className="text-2xl">Send us a Message</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <Form {...form}>
-                    <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+        </div>
+      </section>
+
+      {/* Main Contact Form */}
+      <section className="section bg-muted/30 dark:bg-muted/10">
+        <div className="container-custom">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
+            {/* Form */}
+            <motion.div
+              initial={{ opacity: 0, x: -50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+            >
+              <div className="mb-8">
+                <h2 className="text-3xl font-bold mb-4 flex items-center gap-3">
+                  <Zap className="w-8 h-8 text-primary dark:text-primary-foreground" />
+                  Tell Us About Your Project
+                </h2>
+                <p className="text-lg text-muted-foreground dark:text-muted-foreground/90">
+                  Fill out the form below and we'll get back to you within 24 hours with a detailed proposal.
+                </p>
+              </div>
+
+              <Card className="p-8 bg-background/60 dark:bg-background/40 backdrop-blur-sm border border-border/50 dark:border-border/60">
+                <Form {...form}>
+                  <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                       <FormField
                         control={form.control}
                         name="name"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel>Name</FormLabel>
+                            <FormLabel className="text-base font-medium">Name *</FormLabel>
                             <FormControl>
-                              <Input placeholder="Your name" {...field} />
+                              <Input 
+                                placeholder="Your full name" 
+                                {...field} 
+                                className="h-12 bg-background/60 dark:bg-background/40 border-border/50 dark:border-border/60"
+                              />
                             </FormControl>
                             <FormMessage />
                           </FormItem>
@@ -133,40 +272,33 @@ const Contact = () => {
                         name="email"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel>Email</FormLabel>
+                            <FormLabel className="text-base font-medium">Email *</FormLabel>
                             <FormControl>
-                              <Input placeholder="Your email" type="email" {...field} />
+                              <Input 
+                                placeholder="your@email.com" 
+                                type="email" 
+                                {...field} 
+                                className="h-12 bg-background/60 dark:bg-background/40 border-border/50 dark:border-border/60"
+                              />
                             </FormControl>
                             <FormMessage />
                           </FormItem>
                         )}
                       />
-                      
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                       <FormField
                         control={form.control}
                         name="phone"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel>Phone (optional)</FormLabel>
+                            <FormLabel className="text-base font-medium">Phone</FormLabel>
                             <FormControl>
-                              <Input placeholder="Your phone number" {...field} />
-                            </FormControl>
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
-                      
-                      <FormField
-                        control={form.control}
-                        name="message"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel>Message</FormLabel>
-                            <FormControl>
-                              <Textarea 
-                                placeholder="Tell us about your project or inquiry" 
-                                className="min-h-32"
+                              <Input 
+                                placeholder="+1 (555) 123-4567" 
                                 {...field} 
+                                className="h-12 bg-background/60 dark:bg-background/40 border-border/50 dark:border-border/60"
                               />
                             </FormControl>
                             <FormMessage />
@@ -174,119 +306,148 @@ const Contact = () => {
                         )}
                       />
                       
-                      <Button 
-                        type="submit" 
-                        className="w-full bg-gradient-to-r from-primary to-accent-teal hover:shadow-lg transition-all duration-300" 
-                        disabled={isSubmitting}
-                      >
-                        {isSubmitting ? "Sending..." : "Send Message"}
-                      </Button>
-                    </form>
-                  </Form>
-                </CardContent>
-              </Card>
-            </div>
-            
-            <div className="space-y-6">
-              <Card className="group relative overflow-hidden border-0 shadow-lg hover:shadow-xl transition-all duration-500 hover:-translate-y-2 bg-gradient-to-br from-white to-muted/30">
-                <div className="absolute inset-0 bg-gradient-to-br from-accent-teal/5 to-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                <CardContent className="p-6 relative">
-                  <div className="w-12 h-12 bg-gradient-to-br from-primary to-accent-teal text-white rounded-full flex items-center justify-center mb-4">
-                    <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M3 8L10.8906 13.2604C11.5624 13.7083 12.4376 13.7083 13.1094 13.2604L21 8M5 19H19C20.1046 19 21 18.1046 21 17V7C21 5.89543 20.1046 5 19 5H5C3.89543 5 3 5.89543 3 7V17C3 18.1046 3.89543 19 5 19Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                    </svg>
-                  </div>
-                  <h3 className="font-bold mb-2 group-hover:text-primary transition-colors">Email</h3>
-                  <a href="mailto:info@lovable.com" className="text-primary hover:underline">
-                    info@lovable.com
-                  </a>
-                </CardContent>
-              </Card>
-              
-              <Card className="group relative overflow-hidden border-0 shadow-lg hover:shadow-xl transition-all duration-500 hover:-translate-y-2 bg-gradient-to-br from-white to-muted/30">
-                <div className="absolute inset-0 bg-gradient-to-br from-accent-teal/5 to-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                <CardContent className="p-6 relative">
-                  <div className="w-12 h-12 bg-gradient-to-br from-primary to-accent-teal text-white rounded-full flex items-center justify-center mb-4">
-                    <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M5 4H9L10.5 8.5L8.5 10.5C9.57096 12.6715 11.3285 14.429 13.5 15.5L15.5 13.5L20 15V19C20 19.5304 19.7893 20.0391 19.4142 20.4142C19.0391 20.7893 18.5304 21 18 21C13.4913 21 9.1673 19.1571 5.97918 15.9289C2.79107 12.7007 1 8.37652 1 3.8C1 3.26956 1.21071 2.76086 1.58579 2.38579C1.96086 2.01071 2.46956 1.8 3 1.8H7L5 4Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                    </svg>
-                  </div>
-                  <h3 className="font-bold mb-2 group-hover:text-primary transition-colors">Phone</h3>
-                  <a href="tel:+15555555555" className="text-primary hover:underline">
-                    +1 (555) 555-5555
-                  </a>
-                </CardContent>
-              </Card>
-              
-              <Card className="group relative overflow-hidden border-0 shadow-lg hover:shadow-xl transition-all duration-500 hover:-translate-y-2 bg-gradient-to-br from-white to-muted/30">
-                <div className="absolute inset-0 bg-gradient-to-br from-accent-teal/5 to-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                <CardContent className="p-6 relative">
-                  <div className="w-12 h-12 bg-gradient-to-br from-primary to-accent-teal text-white rounded-full flex items-center justify-center mb-4">
-                    <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M21 10C21 17 12 23 12 23S3 17 3 10C3 7.61305 3.94821 5.32387 5.63604 3.63604C7.32387 1.94821 9.61305 1 12 1C14.3869 1 16.6761 1.94821 18.364 3.63604C20.0518 5.32387 21 7.61305 21 10Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                      <path d="M12 13C13.6569 13 15 11.6569 15 10C15 8.34315 13.6569 7 12 7C10.3431 7 9 8.34315 9 10C9 11.6569 10.3431 13 12 13Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                    </svg>
-                  </div>
-                  <h3 className="font-bold mb-4 group-hover:text-primary transition-colors">Office Location</h3>
-                  <div className="text-muted-foreground">
-                    <p className="mb-1">123 Tech Street</p>
-                    <p className="mb-1">Suite 200</p>
-                    <p className="mb-1">San Francisco, CA 94103</p>
-                    <p>United States</p>
-                  </div>
-                </CardContent>
-              </Card>
-              
-              <Card className="group relative overflow-hidden border-0 shadow-lg hover:shadow-xl transition-all duration-500 hover:-translate-y-2 bg-gradient-to-br from-white to-muted/30">
-                <div className="absolute inset-0 bg-gradient-to-br from-accent-teal/5 to-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                <CardContent className="p-6 relative">
-                  <div className="w-12 h-12 bg-gradient-to-br from-primary to-accent-teal text-white rounded-full flex items-center justify-center mb-4">
-                    <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M12 2C13.1046 2 14 2.89543 14 4V12C14 13.1046 13.1046 14 12 14C10.8954 14 10 13.1046 10 12V4C10 2.89543 10.8954 2 12 2Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                      <path d="M12 6H16.5C18.9853 6 21 8.01472 21 10.5C21 12.9853 18.9853 15 16.5 15H12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                      <path d="M12 18H7.5C5.01472 18 3 15.9853 3 13.5C3 11.0147 5.01472 9 7.5 9H12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                    </svg>
-                  </div>
-                  <h3 className="font-bold mb-4 group-hover:text-primary transition-colors">Business Hours</h3>
-                  <div className="grid grid-cols-2 gap-2 text-muted-foreground">
-                    <p>Monday - Friday:</p>
-                    <p>9:00 AM - 6:00 PM</p>
-                    <p>Saturday:</p>
-                    <p>10:00 AM - 2:00 PM</p>
-                    <p>Sunday:</p>
-                    <p>Closed</p>
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
-          </div>
-        </div>
-      </section>
+                      <FormField
+                        control={form.control}
+                        name="company"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel className="text-base font-medium">Company</FormLabel>
+                            <FormControl>
+                              <Input 
+                                placeholder="Your company name" 
+                                {...field} 
+                                className="h-12 bg-background/60 dark:bg-background/40 border-border/50 dark:border-border/60"
+                              />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                    </div>
 
-      {/* CTA Section */}
-      <section className="section bg-gradient-to-r from-primary via-primary/95 to-accent-teal">
-        <div className="container-custom text-center">
-          <div className="max-w-3xl mx-auto">
-            <div className="inline-flex items-center justify-center w-20 h-20 bg-white/10 backdrop-blur-sm rounded-full mb-8">
-              <span className="text-3xl">🤝</span>
-            </div>
-            <h2 className="text-white mb-6">Ready to Build Something Amazing?</h2>
-            <p className="text-xl text-white/90 mb-8 leading-relaxed">
-              Join hundreds of satisfied clients who have transformed their businesses with our innovative digital solutions. 
-              Let's discuss how we can help you achieve your goals.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" className="bg-white text-primary hover:bg-white/90 hover:shadow-lg">
-                Start Your Project
-              </Button>
-              <Button 
-                size="lg" 
-                variant="outline" 
-                className="border-white/30 text-white hover:bg-white/10 hover:text-white"
-              >
-                View Our Work
-              </Button>
-            </div>
+                    <div>
+                      <label className="text-base font-medium mb-3 block">Project Budget</label>
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                        {budgetOptions.map((budget) => (
+                          <button
+                            key={budget}
+                            type="button"
+                            onClick={() => setSelectedBudget(budget)}
+                            className={`p-4 rounded-xl border text-left transition-all duration-300 ${
+                              selectedBudget === budget
+                                ? 'border-primary dark:border-primary-foreground bg-primary/10 dark:bg-primary/20 text-primary dark:text-primary-foreground'
+                                : 'border-border/50 dark:border-border/60 hover:border-primary/30 dark:hover:border-primary-foreground/30 bg-background/60 dark:bg-background/40'
+                            }`}
+                          >
+                            {budget}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                    
+                    <FormField
+                      control={form.control}
+                      name="message"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel className="text-base font-medium">Project Details *</FormLabel>
+                          <FormControl>
+                            <Textarea 
+                              placeholder="Tell us about your project, goals, timeline, and any specific requirements..." 
+                              className="min-h-32 bg-background/60 dark:bg-background/40 border-border/50 dark:border-border/60 resize-none"
+                              {...field} 
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    
+                    <Button 
+                      type="submit" 
+                      className="w-full h-14 bg-gradient-to-r from-primary to-accent-teal hover:from-primary/90 hover:to-accent-teal/90 text-lg font-semibold" 
+                      disabled={isSubmitting}
+                    >
+                      {isSubmitting ? (
+                        <div className="flex items-center gap-2">
+                          <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
+                          Sending...
+                        </div>
+                      ) : (
+                        <div className="flex items-center gap-2">
+                          <Send className="w-5 h-5" />
+                          Send Message
+                        </div>
+                      )}
+                    </Button>
+                  </form>
+                </Form>
+              </Card>
+            </motion.div>
+            
+            {/* FAQ and Additional Info */}
+            <motion.div
+              initial={{ opacity: 0, x: 50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+              className="space-y-8"
+            >
+              <div>
+                <h2 className="text-3xl font-bold mb-6">Frequently Asked Questions</h2>
+                <div className="space-y-6">
+                  {faqs.map((faq, index) => (
+                    <Card key={index} className="p-6 bg-background/60 dark:bg-background/40 backdrop-blur-sm border border-border/50 dark:border-border/60">
+                      <h3 className="font-bold text-lg mb-3 text-primary dark:text-primary-foreground">
+                        {faq.question}
+                      </h3>
+                      <p className="text-muted-foreground dark:text-muted-foreground/90 leading-relaxed">
+                        {faq.answer}
+                      </p>
+                    </Card>
+                  ))}
+                </div>
+              </div>
+
+              <Card className="p-8 bg-gradient-to-br from-primary/10 to-accent-teal/10 dark:from-primary/20 dark:to-accent-teal/20 border border-primary/20 dark:border-primary/30">
+                <h3 className="text-2xl font-bold mb-4">What Happens Next?</h3>
+                <div className="space-y-4">
+                  <div className="flex items-start gap-4">
+                    <div className="w-8 h-8 bg-primary/20 dark:bg-primary/30 rounded-full flex items-center justify-center text-primary dark:text-primary-foreground font-bold text-sm flex-shrink-0">
+                      1
+                    </div>
+                    <div>
+                      <h4 className="font-semibold mb-1">We'll review your project</h4>
+                      <p className="text-sm text-muted-foreground dark:text-muted-foreground/80">
+                        Our team will analyze your requirements and prepare a detailed proposal.
+                      </p>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-4">
+                    <div className="w-8 h-8 bg-primary/20 dark:bg-primary/30 rounded-full flex items-center justify-center text-primary dark:text-primary-foreground font-bold text-sm flex-shrink-0">
+                      2
+                    </div>
+                    <div>
+                      <h4 className="font-semibold mb-1">Schedule a consultation</h4>
+                      <p className="text-sm text-muted-foreground dark:text-muted-foreground/80">
+                        We'll set up a call to discuss your project in detail and answer any questions.
+                      </p>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-4">
+                    <div className="w-8 h-8 bg-primary/20 dark:bg-primary/30 rounded-full flex items-center justify-center text-primary dark:text-primary-foreground font-bold text-sm flex-shrink-0">
+                      3
+                    </div>
+                    <div>
+                      <h4 className="font-semibold mb-1">Start building</h4>
+                      <p className="text-sm text-muted-foreground dark:text-muted-foreground/80">
+                        Once approved, we'll begin crafting your digital solution with regular updates.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </Card>
+            </motion.div>
           </div>
         </div>
       </section>
