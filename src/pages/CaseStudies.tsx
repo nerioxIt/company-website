@@ -635,7 +635,7 @@ const CaseStudies = () => {
               transition={{ duration: 0.6 }}
               className="mb-10"
             >
-              <div className="bg-background/40 dark:bg-background/20 backdrop-blur-sm rounded-xl p-1.5 border border-primary/20 dark:border-primary/30 inline-flex relative gap-2">
+              <div className="bg-background/40 dark:bg-background/20 backdrop-blur-sm  dark:border-primary/30 inline-flex relative gap-2">
                 <Link to="/contact">
                   <Button 
                     className="relative px-8 py-4 text-lg font-medium transition-all duration-300 rounded-lg bg-gradient-to-r from-primary to-accent-teal text-white shadow-lg hover:shadow-xl"
@@ -647,7 +647,7 @@ const CaseStudies = () => {
                 
                 <Link to="/services">
                   <Button 
-                    className="relative px-8 py-4 text-lg font-medium transition-all duration-300 rounded-lg bg-gradient-to-r from-accent-teal to-primary text-white shadow-lg hover:shadow-xl"
+                    className="relative px-8 py-4 text-lg font-medium transition-all duration-300 border-primaryrounded-lg bg-transparent text-primary shadow-lg hover:shadow-xl hover:bg-primary/10 dark:text-white dark:hover:bg-primary/20"
                   >
                     Explore Our Services
                   </Button>
