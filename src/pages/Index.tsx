@@ -75,25 +75,6 @@ const Index = () => {
       <TestimonialSnippet />
       
      
-      
-      {/* Refined scroll to top button */}
-      <motion.div 
-        className="fixed bottom-6 left-6 z-40"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: showScrollTop ? 1 : 0 }}
-        transition={{ duration: 0.2 }}
-        style={{ pointerEvents: showScrollTop ? 'auto' : 'none' }}
-      >
-        <Button 
-          variant="outline" 
-          size="lg" 
-          className="h-12 w-12 rounded-full shadow-lg bg-background/80 dark:bg-background/60 backdrop-blur-sm border border-border/50 dark:border-border/40 hover:bg-background dark:hover:bg-background/80 p-0 flex items-center justify-center"
-          onClick={scrollToTop}
-          aria-label="Scroll to top"
-        >
-          <ArrowUp className="h-5 w-5 text-foreground dark:text-foreground" />
-        </Button>
-      </motion.div>
     </motion.div>
   );
 };
