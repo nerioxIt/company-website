@@ -138,7 +138,7 @@ const testimonials = [
   },
   {
     id: 3,
-    content: "Working with Lovable Digital Agency has been transformative for our business. Their team delivered a website that not only looks great but has significantly improved our conversion rates and user engagement.",
+    content: "Working with CQ Group Digital Agency has been transformative for our business. Their team delivered a website that not only looks great but has significantly improved our conversion rates and user engagement.",
     author: "Jennifer Roberts",
     company: "FashionForward Inc.",
     position: "Marketing Director",
@@ -148,7 +148,7 @@ const testimonials = [
   },
   {
     id: 4,
-    content: "The e-commerce platform developed by Lovable Digital Agency has revolutionized how we sell products online. Sales have increased by 45% in the first three months after launch.",
+    content: "The e-commerce platform developed by CQ Group Digital Agency has revolutionized how we sell products online. Sales have increased by 45% in the first three months after launch.",
     author: "Mark Thompson",
     company: "GreenGoods Co.",
     position: "CEO",
@@ -158,7 +158,7 @@ const testimonials = [
   },
   {
     id: 5,
-    content: "We've worked with several agencies in the past, but none have delivered the level of quality, innovation, and results that Lovable Digital Agency has. They truly understand our business needs and goals.",
+    content: "We've worked with several agencies in the past, but none have delivered the level of quality, innovation, and results that CQ Group Agency has. They truly understand our business needs and goals.",
     author: "Sophia Chen",
     company: "TechInnovate",
     position: "COO",
@@ -168,7 +168,7 @@ const testimonials = [
   },
   {
     id: 6,
-    content: "The mobile app developed by Lovable has received outstanding feedback from our users. The team's attention to detail and commitment to excellence made all the difference.",
+    content: "The mobile app developed by CQ has received outstanding feedback from our users. The team's attention to detail and commitment to excellence made all the difference.",
     author: "Robert Miller",
     company: "HealthFirst",
     position: "Product Manager",

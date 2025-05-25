@@ -73,8 +73,8 @@ const contactInfo = [
     icon: Mail,
     title: "Email Us",
     description: "Send us an email anytime",
-    value: "info@lovable.com",
-    link: "mailto:info@lovable.com",
+    value: "info@cq.com",
+    link: "mailto:info@cq.com",
     color: "from-blue-500 to-cyan-500",
   },
   {
@@ -123,25 +123,25 @@ const socialLinks = [
   {
     icon: Linkedin,
     name: "LinkedIn",
-    href: "https://linkedin.com/company/lovable",
+    href: "https://linkedin.com/",
     color: "hover:text-blue-600",
   },
   {
     icon: Twitter,
     name: "Twitter",
-    href: "https://twitter.com/lovable_dev",
+    href: "https://twitter.com/",
     color: "hover:text-blue-400",
   },
   {
     icon: Facebook,
     name: "Facebook",
-    href: "https://facebook.com/lovable",
+    href: "https://facebook.com/",
     color: "hover:text-blue-500",
   },
   {
     icon: Instagram,
     name: "Instagram",
-    href: "https://instagram.com/lovable_dev",
+    href: "https://instagram.com/",
     color: "hover:text-pink-500",
   },
 ];
@@ -532,8 +532,8 @@ const Contact = () => {
                   <div className="flex items-center gap-2 text-sm">
                     <Mail className="w-4 h-4 text-muted-foreground" />
                     <span className="text-muted-foreground">Quick inquiries:</span>
-                    <a href="mailto:hello@lovable.com" className="text-primary dark:text-white hover:underline">
-                      hello@lovable.com
+                    <a href="mailto:hello@cq.com" className="text-primary dark:text-white hover:underline">
+                      hello@cqgroup.com
                     </a>
                   </div>
                   <div className="flex items-center gap-2 text-sm">

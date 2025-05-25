@@ -11,7 +11,7 @@ export const Logo = ({
     <div className={cn("flex items-center", className)}>
       <img
         src={darkMode ? "/logo-dark.png" : "/logo.png"}
-        alt="Lovable Logo"
+        alt="Logo"
         className="mr-2 h-16 w-16 object-contain"
       />
       
