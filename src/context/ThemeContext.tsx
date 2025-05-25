@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useEffect, useState } from "react";
+import React, { createContext, useContext, useEffect, useState, useCallback } from "react";
 
 type Theme = "light" | "dark";
 
@@ -32,17 +32,35 @@ export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
     // Update localStorage when theme changes
     localStorage.setItem("theme", theme);
     
-    // Update the class on the html element
+    // Update the class on the html element with optimized transition
+    const htmlElement = document.documentElement;
+    const bodyElement = document.body;
+    
+    // Temporarily disable transitions for instant theme switch
+    bodyElement.classList.add('theme-transition-disabled');
+    
+    // Use flushSync to ensure DOM updates are applied immediately
     if (theme === "dark") {
-      document.documentElement.classList.add("dark");
+      htmlElement.classList.add("dark");
     } else {
-      document.documentElement.classList.remove("dark");
+      htmlElement.classList.remove("dark");
     }
+    
+    // Use double requestAnimationFrame for more reliable timing
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        bodyElement.classList.remove('theme-transition-disabled');
+      });
+    });
   }, [theme]);
 
-  const toggleTheme = () => {
+  const toggleTheme = useCallback(() => {
+    // Immediately disable transitions before state change
+    const bodyElement = document.body;
+    bodyElement.classList.add('theme-transition-disabled');
+    
     setTheme((prevTheme) => (prevTheme === "light" ? "dark" : "light"));
-  };
+  }, []);
 
   return (
     <ThemeContext.Provider value={{ theme, toggleTheme }}>

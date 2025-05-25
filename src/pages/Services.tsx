@@ -1,7 +1,7 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { motion } from "framer-motion";
+import { motion, useScroll, useSpring } from "framer-motion";
 import { useState } from "react";
 import { 
   Code, 
@@ -13,6 +13,7 @@ import {
   Shield,
   Users,
   Award,
+  Star,
   MonitorSmartphone, // For IT Support & Monitoring
   Terminal, // For EPOS Solutions
   UsersRound, // For CRM Systems
@@ -133,9 +134,10 @@ const getTechnologyIcon = (tech: string): string => {
     "Grafana": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/grafana/grafana-original.svg",
     "Prometheus": "https://cdn.worldvectorlogo.com/logos/prometheus.svg",
     "Square": "https://cdn.worldvectorlogo.com/logos/square-2.svg",
-    "Shopify POS": "https://cdn.worldvectorlogo.com/logos/shopify.svg",
-    "Lightspeed": "https://cdn.worldvectorlogo.com/logos/lightspeed-2.svg",
+    "Shopify POS": "https://cdn.worldvectorlogo.com/logos/shopify.svg",    "Lightspeed": "https://cdn.worldvectorlogo.com/logos/lightspeed-2.svg",
     "C#": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/csharp/csharp-original.svg",
+    "Microsoft 365": "https://cdn.worldvectorlogo.com/logos/microsoft-office-2013.svg",
+    "Google Workspace": "https://cdn.worldvectorlogo.com/logos/google-workspace.svg",
     
     // Keep these ones for other services
     "Figma": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg",
@@ -165,14 +167,13 @@ const services = [
     icon: Code,
     color: "bg-blue-500/10 text-blue-600 dark:text-blue-400",
     description: "Our web development services focus on creating responsive, scalable, and performant websites and web applications tailored to your business needs.",
-    image: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
-    features: [
-      "Custom web application development",
-      "E-commerce solutions",
+    image: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",    features: [
+      "SEO-optimised websites",
+      "Mobile responsive design",
+      "E-commerce & booking platforms",
+      "Custom web applications",
       "Progressive Web Apps (PWA)",
-      "Web portal development",
-      "Content Management Systems",
-      "API development and integration"
+      "Content Management Systems"
     ],
     process: [
       "Requirements gathering and analysis",
@@ -181,8 +182,32 @@ const services = [
       "Testing and quality assurance",
       "Deployment and maintenance"
     ],
-    technologies: ["React", "Node.js", "Vue.js", "Next.js", "Angular", "Laravel", "WordPress"],
-    stats: { projects: "150+", satisfaction: "98%" }
+    technologies: ["React", "Node.js", "Vue.js", "Next.js", "Angular", "Laravel", "WordPress"],    stats: { projects: "150+", satisfaction: "98%" }
+  },
+  {
+    id: "custom-software",
+    title: "Custom Software Solutions",
+    icon: Code,
+    color: "bg-indigo-500/10 text-indigo-600 dark:text-indigo-400",
+    description: "We develop bespoke software solutions tailored to your specific business needs, from internal dashboards to automation tools and customer portals.",
+    image: "https://images.unsplash.com/photo-1517077304055-6e89abbf09b0?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
+    features: [
+      "Internal dashboards",
+      "Automation tools",
+      "Customer portals",
+      "Business process automation",
+      "Custom reporting systems",
+      "Integration platforms"
+    ],
+    process: [
+      "Requirements gathering and analysis",
+      "UI/UX design and prototyping", 
+      "Frontend and backend development",
+      "Testing and quality assurance",
+      "Deployment and maintenance"
+    ],
+    technologies: ["React", "Node.js", "Python", "Django", ".NET", "C#", "PostgreSQL"],
+    stats: { projects: "100+", satisfaction: "97%" }
   },
   {
     id: "mobile-apps",
@@ -190,11 +215,10 @@ const services = [
     icon: Smartphone,
     color: "bg-green-500/10 text-green-600 dark:text-green-400",
     description: "We develop native and cross-platform mobile applications that offer seamless user experiences across devices.",
-    image: "https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
-    features: [
-      "Native iOS app development",
-      "Native Android app development",
-      "Cross-platform app development",
+    image: "https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",    features: [
+      "iOS & Android native apps",
+      "Business and customer apps",
+      "Cross-platform development",
       "Mobile app UI/UX design",
       "App testing and deployment",
       "App maintenance and support"
@@ -211,19 +235,18 @@ const services = [
     stats: { projects: "80+", satisfaction: "96%" }
   },
   {
-    id: "it-support-monitoring",
-    title: "IT Support & Monitoring",
+    id: "it-support-monitoring",    title: "Helpdesk & ITSM",
     icon: MonitorSmartphone,
     color: "bg-purple-500/10 text-purple-600 dark:text-purple-400",
-    description: "We provide comprehensive IT support and proactive monitoring services to ensure your systems run smoothly and securely 24/7.",
+    description: "We provide comprehensive IT service management including ticketing systems, knowledge bases, and remote monitoring tools to ensure your systems run smoothly 24/7.",
     image: "https://images.unsplash.com/photo-1551033406-611cf9a28f67?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
     features: [
+      "Ticketing systems",
+      "Knowledge bases",
+      "Remote monitoring tools",
       "24/7 system monitoring",
-      "Remote IT support",
       "Network security management",
-      "Incident response and resolution",
-      "Preventive maintenance",
-      "Performance optimization"
+      "Incident response and resolution"
     ],
     process: [
       "Requirements gathering and analysis",
@@ -239,13 +262,12 @@ const services = [
     id: "epos-solutions",
     title: "EPOS Solutions",
     icon: Terminal,
-    color: "bg-orange-500/10 text-orange-600 dark:text-orange-400",
-    description: "Our electronic point of sale solutions streamline retail and hospitality operations with seamless transaction processing and inventory management.",
+    color: "bg-orange-500/10 text-orange-600 dark:text-orange-400",    description: "Our electronic point of sale solutions streamline retail operations with retail setups, inventory systems, and seamless payment integrations for modern businesses.",
     image: "https://images.unsplash.com/photo-1556742031-c6961e8560b0?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
     features: [
-      "Custom EPOS systems",
-      "Inventory management",
-      "Payment processing integration",
+      "Retail setups",
+      "Inventory systems", 
+      "Payment integrations",
       "Sales analytics and reporting",
       "Customer loyalty programs",
       "Multi-location management"
@@ -264,16 +286,15 @@ const services = [
     id: "crm-systems",
     title: "CRM Systems",
     icon: UsersRound,
-    color: "bg-pink-500/10 text-pink-600 dark:text-pink-400",
-    description: "We develop customized customer relationship management solutions that help businesses optimize customer interactions and streamline sales processes.",
+    color: "bg-pink-500/10 text-pink-600 dark:text-pink-400",    description: "We develop custom CRM solutions and provide Salesforce or HubSpot integration services with comprehensive lead management systems to optimize customer relationships.",
     image: "https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
     features: [
-      "Custom CRM development",
-      "Sales pipeline management",
+      "Custom CRMs",
+      "Salesforce or HubSpot integration",
+      "Lead management systems",
       "Customer data management",
       "Workflow automation",
-      "Reporting and analytics",
-      "Third-party integrations"
+      "Reporting and analytics"
     ],
     process: [
       "Requirements gathering and analysis",
@@ -282,23 +303,22 @@ const services = [
       "Testing and quality assurance",
       "Deployment and maintenance"
     ],
-    technologies: ["Salesforce", "Dynamics 365", "HubSpot", "React", "Node.js", "Python", "MongoDB"],
+    technologies: ["Salesforce", "Dynamics 365", "HubSpot", "React", "Node.js", "Python", "PostgreSQL"],
     stats: { projects: "90+", satisfaction: "97%" }
   },
   {
-    id: "cloud-services",
-    title: "Cloud Services",
+    id: "cloud-services",    title: "Cloud & Hosting Solutions",
     icon: Cloud,
     color: "bg-cyan-500/10 text-cyan-600 dark:text-cyan-400",
-    description: "Our cloud services help businesses leverage the power of cloud computing for scalability, reliability, and cost efficiency.",
+    description: "Our cloud services include AWS/Azure deployments, managed hosting, and email systems like Microsoft 365 or Google Workspace for scalability and reliability.",
     image: "https://images.unsplash.com/photo-1544197150-b99a580bb7a8?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
     features: [
-      "Cloud migration",
+      "AWS/Azure deployments",
+      "Managed hosting",
+      "Email systems (Microsoft 365/Google Workspace)",
       "Cloud infrastructure setup",
-      "Serverless application development",
-      "DevOps and CI/CD",
       "Cloud security",
-      "Managed cloud services"
+      "DevOps and CI/CD"
     ],
     process: [
       "Assessment and planning",
@@ -308,7 +328,7 @@ const services = [
       "Deployment",
       "Monitoring and optimization"
     ],
-    technologies: ["AWS", "Azure", "Google Cloud", "Docker", "Kubernetes", "Terraform"],
+    technologies: ["AWS", "Azure", "Google Cloud", "Microsoft 365", "Google Workspace", "Docker", "Kubernetes"],
     stats: { projects: "70+", satisfaction: "98%" }
   }
 ];
@@ -475,6 +495,15 @@ const ServiceCard = ({ service, index, onLearnMore }: { service: typeof services
 };
 
 const Services = () => {
+  const { scrollYProgress } = useScroll();
+  // Optimized spring physics for smoother progress bar
+  const scaleX = useSpring(scrollYProgress, {
+    stiffness: 400,
+    damping: 40,
+    restDelta: 0.0001,
+    mass: 0.1
+  });
+  
   const [activeTab, setActiveTab] = useState("web-development");
 
   const handleLearnMore = (serviceId: string) => {
@@ -482,7 +511,14 @@ const Services = () => {
   };
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen relative">
+      {/* Scroll progress indicator */}
+      <motion.div 
+        className="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-primary via-primary to-accent-teal z-50 origin-left opacity-90 dark:opacity-80"
+        style={{ scaleX }}
+        transition={{ type: "spring" }}
+      />
+      
       {/* Enhanced Hero Section */}
       <section className="relative min-h-[90vh] flex items-center overflow-hidden bg-gradient-to-br from-primary/5 via-background via-50% to-accent-teal/10">
         {/* Animated Background Elements */}
@@ -621,8 +657,7 @@ const Services = () => {
                   </motion.div>
                 ))}
               </motion.div>
-              
-              {/* Featured Service Preview */}
+                {/* Service Benefits */}
               <motion.div
                 className="bg-gradient-to-br from-primary/10 via-card/80 to-accent-teal/10 backdrop-blur-sm p-6 rounded-2xl border border-primary/20 shadow-lg"
                 initial={{ opacity: 0, scale: 0.9 }}
@@ -632,28 +667,26 @@ const Services = () => {
               >
                 <div className="flex items-center gap-3 mb-4">
                   <div className="p-3 bg-primary/20 rounded-xl">
-                    <Zap className="w-6 h-6 text-primary" />
+                    <Star className="w-6 h-6 text-primary" />
+                  </div>                  <div>
+                    <h3 className="font-bold text-lg text-foreground">Service Guarantees</h3>
+                    <p className="text-sm text-muted-foreground">Our commitment to quality</p>
                   </div>
-                  <div>
-                    <h3 className="font-bold text-lg text-foreground">Quick Start Package</h3>
-                    <p className="text-sm text-muted-foreground">Perfect for small businesses</p>
-                  </div>
-                </div>
-                <div className="space-y-2 mb-4">
-                  {["Website Design", "Mobile Optimization", "Basic SEO"].map((feature, idx) => (
+                </div>                <div className="space-y-2 mb-4">
+                  {["100% Satisfaction Guarantee", "Industry Expertise", "Proven Results"].map((benefit, idx) => (
                     <div key={idx} className="flex items-center gap-2 text-sm">
                       <CheckCircle className="w-4 h-4 text-green-500" />
-                      <span>{feature}</span>
+                      <span>{benefit}</span>
                     </div>
                   ))}
                 </div>
-                <motion.button 
-                  className="w-full bg-primary text-primary-foreground py-2 rounded-lg font-medium text-sm hover:bg-primary/90 transition-colors"
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                >
-                  Learn More
-                </motion.button>
+                <div className="flex items-center justify-between pt-2 border-t border-border/50">
+                  <span className="text-sm text-muted-foreground">Quality Assured</span>
+                  <div className="flex items-center gap-1">
+                    <Award className="w-4 h-4 text-primary" />
+                    <span className="text-sm font-medium text-primary">Certified Excellence</span>
+                  </div>
+                </div>
               </motion.div>
             </div>
           </div>
@@ -823,30 +856,31 @@ const Services = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.8, delay: 0.4 }}
-              >
-                <TabsList className="grid grid-cols-3 md:grid-cols-6 mb-12 h-auto p-2 bg-gradient-to-r from-muted/30 via-muted/50 to-muted/30 rounded-2xl backdrop-blur-sm border border-border/50">
-                  {services.map((service, index) => {
-                    const Icon = service.icon;
-                    return (
-                      <motion.div
-                        key={service.id}
-                        initial={{ opacity: 0, scale: 0.8 }}
-                        whileInView={{ opacity: 1, scale: 1 }}
-                        viewport={{ once: true }}
-                        transition={{ delay: 0.5 + index * 0.1 }}
-                      >
-                        <TabsTrigger 
-                          value={service.id} 
-                          className="text-xs flex flex-col gap-2 p-4 h-auto data-[state=active]:bg-white dark:data-[state=active]:bg-card data-[state=active]:shadow-lg rounded-xl transition-all duration-300 hover:scale-105 group"
-                        >
-                          <div className={`p-2 rounded-lg ${service.color} group-data-[state=active]:scale-110 transition-transform duration-300`}>
-                            <Icon className="w-4 h-4" />
-                          </div>
-                          <span className="hidden sm:inline font-medium">{service.title}</span>
-                        </TabsTrigger>
-                      </motion.div>
-                    );
-                  })}
+              >                <TabsList className="w-full mb-12 h-auto p-3 bg-gradient-to-r from-muted/30 via-muted/50 to-muted/30 rounded-2xl backdrop-blur-sm border border-border/50">
+                  <div className="flex items-center gap-3 overflow-x-auto scrollbar-hide w-full pb-1">
+                    {services.map((service, index) => {
+                      const Icon = service.icon;
+                      return (
+                        <motion.div
+                          key={service.id}
+                          initial={{ opacity: 0, scale: 0.8 }}
+                          whileInView={{ opacity: 1, scale: 1 }}
+                          viewport={{ once: true }}
+                          transition={{ delay: 0.5 + index * 0.1 }}
+                          className="flex-shrink-0"
+                        >                          <TabsTrigger 
+                            value={service.id} 
+                            className="text-xs flex flex-col items-center gap-2 p-4 h-auto min-w-[110px] sm:min-w-[130px] data-[state=active]:bg-white data-[state=active]:text-gray-900 dark:data-[state=active]:bg-gray-900 dark:data-[state=active]:text-white dark:data-[state=active]:border-primary/50 data-[state=active]:shadow-lg data-[state=active]:border-2 data-[state=active]:border-primary/30 rounded-xl transition-all duration-300 hover:scale-105 group whitespace-nowrap hover:bg-white/50 dark:hover:bg-gray-800/50"
+                          >
+                            <div className={`p-2 rounded-lg ${service.color} group-data-[state=active]:scale-110 transition-transform duration-300`}>
+                              <Icon className="w-4 h-4" />
+                            </div>
+                            <span className="font-medium text-center leading-tight text-[11px] sm:text-xs">{service.title}</span>
+                          </TabsTrigger>
+                        </motion.div>
+                      );
+                    })}
+                  </div>
                 </TabsList>
               </motion.div>
               
@@ -1070,37 +1104,7 @@ const Services = () => {
                               <div className="absolute -bottom-8 text-center">
                                 <div className="text-sm font-semibold text-green-600">Project Complete!</div>
                               </div>
-                            </motion.div>
-                          </div>
-                          
-                          {/* Process Summary Card */}
-                          <motion.div
-                            className="mt-8 p-6 bg-gradient-to-br from-primary/5 via-card/90 to-accent-teal/5 rounded-2xl border border-primary/10"
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.6, delay: 1.8 }}
-                          >
-                            <div className="flex items-center gap-4 mb-4">
-                              <div className="p-2 bg-primary/10 rounded-lg">
-                                <Award className="w-5 h-5 text-primary" />
-                              </div>
-                              <h4 className="font-bold text-lg">Why Our Process Works</h4>
-                            </div>
-                            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                              <div className="text-center p-4 bg-card/50 rounded-xl border border-border/30">
-                                <div className="text-2xl font-bold text-primary mb-2">100%</div>
-                                <div className="text-sm text-muted-foreground">Transparent Communication</div>
-                              </div>
-                              <div className="text-center p-4 bg-card/50 rounded-xl border border-border/30">
-                                <div className="text-2xl font-bold text-green-500 mb-2">24/7</div>
-                                <div className="text-sm text-muted-foreground">Project Monitoring</div>
-                              </div>
-                              <div className="text-center p-4 bg-card/50 rounded-xl border border-border/30">
-                                <div className="text-2xl font-bold text-accent-teal mb-2">98%</div>
-                                <div className="text-sm text-muted-foreground">On-Time Delivery</div>
-                              </div>
-                            </div>
-                          </motion.div>
+                            </motion.div>                          </div>
                         </motion.div>
                       </div>
                       
@@ -1344,6 +1348,37 @@ const Services = () => {
                                   View Portfolio
                                   <Users className="w-4 h-4" />
                                 </motion.button>
+                              </div>                            </CardContent>
+                          </Card>
+                        </motion.div>
+                        
+                        {/* Process Summary Card */}
+                        <motion.div
+                          initial={{ opacity: 0, x: 20 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ duration: 0.6, delay: 0.7 }}
+                        >
+                          <Card className="bg-gradient-to-br from-primary/5 via-card/90 to-accent-teal/5 border-primary/10">
+                            <CardContent className="p-6">
+                              <div className="flex items-center gap-4 mb-4">
+                                <div className="p-2 bg-primary/10 rounded-lg">
+                                  <Award className="w-5 h-5 text-primary" />
+                                </div>
+                                <h4 className="font-bold text-lg">Why Our Process Works</h4>
+                              </div>
+                              <div className="grid grid-cols-1 gap-4">
+                                <div className="text-center p-4 bg-card/50 rounded-xl border border-border/30">
+                                  <div className="text-2xl font-bold text-primary mb-2">100%</div>
+                                  <div className="text-sm text-muted-foreground">Transparent Communication</div>
+                                </div>
+                                <div className="text-center p-4 bg-card/50 rounded-xl border border-border/30">
+                                  <div className="text-2xl font-bold text-green-500 mb-2">24/7</div>
+                                  <div className="text-sm text-muted-foreground">Project Monitoring</div>
+                                </div>
+                                <div className="text-center p-4 bg-card/50 rounded-xl border border-border/30">
+                                  <div className="text-2xl font-bold text-accent-teal mb-2">98%</div>
+                                  <div className="text-sm text-muted-foreground">On-Time Delivery</div>
+                                </div>
                               </div>
                             </CardContent>
                           </Card>

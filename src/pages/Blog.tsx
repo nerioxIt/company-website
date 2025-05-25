@@ -3,7 +3,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
 import { Avatar } from "@/components/ui/avatar";
 import { Link } from "react-router-dom";
-import { motion } from "framer-motion";
+import { motion, useScroll, useSpring } from "framer-motion";
 import { 
   Calendar, 
   Clock, 
@@ -388,7 +388,7 @@ const TestimonialCard = ({ testimonial, index }: { testimonial: typeof testimoni
   );
 };
 
-const CategoryBadge = ({ icon: Icon, text }: { icon: any, text: string }) => (
+const CategoryBadge = ({ icon: Icon, text }: { icon: React.ComponentType<{ className?: string }>, text: string }) => (
   <motion.div 
     whileHover={{ y: -3, scale: 1.05 }}
     className="flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary dark:text-white text-sm font-medium"
@@ -399,11 +399,26 @@ const CategoryBadge = ({ icon: Icon, text }: { icon: any, text: string }) => (
 );
 
 const Blog = () => {
+  const { scrollYProgress } = useScroll();
+  // Optimized spring physics for smoother progress bar
+  const scaleX = useSpring(scrollYProgress, {
+    stiffness: 400,
+    damping: 40,
+    restDelta: 0.0001,
+    mass: 0.1
+  });
+  
   const featuredPosts = blogPosts.filter(post => post.featured);
   const regularPosts = blogPosts.filter(post => !post.featured);
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen relative">
+      {/* Scroll progress indicator */}
+      <motion.div 
+        className="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-primary via-primary to-accent-teal z-50 origin-left opacity-90 dark:opacity-80"
+        style={{ scaleX }}
+        transition={{ type: "spring" }}
+      />
       {/* Hero Section */}
       <section className="relative py-8 overflow-hidden bg-gradient-to-br from-primary/5 via-background to-accent-teal/5">
         <div className="absolute inset-0 bg-grid-pattern opacity-5" />

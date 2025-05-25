@@ -1,6 +1,7 @@
 
 import { useState, useEffect, useRef } from "react";
-import { motion, useInView } from "framer-motion";
+import { motion, useInView, useScroll, useSpring } from "framer-motion";
+import { Link } from "react-router-dom";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Users, Target, Lightbulb, Heart, Award, Globe, Zap, Shield, Rocket, TrendingUp, Building, Star, Trophy, MapPin, Linkedin, Twitter, Github, Mail, Phone, Calendar, MapPin as Location, Quote, ChevronDown } from "lucide-react";
@@ -39,9 +40,8 @@ const AnimatedCounter = ({ end, duration = 2, suffix = "" }: { end: number; dura
         cancelAnimationFrame(animationFrame);
       }
     };
-  }, [end, duration, isInView]);
-  return (
-    <span ref={ref} className="text-3xl font-bold text-primary dark:text-white">
+  }, [end, duration, isInView]);  return (
+    <span ref={ref} className="text-2xl font-bold text-primary dark:text-white">
       {count}{suffix}
     </span>
   );
@@ -237,11 +237,26 @@ const milestones = [
 ];
 
 const About = () => {
+  const { scrollYProgress } = useScroll();
+  // Optimized spring physics for smoother progress bar
+  const scaleX = useSpring(scrollYProgress, {
+    stiffness: 400,
+    damping: 40,
+    restDelta: 0.0001,
+    mass: 0.1
+  });
+  
   const [activeTeamMember, setActiveTeamMember] = useState<number | null>(null);
   const [expandedAchievements, setExpandedAchievements] = useState<{ [key: number]: boolean }>({});
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen relative">
+      {/* Scroll progress indicator */}
+      <motion.div 
+        className="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-primary via-primary to-accent-teal z-50 origin-left opacity-90 dark:opacity-80"
+        style={{ scaleX }}
+        transition={{ type: "spring" }}
+      />
       {/* Enhanced Hero Section */}
       <section className="relative min-h-screen flex items-center bg-gradient-to-br from-background via-muted/30 to-background dark:from-background dark:via-muted/10 dark:to-background overflow-hidden">
         {/* Enhanced Background Elements */}
@@ -370,116 +385,203 @@ const About = () => {
                 >
                   Our journey has been defined by <span className="text-accent-amber font-semibold">continuous learning, innovation</span>, and an unwavering commitment to client success.
                 </motion.p>
-              </motion.div>
-
-              {/* Enhanced Buttons */}
+              </motion.div>              {/* Key Highlights */}
               <motion.div
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.6 }}
-                className="flex flex-col sm:flex-row gap-4 pt-4"
+                className="pt-4"
               >
-                <motion.div
-                  whileHover={{ scale: 1.05, y: -2 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  <Button className="group bg-gradient-to-r from-primary to-accent-teal hover:from-primary/90 hover:to-accent-teal/90 px-8 py-6 rounded-xl text-lg font-semibold shadow-xl hover:shadow-2xl transition-all duration-300">
-                    <Target className="mr-3 w-5 h-5 group-hover:rotate-12 transition-transform" />
-                    Our Mission
-                    <motion.div
-                      className="ml-2"
-                      animate={{ x: [0, 4, 0] }}
-                      transition={{ duration: 1.5, repeat: Infinity }}
-                    >
-                      →
-                    </motion.div>
-                  </Button>
-                </motion.div>
-                <motion.div
-                  whileHover={{ scale: 1.05, y: -2 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  <Button variant="outline" className="group border-2 border-border dark:border-border/60 hover:border-primary dark:hover:border-primary px-8 py-6 rounded-xl text-lg font-semibold bg-background/60 dark:bg-background/40 backdrop-blur-sm hover:bg-primary/5 dark:hover:bg-primary/10 transition-all duration-300">
-                    <Globe className="mr-3 w-5 h-5 group-hover:rotate-12 transition-transform" />
-                    Global Impact
-                  </Button>
-                </motion.div>
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                  {/* Innovation Badge */}
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.6, delay: 0.8 }}
+                    whileHover={{ scale: 1.05, y: -2 }}
+                    className="group"
+                  >
+                    <div className="relative">
+                      <div className="bg-gradient-to-r from-primary/10 to-accent-teal/10 dark:from-primary/20 dark:to-accent-teal/20 border border-primary/20 dark:border-primary/30 rounded-xl p-4 backdrop-blur-sm transition-all duration-300 group-hover:shadow-lg">
+                        <div className="flex items-center gap-3">
+                          <div className="w-10 h-10 bg-gradient-to-r from-primary to-accent-teal rounded-lg flex items-center justify-center">
+                            <Lightbulb className="w-5 h-5 text-white" />
+                          </div>
+                          <div>
+                            <div className="font-semibold text-foreground dark:text-white text-sm">Innovation</div>
+                            <div className="text-xs text-muted-foreground dark:text-muted-foreground/80">Driven</div>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-primary to-accent-teal opacity-0 group-hover:opacity-10 blur-xl transition-opacity duration-300" />
+                    </div>
+                  </motion.div>
+
+                  {/* Excellence Badge */}
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.6, delay: 1.0 }}
+                    whileHover={{ scale: 1.05, y: -2 }}
+                    className="group"
+                  >
+                    <div className="relative">
+                      <div className="bg-gradient-to-r from-accent-teal/10 to-accent-amber/10 dark:from-accent-teal/20 dark:to-accent-amber/20 border border-accent-teal/20 dark:border-accent-teal/30 rounded-xl p-4 backdrop-blur-sm transition-all duration-300 group-hover:shadow-lg">
+                        <div className="flex items-center gap-3">
+                          <div className="w-10 h-10 bg-gradient-to-r from-accent-teal to-accent-amber rounded-lg flex items-center justify-center">
+                            <Award className="w-5 h-5 text-white" />
+                          </div>
+                          <div>
+                            <div className="font-semibold text-foreground dark:text-white text-sm">Excellence</div>
+                            <div className="text-xs text-muted-foreground dark:text-muted-foreground/80">Focused</div>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-accent-teal to-accent-amber opacity-0 group-hover:opacity-10 blur-xl transition-opacity duration-300" />
+                    </div>
+                  </motion.div>
+
+                  {/* Growth Badge */}
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.6, delay: 1.2 }}
+                    whileHover={{ scale: 1.05, y: -2 }}
+                    className="group"
+                  >
+                    <div className="relative">
+                      <div className="bg-gradient-to-r from-accent-amber/10 to-primary/10 dark:from-accent-amber/20 dark:to-primary/20 border border-accent-amber/20 dark:border-accent-amber/30 rounded-xl p-4 backdrop-blur-sm transition-all duration-300 group-hover:shadow-lg">
+                        <div className="flex items-center gap-3">
+                          <div className="w-10 h-10 bg-gradient-to-r from-accent-amber to-primary rounded-lg flex items-center justify-center">
+                            <TrendingUp className="w-5 h-5 text-white" />
+                          </div>
+                          <div>
+                            <div className="font-semibold text-foreground dark:text-white text-sm">Growth</div>
+                            <div className="text-xs text-muted-foreground dark:text-muted-foreground/80">Oriented</div>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-accent-amber to-primary opacity-0 group-hover:opacity-10 blur-xl transition-opacity duration-300" />
+                    </div>
+                  </motion.div>
+                </div>
               </motion.div>
-            </motion.div>
-            
-            {/* Enhanced Stats Section */}
+            </motion.div>            {/* Enhanced Stats Section */}
             <motion.div
               initial={{ opacity: 0, x: 50 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
-              className="relative"
+              className="relative w-96 h-96 mx-auto lg:mx-0 lg:ml-auto"
             >
               {/* Static Visual Elements */}
-              <div className="relative z-10">
-                <Card className="p-10 bg-background/70 dark:bg-background/50 backdrop-blur-2xl border border-border/50 dark:border-border/60 shadow-2xl hover:shadow-3xl transition-all duration-500 rounded-2xl overflow-hidden">
+              <div className="relative z-10 w-full h-full">
+                <Card className="w-full h-full p-6 bg-background/70 dark:bg-background/50 backdrop-blur-2xl border border-border/50 dark:border-border/60 shadow-2xl hover:shadow-3xl transition-all duration-500 rounded-2xl overflow-hidden flex flex-col justify-center">
                   {/* Card Header */}
                   <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6, delay: 0.8 }}
-                    className="text-center mb-8"
+                    className="text-center mb-6"
                   >
-                    <h3 className="text-2xl font-bold text-foreground dark:text-foreground mb-2">Our Impact</h3>
-                    <div className="w-16 h-1 bg-gradient-to-r from-primary to-accent-teal mx-auto rounded-full"></div>
+                    <h3 className="text-xl font-bold text-foreground dark:text-foreground mb-2">Our Impact</h3>
+                    <div className="w-12 h-0.5 bg-gradient-to-r from-primary to-accent-teal mx-auto rounded-full"></div>
                   </motion.div>
 
                   {/* Enhanced Stats Grid */}
-                  <div className="grid grid-cols-2 gap-8">
-                    <motion.div
+                  <div className="grid grid-cols-2 gap-6 flex-1 content-center">                    <motion.div
                       initial={{ opacity: 0, scale: 0.8 }}
                       animate={{ opacity: 1, scale: 1 }}
                       transition={{ duration: 0.6, delay: 1.0 }}
-                      className="text-center space-y-3 group"
+                      className="text-center space-y-2 group"
                     >
-                      <div className="transition-transform duration-300">
-                        <AnimatedCounter end={500} suffix="+" />
+                      <div className="relative">
+                        <motion.div
+                          className="w-10 h-10 mx-auto bg-gradient-to-br from-primary/10 to-primary/20 dark:from-primary/20 dark:to-primary/30 rounded-lg flex items-center justify-center mb-1 group-hover:scale-110 transition-transform duration-300"
+                          whileHover={{ rotate: 10 }}
+                        >
+                          <Users className="w-5 h-5 text-primary dark:text-white" />
+                        </motion.div>
+                        <div className="absolute inset-0 w-10 h-10 mx-auto rounded-lg bg-gradient-to-br from-primary to-primary/50 opacity-20 blur-lg group-hover:opacity-40 transition-opacity duration-300" />
                       </div>
-                      <div className="text-sm text-muted-foreground dark:text-muted-foreground/80 font-medium tracking-wide">Happy Clients</div>
-                      <div className="w-8 h-0.5 bg-primary mx-auto rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                      <div className="transition-transform duration-300">
+                        <span className="text-2xl font-bold text-primary dark:text-white">
+                          <AnimatedCounter end={500} suffix="+" />
+                        </span>
+                      </div>
+                      <div className="text-xs text-muted-foreground dark:text-muted-foreground/80 font-medium tracking-wide">Happy Clients</div>
+                      <div className="w-6 h-0.5 bg-primary mx-auto rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                     </motion.div>
                     
                     <motion.div
                       initial={{ opacity: 0, scale: 0.8 }}
                       animate={{ opacity: 1, scale: 1 }}
                       transition={{ duration: 0.6, delay: 1.1 }}
-                      className="text-center space-y-3 group"
+                      className="text-center space-y-2 group"
                     >
-                      <div className="transition-transform duration-300">
-                        <AnimatedCounter end={1000} suffix="+" />
+                      <div className="relative">
+                        <motion.div
+                          className="w-10 h-10 mx-auto bg-gradient-to-br from-accent-teal/10 to-accent-teal/20 dark:from-accent-teal/20 dark:to-accent-teal/30 rounded-lg flex items-center justify-center mb-1 group-hover:scale-110 transition-transform duration-300"
+                          whileHover={{ rotate: -10 }}
+                        >
+                          <Rocket className="w-5 h-5 text-accent-teal dark:text-white" />
+                        </motion.div>
+                        <div className="absolute inset-0 w-10 h-10 mx-auto rounded-lg bg-gradient-to-br from-accent-teal to-accent-teal/50 opacity-20 blur-lg group-hover:opacity-40 transition-opacity duration-300" />
                       </div>
-                      <div className="text-sm text-muted-foreground dark:text-muted-foreground/80 font-medium tracking-wide">Projects</div>
-                      <div className="w-8 h-0.5 bg-accent-teal mx-auto rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                      <div className="transition-transform duration-300">
+                        <span className="text-2xl font-bold text-primary dark:text-white">
+                          <AnimatedCounter end={1000} suffix="+" />
+                        </span>
+                      </div>
+                      <div className="text-xs text-muted-foreground dark:text-muted-foreground/80 font-medium tracking-wide">Projects</div>
+                      <div className="w-6 h-0.5 bg-accent-teal mx-auto rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                     </motion.div>
                     
                     <motion.div
                       initial={{ opacity: 0, scale: 0.8 }}
                       animate={{ opacity: 1, scale: 1 }}
                       transition={{ duration: 0.6, delay: 1.2 }}
-                      className="text-center space-y-3 group"
+                      className="text-center space-y-2 group"
                     >
-                      <div className="transition-transform duration-300">
-                        <AnimatedCounter end={8} suffix="+" />
+                      <div className="relative">
+                        <motion.div
+                          className="w-10 h-10 mx-auto bg-gradient-to-br from-accent-amber/10 to-accent-amber/20 dark:from-accent-amber/20 dark:to-accent-amber/30 rounded-lg flex items-center justify-center mb-1 group-hover:scale-110 transition-transform duration-300"
+                          whileHover={{ rotate: 10 }}
+                        >
+                          <Calendar className="w-5 h-5 text-accent-amber dark:text-white" />
+                        </motion.div>
+                        <div className="absolute inset-0 w-10 h-10 mx-auto rounded-lg bg-gradient-to-br from-accent-amber to-accent-amber/50 opacity-20 blur-lg group-hover:opacity-40 transition-opacity duration-300" />
                       </div>
-                      <div className="text-sm text-muted-foreground dark:text-muted-foreground/80 font-medium tracking-wide">Years</div>
-                      <div className="w-8 h-0.5 bg-accent-amber mx-auto rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                      <div className="transition-transform duration-300">
+                        <span className="text-2xl font-bold text-primary dark:text-white">
+                          <AnimatedCounter end={8} suffix="+" />
+                        </span>
+                      </div>
+                      <div className="text-xs text-muted-foreground dark:text-muted-foreground/80 font-medium tracking-wide">Years</div>
+                      <div className="w-6 h-0.5 bg-accent-amber mx-auto rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                     </motion.div>
                     
                     <motion.div
                       initial={{ opacity: 0, scale: 0.8 }}
                       animate={{ opacity: 1, scale: 1 }}
                       transition={{ duration: 0.6, delay: 1.3 }}
-                      className="text-center space-y-3 group"
+                      className="text-center space-y-2 group"
                     >
-                      <div className="transition-transform duration-300">
-                        <AnimatedCounter end={98} suffix="%" />
+                      <div className="relative">
+                        <motion.div
+                          className="w-10 h-10 mx-auto bg-gradient-to-br from-green-500/10 to-green-500/20 dark:from-green-500/20 dark:to-green-500/30 rounded-lg flex items-center justify-center mb-1 group-hover:scale-110 transition-transform duration-300"
+                          whileHover={{ rotate: -10 }}
+                        >
+                          <Star className="w-5 h-5 text-green-500 dark:text-white" />
+                        </motion.div>
+                        <div className="absolute inset-0 w-10 h-10 mx-auto rounded-lg bg-gradient-to-br from-green-500 to-green-500/50 opacity-20 blur-lg group-hover:opacity-40 transition-opacity duration-300" />
                       </div>
-                      <div className="text-sm text-muted-foreground dark:text-muted-foreground/80 font-medium tracking-wide">Satisfaction</div>
-                      <div className="w-8 h-0.5 bg-green-500 mx-auto rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                      <div className="transition-transform duration-300">
+                        <span className="text-2xl font-bold text-primary dark:text-white">
+                          <AnimatedCounter end={98} suffix="%" />
+                        </span>
+                      </div>
+                      <div className="text-xs text-muted-foreground dark:text-muted-foreground/80 font-medium tracking-wide">Satisfaction</div>
+                      <div className="w-6 h-0.5 bg-green-500 mx-auto rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                     </motion.div>
                   </div>
                 </Card>
@@ -487,17 +589,14 @@ const About = () => {
             </motion.div>
           </div>
         </div>
-      </section>
-
-      {/* Enhanced Mission Statement */}
-      <section className="py-24 md:py-32 bg-gradient-to-br from-primary via-primary/95 to-accent-teal text-white relative overflow-hidden">
-        {/* Clean Background Elements */}
+      </section>      {/* Enhanced Mission Statement */}
+      <section className="py-24 md:py-32 bg-gradient-to-br from-primary via-primary/90 to-accent-teal/80 text-white relative overflow-hidden">        {/* Clean Background Elements */}
         <div className="absolute inset-0">
           <div className="absolute inset-0 bg-grid-pattern opacity-10" />
           
           {/* Subtle Background Gradients */}
-          <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-bl from-white/5 to-transparent rounded-full blur-3xl"></div>
-          <div className="absolute bottom-0 left-0 w-96 h-96 bg-gradient-to-tr from-white/5 to-transparent rounded-full blur-3xl"></div>
+          <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-bl from-accent-teal/10 to-transparent rounded-full blur-3xl"></div>
+          <div className="absolute bottom-0 left-0 w-96 h-96 bg-gradient-to-tr from-accent-amber/10 to-transparent rounded-full blur-3xl"></div>
         </div>
 
         <div className="container-custom relative z-10">
@@ -523,16 +622,16 @@ const About = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.8 }}
               className="lg:col-span-2 space-y-8"
-            >
-              <motion.div
+            >              <motion.div
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.8, delay: 0.2 }}
+                className="pb-2"
               >
                 <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-8 leading-tight">
                   <span className="block">Empowering</span>
-                  <span className="block bg-gradient-to-r from-white via-accent-amber to-white bg-clip-text text-transparent">
+                  <span className="block bg-gradient-to-r from-white via-accent-amber to-white bg-clip-text text-transparent pb-1" style={{ WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
                     Digital Dreams
                   </span>
                 </h2>
@@ -545,7 +644,7 @@ const About = () => {
                 transition={{ duration: 0.8, delay: 0.4 }}
                 className="space-y-6"
               >
-                <p className="text-xl md:text-2xl leading-relaxed opacity-95">
+                <p className="text-lg md:text-xl leading-relaxed opacity-95">
                   To empower businesses with <span className="font-semibold text-accent-amber">innovative digital solutions</span> that drive growth, enhance user experiences, and create lasting value in an ever-evolving digital landscape.
                 </p>
                 
@@ -673,25 +772,26 @@ const About = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.8 }}
             className="text-center mt-16"
-          >
-            <motion.div
+          >            <motion.div
               whileHover={{ scale: 1.05, y: -2 }}
               whileTap={{ scale: 0.95 }}
             >
-              <Button 
-                variant="outline" 
-                className="group border-2 border-white/30 hover:border-white hover:bg-white hover:text-primary text-white px-8 py-6 rounded-xl text-lg font-semibold bg-white/10 backdrop-blur-sm transition-all duration-300"
-              >
-                <MapPin className="mr-3 w-5 h-5 group-hover:rotate-12 transition-transform" />
-                Start Your Journey
-                <motion.div
-                  className="ml-2"
-                  animate={{ x: [0, 4, 0] }}
-                  transition={{ duration: 1.5, repeat: Infinity }}
+              <Link to="/contact">
+                <Button 
+                  variant="outline" 
+                  className="group border-2 border-white/30 hover:border-white hover:bg-white hover:text-primary text-white px-8 py-6 rounded-xl text-lg font-semibold bg-white/10 backdrop-blur-sm transition-all duration-300"
                 >
-                  →
-                </motion.div>
-              </Button>
+                  <MapPin className="mr-3 w-5 h-5 group-hover:rotate-12 transition-transform" />
+                  Start Your Journey
+                  <motion.div
+                    className="ml-2"
+                    animate={{ x: [0, 4, 0] }}
+                    transition={{ duration: 1.5, repeat: Infinity }}
+                  >
+                    →
+                  </motion.div>
+                </Button>
+              </Link>
             </motion.div>
           </motion.div>
         </div>
