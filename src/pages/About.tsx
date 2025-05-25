@@ -61,7 +61,7 @@ const team = [
       email: "john@company.com"
     },
     quote: "Innovation distinguishes between a leader and a follower.",
-    location: "San Francisco, CA",
+    location: "UK",
     experience: "15+ Years",
     projects: "500+",
     achievements: ["Forbes 30 Under 30", "TechCrunch Disruptor Award", "Digital Innovation Leader 2023"]

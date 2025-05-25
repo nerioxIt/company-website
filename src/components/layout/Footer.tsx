@@ -47,17 +47,17 @@ const socialLinks = [
 const contactInfo = [
   {
     icon: Mail,
-    text: "info@cqgroup.com",
-    href: "mailto:info@cqgroup.com"
+    text: "info@cqgroup.co.uk",
+    href: "mailto:info@cqgroup.co.uk"
   },
   {
     icon: Phone,
-    text: "+1 (555) 555-5555",
-    href: "tel:+15555555555"
+    text: "+44 7470 333163",
+    href: "tel:447470333163"
   },
   {
     icon: MapPin,
-    text: "123 Tech Street, San Francisco, CA 94103",
+    text: "123 Uk",
     href: "#Footer"
   }
 ];

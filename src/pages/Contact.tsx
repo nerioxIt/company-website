@@ -73,23 +73,23 @@ const contactInfo = [
     icon: Mail,
     title: "Email Us",
     description: "Send us an email anytime",
-    value: "info@cq.com",
-    link: "mailto:info@cq.com",
+    value: "info@cqgroup.co.uk",
+    link: "mailto:info@cqgroup.co.uk",
     color: "from-blue-500 to-cyan-500",
   },
   {
     icon: Phone,
     title: "Call Us",
     description: "Monday to Friday from 9am to 6pm",
-    value: "+1 (555) 555-5555",
-    link: "tel:+15555555555",
+    value: "+44 7470 333163",
+    link: "tel:+447470333163",
     color: "from-green-500 to-emerald-500",
   },
   {
     icon: MapPin,
     title: "Visit Us",
     description: "Come say hello at our office",
-    value: "123 Tech Street, San Francisco",
+    value: "UK",
     link: "#section",
     color: "from-purple-500 to-pink-500",
   },
@@ -307,10 +307,10 @@ const Contact = () => {
     
     // Send email using EmailJS
     emailjs.send(
-      'service_3fxxt24', // Replace with your EmailJS service ID
-      'template_a8ae2vf', // Replace with your EmailJS template ID
+      'service_3brylhi', // Replace with your EmailJS service ID
+      'template_08jot7o', // Replace with your EmailJS template ID
       emailData,
-      'Qa70uCy0gjs5ZUCNI' // Replace with your EmailJS public key
+      'N3eUNVuCUYEF-E2dV' // Replace with your EmailJS public key
     )
       .then((response) => {
         console.log('Email sent successfully:', response);
@@ -532,15 +532,15 @@ const Contact = () => {
                   <div className="flex items-center gap-2 text-sm">
                     <Mail className="w-4 h-4 text-muted-foreground" />
                     <span className="text-muted-foreground">Quick inquiries:</span>
-                    <a href="mailto:hello@cq.com" className="text-primary dark:text-white hover:underline">
-                      hello@cqgroup.com
+                    <a href="mailto:info@cqgroup.co.uk" className="text-primary dark:text-white hover:underline">
+                      info@cqgroup.co.uk
                     </a>
                   </div>
                   <div className="flex items-center gap-2 text-sm">
                     <Phone className="w-4 h-4 text-muted-foreground" />
                     <span className="text-muted-foreground">Urgent matters:</span>
-                    <a href="tel:+15555551234" className="text-primary dark:text-white hover:underline">
-                      +1 (555) 555-1234
+                    <a href="tel:++447470333163" className="text-primary dark:text-white hover:underline">
+                      +44 7470 333163
                     </a>
                   </div>
                 </div>
