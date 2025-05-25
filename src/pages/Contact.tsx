@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from "react";
-import { motion } from "framer-motion";
+import { motion, useScroll, useSpring } from "framer-motion";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
@@ -242,6 +242,15 @@ const faqs = [
 ];
 
 const Contact = () => {
+  const { scrollYProgress } = useScroll();
+  // Optimized spring physics for smoother progress bar
+  const scaleX = useSpring(scrollYProgress, {
+    stiffness: 400,
+    damping: 40,
+    restDelta: 0.0001,
+    mass: 0.1
+  });
+  
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [selectedBudget, setSelectedBudget] = useState("");
   const [formProgress, setFormProgress] = useState(0);
@@ -317,9 +326,15 @@ const Contact = () => {
         setIsSubmitting(false);
       });
   };
-
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen relative">
+      {/* Scroll progress indicator */}
+      <motion.div 
+        className="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-primary via-primary to-accent-teal z-50 origin-left opacity-90 dark:opacity-80"
+        style={{ scaleX }}
+        transition={{ type: "spring" }}
+      />
+      
       {/* Enhanced Hero Section */}
       <section className="relative section bg-gradient-to-br from-background via-muted/30 to-background dark:from-background dark:via-muted/10 dark:to-background overflow-hidden">
         <div className="absolute inset-0">

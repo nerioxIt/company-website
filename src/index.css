@@ -83,7 +83,8 @@
   }
 
   body {
-    @apply bg-background text-foreground font-body transition-colors duration-300;
+    @apply bg-background text-foreground font-body;
+    transition: background-color 0.2s cubic-bezier(0.4, 0, 0.2, 1), color 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   html {
@@ -174,10 +175,43 @@
 }
 
 /* Smooth transitions for theme switching and better performance */
-* {
-  transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform;
+html {
+  color-scheme: light dark;
+}
+
+html.dark {
+  color-scheme: dark;
+}
+
+/* Optimize theme transitions to prevent lag - only for essential properties */
+*,
+*:before,
+*:after {
+  transition-property: background-color, border-color, color, fill, stroke, opacity;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  transition-duration: 300ms;
+  transition-duration: 150ms;
+}
+
+/* Disable ALL transitions during theme changes for instant switching */
+.theme-transition-disabled,
+.theme-transition-disabled *,
+.theme-transition-disabled *:before,
+.theme-transition-disabled *:after {
+  transition: none !important;
+  animation-play-state: paused !important;
+}
+
+/* Performance optimizations for theme switching */
+.theme-transition-disabled [data-framer-name],
+.theme-transition-disabled [data-projection-id] {
+  transition: none !important;
+  animation: none !important;
+}
+
+/* Reduce layout shifts during theme switching */
+html.dark,
+html:not(.dark) {
+  color-scheme: dark light;
 }
 
 /* Focus styles for better accessibility */
@@ -191,4 +225,21 @@ a:focus-visible {
   .animate-slide-left {
     will-change: transform;
   }
+}
+
+/* Performance optimization - only apply theme transitions to elements that need them */
+[class*="bg-"], [class*="text-"], [class*="border-"] {
+  transition-property: background-color, border-color, color;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+
+/* Scrollbar hide utility for clean horizontal scrolling */
+.scrollbar-hide {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;  /* Safari and Chrome */
 }

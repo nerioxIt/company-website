@@ -64,10 +64,9 @@ export const Header = () => {
 					})}
 				</nav>
 				{/* Theme toggle & Mobile menu button */}
-				<div className="flex items-center gap-2 md:ml-4">
-					<button
+				<div className="flex items-center gap-2 md:ml-4">					<button
 						onClick={toggleTheme}
-						className={`flex items-center justify-center h-10 w-10 rounded-full border ${isDark ? 'border-border bg-background' : 'border-gray-200 bg-white'} shadow transition-colors duration-200`}
+						className={`flex items-center justify-center h-10 w-10 rounded-full border ${isDark ? 'border-border bg-background' : 'border-gray-200 bg-white'} shadow transition-all duration-150 hover:scale-105 active:scale-95`}
 						aria-label="Toggle theme"
 					>
 						{isDark ? (
