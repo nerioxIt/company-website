@@ -106,7 +106,7 @@ export const Header = () => {
 						</Link>
 					))}
 					<Button className={`mt-4 w-[80%] font-bold rounded-full border-2 shadow-md transition-all duration-200 ${isDark ? 'bg-primary text-white border-border hover:bg-primary/90' : 'bg-[#21926b] text-white border-white hover:bg-[#1a7a59]'}`} asChild>
-						<Link to="/contact">Contact</Link>
+						<Link to="/contact" onClick={() => setMobileOpen(false)}>Contact</Link>
 					</Button>
 				</div>
 			)}
