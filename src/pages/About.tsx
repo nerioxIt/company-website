@@ -49,7 +49,7 @@ const AnimatedCounter = ({ end, duration = 2, suffix = "" }: { end: number; dura
 const team = [
   {
     name: "Qassim Hassan",
-    role: "CEO & Founder",
+    role: "Co-CEO & Founder",
     image: "/male.png", // Changed to use generic male avatar
     bio: "Qassim has over 15 years of experience in software development and digital strategy. He founded the company with a vision to transform how businesses engage with their digital presence.",
     expertise: ["Strategy", "Leadership", "Innovation", "Digital Transformation"],
@@ -65,6 +65,25 @@ const team = [
     projects: "350+",
     achievements: ["Forbes 30 Under 30", "TechCrunch Disruptor Award", "Digital Innovation Leader 2023"],
     gender: "male" // Added gender attribute
+  },
+   {
+    name: "Cabdulrazaq Mohommed",
+    role: "Co-CEO & Founder",
+    image: "/male.png", // Changed to use generic female avatar
+    bio: "Cabdulrazaq ensures projects are delivered on time and within budget while maintaining the highest quality standards. She's the bridge between vision and execution.",
+    expertise: ["Project Management", "Agile", "Team Leadership", "Quality Assurance"],
+    social: { 
+      linkedin: "https://linkedin.com/in/lisapark", 
+      twitter: "https://twitter.com/lisapark",
+      github: "https://github.com/lisapark",
+      email: "lisa@company.com"
+    },
+    quote: "Excellence is never an accident. It is always the result of high intention and skillful execution.",
+    location: "UK",
+    experience: "12+ Years",
+    projects: "350+",
+    achievements: ["PM Excellence Award", "Agile Champion", "Client Satisfaction Leader"],
+    gender: "female" // Added gender attribute
   },
   {
     name: "Emily Johnson",
@@ -140,25 +159,6 @@ const team = [
     experience: "10+ Years",
     projects: "250+",
     achievements: ["Marketing Excellence Award", "Growth Hacker of the Year", "Digital Campaign Champion"],
-    gender: "female" // Added gender attribute
-  },
-  {
-    name: "Cabdulrazaq Mohommed",
-    role: "Project Manager",
-    image: "/male.png", // Changed to use generic female avatar
-    bio: "Cabdulrazaq ensures projects are delivered on time and within budget while maintaining the highest quality standards. She's the bridge between vision and execution.",
-    expertise: ["Project Management", "Agile", "Team Leadership", "Quality Assurance"],
-    social: { 
-      linkedin: "https://linkedin.com/in/lisapark", 
-      twitter: "https://twitter.com/lisapark",
-      github: "https://github.com/lisapark",
-      email: "lisa@company.com"
-    },
-    quote: "Excellence is never an accident. It is always the result of high intention and skillful execution.",
-    location: "UK",
-    experience: "12+ Years",
-    projects: "350+",
-    achievements: ["PM Excellence Award", "Agile Champion", "Client Satisfaction Leader"],
     gender: "female" // Added gender attribute
   }
 ];
