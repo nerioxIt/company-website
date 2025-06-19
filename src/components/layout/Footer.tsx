@@ -57,7 +57,7 @@ const contactInfo = [
   },
   {
     icon: MapPin,
-    text: "123 Uk",
+    text: "Uk",
     href: "#Footer"
   }
 ];

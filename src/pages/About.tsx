@@ -1,4 +1,3 @@
-
 import { useState, useEffect, useRef } from "react";
 import { motion, useInView, useScroll, useSpring } from "framer-motion";
 import { Link } from "react-router-dom";
@@ -49,27 +48,28 @@ const AnimatedCounter = ({ end, duration = 2, suffix = "" }: { end: number; dura
 
 const team = [
   {
-    name: "John Smith",
+    name: "Qassim Hassan",
     role: "CEO & Founder",
-    image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80",
-    bio: "John has over 15 years of experience in software development and digital strategy. He founded the company with a vision to transform how businesses engage with their digital presence.",
+    image: "/male.png", // Changed to use generic male avatar
+    bio: "Qassim has over 15 years of experience in software development and digital strategy. He founded the company with a vision to transform how businesses engage with their digital presence.",
     expertise: ["Strategy", "Leadership", "Innovation", "Digital Transformation"],
     social: { 
-      linkedin: "https://linkedin.com/in/johnsmith", 
-      twitter: "https://twitter.com/johnsmith",
-      github: "https://github.com/johnsmith",
-      email: "john@company.com"
+      linkedin: "https://linkedin.com/in/Qassim", 
+      twitter: "https://twitter.com/Qassim",
+      github: "https://github.com/Qassim",
+      email: "Qassim@company.com"
     },
     quote: "Innovation distinguishes between a leader and a follower.",
     location: "UK",
-    experience: "15+ Years",
-    projects: "500+",
-    achievements: ["Forbes 30 Under 30", "TechCrunch Disruptor Award", "Digital Innovation Leader 2023"]
+    experience: "10+ Years",
+    projects: "350+",
+    achievements: ["Forbes 30 Under 30", "TechCrunch Disruptor Award", "Digital Innovation Leader 2023"],
+    gender: "male" // Added gender attribute
   },
   {
     name: "Emily Johnson",
     role: "Lead Designer",
-    image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80",
+    image: "/female.png", // Changed to use generic female avatar
     bio: "Emily brings a wealth of experience in user experience and interface design, with a passion for creating intuitive and beautiful digital experiences that users love.",
     expertise: ["UI/UX", "Design Systems", "Prototyping", "User Research"],
     social: { 
@@ -82,12 +82,13 @@ const team = [
     location: "New York, NY",
     experience: "12+ Years",
     projects: "300+",
-    achievements: ["Design Excellence Award", "UX Innovation Prize", "Awwwards Site of the Year"]
+    achievements: ["Design Excellence Award", "UX Innovation Prize", "Awwwards Site of the Year"],
+    gender: "female" // Added gender attribute
   },
   {
     name: "Michael Chen",
     role: "CTO",
-    image: "https://images.unsplash.com/photo-1599566150163-29194dcaad36?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80",
+    image: "/male.png", // Changed to use generic male avatar
     bio: "Michael oversees all technical aspects of the company with a focus on innovation, scalability, and cutting-edge technology implementations that drive business growth.",
     expertise: ["Architecture", "DevOps", "Security", "Cloud Computing"],
     social: { 
@@ -100,30 +101,13 @@ const team = [
     location: "Seattle, WA",
     experience: "18+ Years",
     projects: "400+",
-    achievements: ["Tech Innovator of the Year", "Cloud Architecture Expert", "Open Source Contributor"]
-  },
-  {
-    name: "Sarah Williams",
-    role: "Marketing Director",
-    image: "https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80",
-    bio: "Sarah drives our marketing strategy with a data-driven approach to growth, specializing in digital marketing campaigns that deliver measurable results and ROI.",
-    expertise: ["Marketing", "Analytics", "Growth", "Brand Strategy"],
-    social: { 
-      linkedin: "https://linkedin.com/in/sarahwilliams", 
-      twitter: "https://twitter.com/sarahwilliams",
-      github: "https://github.com/sarahwilliams",
-      email: "sarah@company.com"
-    },
-    quote: "Great marketing makes the company look smart. Great product makes the customer feel smart.",
-    location: "Austin, TX",
-    experience: "10+ Years",
-    projects: "250+",
-    achievements: ["Marketing Excellence Award", "Growth Hacker of the Year", "Digital Campaign Champion"]
+    achievements: ["Tech Innovator of the Year", "Cloud Architecture Expert", "Open Source Contributor"],
+    gender: "male" // Added gender attribute
   },
   {
     name: "David Rodriguez",
     role: "Senior Developer",
-    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80",
+    image: "/male.png", // Changed to use generic male avatar
     bio: "David is a full-stack developer with expertise in modern web technologies and a passion for clean, efficient code that scales with business needs.",
     expertise: ["Full-Stack", "React", "Node.js", "Database Design"],
     social: { 
@@ -136,13 +120,33 @@ const team = [
     location: "Denver, CO",
     experience: "8+ Years",
     projects: "200+",
-    achievements: ["Clean Code Champion", "Performance Optimization Expert", "Mentorship Award"]
+    achievements: ["Clean Code Champion", "Performance Optimization Expert", "Mentorship Award"],
+    gender: "male" // Added gender attribute
   },
   {
-    name: "Lisa Park",
+    name: "Sarah Williams",
+    role: "Marketing Director",
+    image: "/female.png", // Changed to use generic female avatar
+    bio: "Sarah drives our marketing strategy with a data-driven approach to growth, specializing in digital marketing campaigns that deliver measurable results and ROI.",
+    expertise: ["Marketing", "Analytics", "Growth", "Brand Strategy"],
+    social: { 
+      linkedin: "https://linkedin.com/in/sarahwilliams", 
+      twitter: "https://twitter.com/sarahwilliams",
+      github: "https://github.com/sarahwilliams",
+      email: "sarah@company.com"
+    },
+    quote: "Great marketing makes the company look smart. Great product makes the customer feel smart.",
+    location: "Austin, TX",
+    experience: "10+ Years",
+    projects: "250+",
+    achievements: ["Marketing Excellence Award", "Growth Hacker of the Year", "Digital Campaign Champion"],
+    gender: "female" // Added gender attribute
+  },
+  {
+    name: "Cabdulrazaq Mohommed",
     role: "Project Manager",
-    image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80",
-    bio: "Lisa ensures projects are delivered on time and within budget while maintaining the highest quality standards. She's the bridge between vision and execution.",
+    image: "/male.png", // Changed to use generic female avatar
+    bio: "Cabdulrazaq ensures projects are delivered on time and within budget while maintaining the highest quality standards. She's the bridge between vision and execution.",
     expertise: ["Project Management", "Agile", "Team Leadership", "Quality Assurance"],
     social: { 
       linkedin: "https://linkedin.com/in/lisapark", 
@@ -151,10 +155,11 @@ const team = [
       email: "lisa@company.com"
     },
     quote: "Excellence is never an accident. It is always the result of high intention and skillful execution.",
-    location: "Chicago, IL",
-    experience: "9+ Years",
+    location: "UK",
+    experience: "12+ Years",
     projects: "350+",
-    achievements: ["PM Excellence Award", "Agile Champion", "Client Satisfaction Leader"]
+    achievements: ["PM Excellence Award", "Agile Champion", "Client Satisfaction Leader"],
+    gender: "female" // Added gender attribute
   }
 ];
 
@@ -909,9 +914,14 @@ const About = () => {
                     <motion.img 
                       src={member.image} 
                       alt={member.name} 
-                      className="w-full h-full object-cover"
+                      className="w-full h-full object-cover object-center"
+                      style={{ 
+                        maxHeight: "500px",  // Limit maximum height
+                        objectPosition: "top center" // Position from top center of image
+                      }}
                       whileHover={{ scale: 1.1 }}
                       transition={{ duration: 0.6 }}
+                      loading="lazy" // Add lazy loading
                     />
                     
                     {/* Gradient Overlay */}

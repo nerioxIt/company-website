@@ -191,11 +191,11 @@ const testimonials = [
 ];
 
 const budgetOptions = [
-  "Under $10,000",
-  "$10,000 - $25,000",
-  "$25,000 - $50,000",
-  "$50,000 - $100,000",
-  "Over $100,000"
+  "Under €10,000",
+  "€10,000 - €25,000",
+  "€25,000 - €50,000",
+  "€50,000 - €100,000",
+  "Over €100,000"
 ];
 
 const faqs = [
@@ -649,7 +649,7 @@ const Contact = () => {
                             <FormLabel className="text-base font-medium">Phone</FormLabel>
                             <FormControl>
                               <Input 
-                                placeholder="+1 (555) 123-4567" 
+                                placeholder="+44 (555) 123-4567" 
                                 {...field} 
                                 className="h-12 bg-background/60 dark:bg-background/40 border-border/50 dark:border-border/60"
                               />
@@ -688,8 +688,8 @@ const Contact = () => {
                             onClick={() => setSelectedBudget(budget)}
                             className={`p-4 rounded-xl border text-left transition-all duration-300 ${
                               selectedBudget === budget
-                                ? 'border-primary dark:border-primary-foreground bg-primary/10 dark:bg-primary/20 text-primary dark:text-primary-foreground'
-                                : 'border-border/50 dark:border-border/60 hover:border-primary/30 dark:hover:border-primary-foreground/30 bg-background/60 dark:bg-background/40'
+                                ? 'border-primary dark:border-primary-foreground bg-primary/10 dark:bg-primary/20 text-primary dark:text-white'
+                                : 'border-border/50 dark:border-border/60 hover:border-primary/30 dark:hover:border-primary-foreground/30 bg-background/60 dark:bg-background/40 '
                             }`}
                           >
                             {budget}
