@@ -70,13 +70,13 @@ const team = [
     name: "Cabdulrazaq Mohommed",
     role: "Co-CEO & Founder",
     image: "/male.png", // Changed to use generic female avatar
-    bio: "Cabdulrazaq ensures projects are delivered on time and within budget while maintaining the highest quality standards. She's the bridge between vision and execution.",
-    expertise: ["Project Management", "Agile", "Team Leadership", "Quality Assurance"],
+    bio: "Cabdulrazaq ensures projects are delivered on time and within budget while maintaining the highest quality standards. He's the bridge between vision and execution.",
+    expertise: ["Project Management", "Agile", "Team Leadership", "Development"],
     social: { 
-      linkedin: "https://linkedin.com/in/lisapark", 
-      twitter: "https://twitter.com/lisapark",
-      github: "https://github.com/lisapark",
-      email: "lisa@company.com"
+      linkedin: "https://linkedin.com/in/Cabdulrazaq", 
+      twitter: "https://twitter.com/Cabdulrazaq",
+      github: "https://github.com/Cabdulrazaq",
+      email: "Cabdulrazaq@company.com"
     },
     quote: "Excellence is never an accident. It is always the result of high intention and skillful execution.",
     location: "UK",
